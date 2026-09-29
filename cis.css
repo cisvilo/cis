@@ -19,11 +19,6 @@
     --radius: 18px;
 }
 
-
-/* =========================================================
-   RESET
-========================================================= */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -36,6 +31,7 @@ html {
 
 body {
     min-height: 100vh;
+
     background:
         radial-gradient(
             circle at 50% 0%,
@@ -43,9 +39,11 @@ body {
             transparent 32%
         ),
         var(--navy-950);
+
     color: var(--text);
     font-family: "Inter", sans-serif;
     line-height: 1.5;
+
     overflow-x: hidden;
 }
 
@@ -77,6 +75,7 @@ img {
     top: 0;
     left: 0;
     right: 0;
+
     z-index: 1000;
 
     height: 78px;
@@ -132,6 +131,7 @@ img {
     position: relative;
 
     color: #cbd4da;
+
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .12em;
@@ -143,7 +143,9 @@ img {
 
 .main-nav a::after {
     content: "";
+
     position: absolute;
+
     left: 0;
     bottom: -8px;
 
@@ -175,6 +177,7 @@ img {
     position: fixed;
     top: 18px;
     right: 18px;
+
     z-index: 1100;
 
     width: 45px;
@@ -204,6 +207,7 @@ img {
 .mobile-menu-overlay {
     position: fixed;
     inset: 0;
+
     z-index: 1050;
 
     background: rgba(0,0,0,.65);
@@ -223,6 +227,7 @@ img {
 
 .mobile-menu {
     position: fixed;
+
     top: 0;
     right: 0;
     bottom: 0;
@@ -285,6 +290,7 @@ img {
     border-radius: 10px;
 
     color: var(--white);
+
     background: transparent;
 
     font-size: 27px;
@@ -301,7 +307,9 @@ img {
 
 .mobile-nav-link {
     display: grid;
+
     grid-template-columns: 35px 1fr;
+
     gap: 14px;
 
     padding: 20px 5px;
@@ -383,9 +391,42 @@ img {
 }
 
 
-/* IMPORTANT :
-   aucune flamme sur le HERO.
-*/
+/* =========================================================
+   LIGNE ROUGE SOUS LA PHOTO
+========================================================= */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 4px;
+
+    z-index: 10;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            var(--red-dark) 12%,
+            var(--red-light) 50%,
+            var(--red-dark) 88%,
+            transparent 100%
+        );
+
+    box-shadow:
+        0 0 14px rgba(237,82,98,.48),
+        0 -2px 12px rgba(184,32,50,.20);
+
+    pointer-events: none;
+}
+
+
+/* Aucune flamme sur le HERO */
 
 .hero .flames {
     display: none !important;
@@ -415,6 +456,7 @@ img {
 
 .section-heading {
     position: relative;
+
     z-index: 3;
 
     margin-bottom: 38px;
@@ -555,9 +597,6 @@ img {
     isolation: isolate;
 }
 
-
-/* Lueur principale */
-
 .inventory-grid::before,
 .resource-grid::before,
 .maintenance-grid::before {
@@ -565,11 +604,11 @@ img {
 
     position: absolute;
 
-    left: 5%;
-    right: 5%;
-    bottom: -70px;
+    left: 4%;
+    right: 4%;
+    bottom: -65px;
 
-    height: 230px;
+    height: 220px;
 
     z-index: 0;
 
@@ -577,45 +616,55 @@ img {
 
     background:
         radial-gradient(
-            ellipse at 10% 100%,
-            rgba(237,82,98,.42) 0%,
-            rgba(184,32,50,.24) 18%,
+            ellipse at 7% 100%,
+            rgba(237,82,98,.38) 0%,
+            rgba(184,32,50,.20) 18%,
             transparent 48%
         ),
         radial-gradient(
-            ellipse at 28% 100%,
-            rgba(237,82,98,.34) 0%,
-            rgba(184,32,50,.18) 20%,
-            transparent 46%
+            ellipse at 20% 100%,
+            rgba(255,102,48,.27) 0%,
+            rgba(184,32,50,.16) 20%,
+            transparent 48%
         ),
         radial-gradient(
-            ellipse at 48% 100%,
-            rgba(237,82,98,.48) 0%,
-            rgba(184,32,50,.22) 20%,
+            ellipse at 34% 100%,
+            rgba(237,82,98,.36) 0%,
+            rgba(184,32,50,.18) 20%,
+            transparent 48%
+        ),
+        radial-gradient(
+            ellipse at 49% 100%,
+            rgba(255,112,52,.30) 0%,
+            rgba(184,32,50,.18) 20%,
             transparent 50%
         ),
         radial-gradient(
-            ellipse at 68% 100%,
-            rgba(237,82,98,.35) 0%,
-            rgba(184,32,50,.18) 20%,
-            transparent 47%
+            ellipse at 64% 100%,
+            rgba(237,82,98,.38) 0%,
+            rgba(184,32,50,.20) 20%,
+            transparent 48%
         ),
         radial-gradient(
-            ellipse at 90% 100%,
-            rgba(237,82,98,.42) 0%,
-            rgba(184,32,50,.20) 18%,
+            ellipse at 79% 100%,
+            rgba(255,102,48,.28) 0%,
+            rgba(184,32,50,.16) 20%,
+            transparent 48%
+        ),
+        radial-gradient(
+            ellipse at 94% 100%,
+            rgba(237,82,98,.36) 0%,
+            rgba(184,32,50,.18) 20%,
             transparent 48%
         );
 
-    filter: blur(15px);
+    filter: blur(13px);
 
-    opacity: .95;
+    opacity: .78;
 
-    animation: flamesGlow 3.8s ease-in-out infinite alternate;
+    animation:
+        flamesGlow 4.2s ease-in-out infinite alternate;
 }
-
-
-/* Pointes de flammes */
 
 .inventory-grid::after,
 .resource-grid::after,
@@ -624,9 +673,9 @@ img {
 
     position: absolute;
 
-    left: 3%;
-    right: 3%;
-    bottom: -25px;
+    left: 2%;
+    right: 2%;
+    bottom: -20px;
 
     height: 145px;
 
@@ -636,79 +685,92 @@ img {
 
     background:
         radial-gradient(
-            ellipse 8% 75% at 8% 100%,
-            rgba(237,82,98,.32) 0%,
+            ellipse 5% 85% at 6% 100%,
+            rgba(255,112,52,.28) 0%,
             transparent 70%
         ),
         radial-gradient(
-            ellipse 6% 90% at 18% 100%,
-            rgba(184,32,50,.40) 0%,
-            transparent 70%
-        ),
-        radial-gradient(
-            ellipse 9% 80% at 30% 100%,
-            rgba(237,82,98,.30) 0%,
-            transparent 70%
-        ),
-        radial-gradient(
-            ellipse 7% 95% at 43% 100%,
-            rgba(184,32,50,.40) 0%,
-            transparent 70%
-        ),
-        radial-gradient(
-            ellipse 9% 75% at 57% 100%,
-            rgba(237,82,98,.32) 0%,
-            transparent 70%
-        ),
-        radial-gradient(
-            ellipse 7% 90% at 70% 100%,
-            rgba(184,32,50,.38) 0%,
-            transparent 70%
-        ),
-        radial-gradient(
-            ellipse 8% 80% at 84% 100%,
+            ellipse 4% 100% at 15% 100%,
             rgba(237,82,98,.34) 0%,
             transparent 70%
         ),
         radial-gradient(
-            ellipse 6% 90% at 94% 100%,
-            rgba(184,32,50,.38) 0%,
+            ellipse 6% 88% at 26% 100%,
+            rgba(255,105,48,.25) 0%,
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 4% 105% at 38% 100%,
+            rgba(237,82,98,.36) 0%,
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 5% 92% at 51% 100%,
+            rgba(255,110,48,.28) 0%,
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 4% 105% at 63% 100%,
+            rgba(237,82,98,.34) 0%,
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 5% 88% at 76% 100%,
+            rgba(255,105,48,.25) 0%,
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 4% 100% at 88% 100%,
+            rgba(237,82,98,.35) 0%,
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 5% 90% at 97% 100%,
+            rgba(255,110,48,.25) 0%,
             transparent 70%
         );
 
-    filter: blur(8px);
+    filter: blur(7px);
 
-    opacity: .85;
+    opacity: .72;
 
-    animation: flameTongues 3s ease-in-out infinite alternate;
+    animation:
+        flameTongues 3.2s ease-in-out infinite alternate;
 }
 
 @keyframes flamesGlow {
-    0% {
-        transform: translateY(7px) scaleX(.96);
-        opacity: .65;
-    }
 
-    100% {
-        transform: translateY(-8px) scaleX(1.04);
-        opacity: 1;
-    }
-}
-
-@keyframes flameTongues {
     0% {
-        transform: scaleY(.82);
+        transform: translateY(8px) scaleX(.97);
         opacity: .55;
     }
 
     50% {
-        transform: scaleY(1);
-        opacity: .9;
+        transform: translateY(-3px) scaleX(1.01);
+        opacity: .78;
     }
 
     100% {
-        transform: scaleY(.88);
-        opacity: .68;
+        transform: translateY(-10px) scaleX(1.04);
+        opacity: .92;
+    }
+}
+
+@keyframes flameTongues {
+
+    0% {
+        transform: translateY(4px) scaleY(.78);
+        opacity: .48;
+    }
+
+    50% {
+        transform: translateY(-3px) scaleY(1);
+        opacity: .78;
+    }
+
+    100% {
+        transform: translateY(-7px) scaleY(.88);
+        opacity: .60;
     }
 }
 
@@ -719,7 +781,9 @@ img {
 
 .inventory-grid {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 17px;
 }
 
@@ -727,7 +791,7 @@ img {
 .result-card,
 .resource-card {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .inventory-card {
@@ -783,6 +847,7 @@ img {
     color: var(--red-light);
 
     font-family: "Oswald", sans-serif;
+
     font-size: 12px;
     letter-spacing: .12em;
 }
@@ -792,6 +857,7 @@ img {
     font-family: "Oswald", sans-serif;
 
     font-size: 23px;
+
     letter-spacing: .03em;
 }
 
@@ -836,6 +902,7 @@ img {
 .inventory-content,
 .resource-content {
     display: grid;
+
     grid-template-rows: 0fr;
 
     padding: 0 26px;
@@ -870,7 +937,9 @@ img {
 
 .vehicle-grid {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 10px;
 
     overflow: hidden;
@@ -911,6 +980,7 @@ img {
     font-family: "Oswald", sans-serif;
 
     font-size: 18px;
+
     letter-spacing: .04em;
 }
 
@@ -922,6 +992,7 @@ img {
 
 .vehicle-buttons {
     display: grid;
+
     gap: 7px;
 
     margin-top: 13px;
@@ -958,13 +1029,15 @@ img {
 
 .inventory-button:hover {
     background: rgba(184,32,50,.18);
+
     border-color: rgba(237,82,98,.38);
+
     transform: translateY(-1px);
 }
 
 
 /* =========================================================
-   RESULT CARD
+   RESULTATS
 ========================================================= */
 
 .result-card {
@@ -1000,6 +1073,7 @@ img {
     margin-top: 3px;
 
     font-family: "Oswald", sans-serif;
+
     font-size: 28px;
 }
 
@@ -1032,9 +1106,10 @@ img {
 
 .maintenance-card {
     position: relative;
-    z-index: 1;
 
-    min-height: 180px;
+    z-index: 2;
+
+    min-height: 190px;
 
     overflow: hidden;
 
@@ -1069,13 +1144,14 @@ img {
 
 .maintenance-image {
     position: absolute;
+
     inset: 0;
+
+    z-index: 0;
 
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-
-    z-index: -1;
 
     transform: scale(1.02);
 
@@ -1090,22 +1166,24 @@ img {
     content: "";
 
     position: absolute;
+
     inset: 0;
 
-    z-index: 0;
+    z-index: 1;
 
     background:
         linear-gradient(
             180deg,
-            rgba(2,7,11,.04) 15%,
-            rgba(2,7,11,.30) 42%,
-            rgba(2,7,11,.94) 100%
+            rgba(2,7,11,.05) 10%,
+            rgba(2,7,11,.30) 40%,
+            rgba(2,7,11,.96) 100%
         );
 }
 
 .maintenance-info {
     position: relative;
-    z-index: 2;
+
+    z-index: 3;
 
     display: flex;
     flex-direction: column;
@@ -1207,20 +1285,27 @@ img {
 
 .large-button:hover {
     background: rgba(184,32,50,.18);
+
     border-color: rgba(237,82,98,.40);
+
     transform: translateY(-2px);
 }
 
 .amicale-links {
     display: grid;
+
     grid-template-columns: 1fr;
+
     gap: 9px;
 }
 
 .amicale-links .large-button {
     justify-content: flex-start;
+
     text-align: left;
+
     min-height: 46px;
+
     line-height: 1.35;
 }
 
@@ -1231,6 +1316,7 @@ img {
 
 .reveal {
     opacity: 0;
+
     transform: translateY(18px);
 
     transition:
@@ -1240,53 +1326,8 @@ img {
 
 .reveal.visible {
     opacity: 1;
+
     transform: translateY(0);
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast {
-    position: fixed;
-
-    left: 50%;
-    bottom: 25px;
-
-    z-index: 2000;
-
-    transform:
-        translate(-50%, 20px);
-
-    opacity: 0;
-    visibility: hidden;
-
-    padding: 13px 19px;
-
-    border: 1px solid rgba(237,82,98,.30);
-    border-radius: 10px;
-
-    background: rgba(5,13,19,.96);
-
-    color: var(--white);
-
-    font-size: 11px;
-
-    box-shadow: var(--shadow);
-
-    transition:
-        opacity .25s ease,
-        transform .25s ease,
-        visibility .25s ease;
-}
-
-.toast.show {
-    opacity: 1;
-    visibility: visible;
-
-    transform:
-        translate(-50%, 0);
 }
 
 
@@ -1311,12 +1352,14 @@ img {
 .footer-brand {
     display: flex;
     align-items: center;
+
     gap: 13px;
 }
 
 .footer-brand img {
     width: 42px;
     height: 42px;
+
     object-fit: contain;
 }
 
@@ -1340,11 +1383,13 @@ img {
 .footer-right {
     display: flex;
     align-items: center;
+
     gap: 20px;
 
     color: var(--muted);
 
     font-size: 9px;
+
     letter-spacing: .12em;
 }
 
@@ -1366,7 +1411,6 @@ img {
     .resource-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
 
@@ -1418,7 +1462,6 @@ img {
     .maintenance-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
 
@@ -1473,21 +1516,24 @@ img {
     }
 
     .maintenance-card {
-        min-height: 200px;
+        min-height: 210px;
     }
 
     .site-footer {
         align-items: flex-start;
+
         flex-direction: column;
+
         gap: 20px;
     }
 
     .footer-right {
         flex-direction: column;
+
         align-items: flex-start;
+
         gap: 7px;
     }
-
 }
 
 
@@ -1506,5 +1552,4 @@ img {
     .mobile-menu {
         width: 94vw;
     }
-
 }
