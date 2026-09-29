@@ -4,12 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
        ANNÉE
     ===================================================== */
 
-    const yearElement =
-        document.getElementById("current-year");
+    const yearElement = document.getElementById("current-year");
 
     if (yearElement) {
-        yearElement.textContent =
-            new Date().getFullYear();
+        yearElement.textContent = new Date().getFullYear();
     }
 
 
@@ -24,14 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("mobile-menu");
 
     const mobileOverlay =
-        document.getElementById(
-            "mobile-menu-overlay"
-        );
+        document.getElementById("mobile-menu-overlay");
 
     const mobileClose =
-        document.getElementById(
-            "mobile-menu-close"
-        );
+        document.getElementById("mobile-menu-close");
+
+    const mobileLinks =
+        document.querySelectorAll(".mobile-nav-link");
 
 
     function openMobileMenu() {
@@ -59,9 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "false"
         );
 
-        document.body.classList.add(
-            "menu-open"
-        );
+        document.body.classList.add("menu-open");
     }
 
 
@@ -77,9 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (mobileToggle) {
 
-            mobileToggle.classList.remove(
-                "active"
-            );
+            mobileToggle.classList.remove("active");
 
             mobileToggle.setAttribute(
                 "aria-expanded",
@@ -92,14 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
             "true"
         );
 
-        document.body.classList.remove(
-            "menu-open"
-        );
+        document.body.classList.remove("menu-open");
     }
 
 
     if (mobileToggle) {
-
         mobileToggle.addEventListener(
             "click",
             openMobileMenu
@@ -108,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (mobileClose) {
-
         mobileClose.addEventListener(
             "click",
             closeMobileMenu
@@ -117,12 +106,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (mobileOverlay) {
-
         mobileOverlay.addEventListener(
             "click",
             closeMobileMenu
         );
     }
+
+
+    mobileLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+                closeMobileMenu();
+            }
+        );
+
+    });
 
 
     document.addEventListener(
@@ -138,124 +138,149 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CHANGEMENT DE VUE
-       PAS DE LONGUE PAGE
-       PAS DE SMOOTH SCROLL
+       NAVIGATION ENTRE LES RUBRIQUES
+
+       Une seule rubrique est affichée à la fois.
+       Aucun smooth scroll.
     ===================================================== */
 
-    const views =
+    const views = document.querySelectorAll(".page-view");
+
+    const mainNavLinks =
+        document.querySelectorAll(".main-nav a");
+
+    const allNavigationLinks =
         document.querySelectorAll(
-            ".page-view"
+            '.main-nav a[href^="#"], .mobile-nav-link[href^="#"], .quick-card[href^="#"]'
         );
 
-    const navigationLinks =
-        document.querySelectorAll(
-            "[data-view]"
-        );
 
+    function showView(targetId) {
 
-    function showView(viewName) {
+        if (!targetId) return;
 
-        if (!viewName) {
-            viewName = "accueil";
-        }
-
+        const cleanId =
+            targetId.replace("#", "");
 
         const target =
-            document.querySelector(
-                `.page-view[data-page="${viewName}"]`
-            );
+            document.getElementById(cleanId);
+
+        if (!target) return;
 
 
-        if (!target) {
-            return;
+        /*
+         * ACCUEIL
+         */
+
+        if (cleanId === "accueil") {
+
+            views.forEach(view => {
+                view.classList.remove("active");
+            });
+
+            const hero =
+                document.getElementById("accueil");
+
+            if (hero) {
+                hero.classList.add("active");
+            }
+
+            const accueilContent =
+                document.querySelector(
+                    '[data-view="accueil-content"]'
+                );
+
+            if (accueilContent) {
+                accueilContent.classList.add("active");
+            }
+
+        } else {
+
+            /*
+             * Autres rubriques
+             */
+
+            views.forEach(view => {
+
+                if (
+                    view.id === cleanId ||
+                    view.dataset.view === cleanId
+                ) {
+                    view.classList.add("active");
+                } else {
+                    view.classList.remove("active");
+                }
+
+            });
+
         }
 
 
-        /* Cacher toutes les vues */
+        /*
+         * Menu actif
+         */
 
-        views.forEach(view => {
+        mainNavLinks.forEach(link => {
 
-            view.classList.remove(
-                "active"
+            const href =
+                link.getAttribute("href");
+
+            link.classList.toggle(
+                "active",
+                href === `#${cleanId}`
             );
 
         });
 
 
-        /* Afficher uniquement la vue choisie */
+        /*
+         * Retour immédiat en haut.
+         * Pas de smooth scroll.
+         */
 
-        target.classList.add(
-            "active"
-        );
-
-
-        /* Navigation active */
-
-        document
-            .querySelectorAll(
-                ".main-nav a[data-view]"
-            )
-            .forEach(link => {
-
-                link.classList.toggle(
-                    "active",
-                    link.dataset.view === viewName
-                );
-
-            });
-
-
-        /* Fermer le menu mobile */
-
-        closeMobileMenu();
-
-
-        /* Retour immédiat en haut
-           sans animation */
-
-        window.scrollTo(
-            0,
-            0
-        );
-
-
-        /* Mise à jour du hash */
-
-        if (
-            window.location.hash !==
-            `#${viewName}`
-        ) {
-
-            history.pushState(
-                null,
-                "",
-                `#${viewName}`
-            );
-        }
-
+        window.scrollTo(0, 0);
     }
 
 
-    navigationLinks.forEach(element => {
+    allNavigationLinks.forEach(link => {
 
-        element.addEventListener(
+        link.addEventListener(
             "click",
             event => {
 
-                const viewName =
-                    element.dataset.view;
+                const href =
+                    link.getAttribute("href");
 
-                if (!viewName) {
+                if (
+                    !href ||
+                    !href.startsWith("#")
+                ) {
                     return;
                 }
 
+                const targetId =
+                    href.substring(1);
+
+                if (!targetId) {
+                    return;
+                }
+
+                const target =
+                    document.getElementById(targetId);
+
+                /*
+                 * Les liens réels comme les Google Forms
+                 * ne passent jamais ici car ils ne commencent
+                 * pas par #.
+                 */
+
+                if (!target) {
+                    return;
+                }
 
                 event.preventDefault();
 
-                showView(
-                    viewName
-                );
+                showView(targetId);
 
             }
         );
@@ -263,153 +288,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* =====================================================
-       CLAVIER SUR LES CARTES ACCUEIL
-    ===================================================== */
+    /*
+     * État initial
+     */
 
-    document
-        .querySelectorAll(
-            ".quick-card"
-        )
-        .forEach(card => {
-
-            card.addEventListener(
-                "keydown",
-                event => {
-
-                    if (
-                        event.key === "Enter" ||
-                        event.key === " "
-                    ) {
-
-                        event.preventDefault();
-
-                        const viewName =
-                            card.dataset.view;
-
-                        showView(
-                            viewName
-                        );
-                    }
-
-                }
-            );
-
-        });
-
-
-    /* =====================================================
-       HASH AU CHARGEMENT
-    ===================================================== */
-
-    const initialHash =
+    showView(
         window.location.hash
-            .replace("#", "")
-            .trim();
-
-
-    if (initialHash) {
-
-        const initialView =
-            document.querySelector(
-                `.page-view[data-page="${initialHash}"]`
-            );
-
-        if (initialView) {
-
-            views.forEach(view => {
-                view.classList.remove(
-                    "active"
-                );
-            });
-
-            initialView.classList.add(
-                "active"
-            );
-
-            document
-                .querySelectorAll(
-                    ".main-nav a[data-view]"
-                )
-                .forEach(link => {
-
-                    link.classList.toggle(
-                        "active",
-                        link.dataset.view ===
-                        initialHash
-                    );
-
-                });
-
-        }
-
-    }
-
-
-    /* =====================================================
-       BOUTON PRÉCÉDENT / SUIVANT DU NAVIGATEUR
-    ===================================================== */
-
-    window.addEventListener(
-        "popstate",
-        () => {
-
-            const hash =
-                window.location.hash
-                    .replace("#", "")
-                    .trim();
-
-
-            const viewName =
-                hash || "accueil";
-
-
-            const target =
-                document.querySelector(
-                    `.page-view[data-page="${viewName}"]`
-                );
-
-
-            if (!target) {
-                return;
-            }
-
-
-            views.forEach(view => {
-
-                view.classList.remove(
-                    "active"
-                );
-
-            });
-
-
-            target.classList.add(
-                "active"
-            );
-
-
-            document
-                .querySelectorAll(
-                    ".main-nav a[data-view]"
-                )
-                .forEach(link => {
-
-                    link.classList.toggle(
-                        "active",
-                        link.dataset.view ===
-                        viewName
-                    );
-
-                });
-
-
-            window.scrollTo(
-                0,
-                0
-            );
-
-        }
+            ? window.location.hash.substring(1)
+            : "accueil"
     );
 
 
@@ -427,11 +313,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!card) return;
 
-
         const isOpen =
-            card.classList.contains(
-                "open"
-            );
+            card.classList.contains("open");
 
 
         card.classList.toggle(
@@ -449,15 +332,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (plus) {
 
             plus.textContent =
-                isOpen
-                    ? "+"
-                    : "−";
+                isOpen ? "+" : "−";
         }
 
 
         const header =
             card.querySelector(
-                ".inventory-header, .resource-header, .entretien-header"
+                ".inventory-header, .resource-header"
             );
 
 
@@ -474,112 +355,110 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    collapsibleCards.forEach(
-        card => {
+    collapsibleCards.forEach(card => {
 
-            const header =
-                card.querySelector(
-                    ".inventory-header, .resource-header, .entretien-header"
-                );
-
-
-            if (!header) {
-                return;
-            }
-
-
-            /* Fermé au départ */
-
-            card.classList.remove(
-                "open"
+        const header =
+            card.querySelector(
+                ".inventory-header, .resource-header"
             );
 
 
-            const plus =
-                header.querySelector(
-                    ".inventory-plus, .resource-plus"
-                );
+        if (!header) return;
 
 
-            if (plus) {
-                plus.textContent = "+";
-            }
+        /*
+         * État initial fermé
+         */
+
+        card.classList.remove("open");
 
 
-            header.setAttribute(
-                "tabindex",
-                "0"
+        const plus =
+            header.querySelector(
+                ".inventory-plus, .resource-plus"
             );
 
 
-            header.setAttribute(
-                "role",
-                "button"
-            );
-
-
-            header.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-
-            header.addEventListener(
-                "click",
-                event => {
-
-                    if (
-                        event.target.closest("a") ||
-                        event.target.closest("button")
-                    ) {
-                        return;
-                    }
-
-
-                    toggleCard(
-                        card
-                    );
-
-                }
-            );
-
-
-            header.addEventListener(
-                "keydown",
-                event => {
-
-                    if (
-                        event.key === "Enter" ||
-                        event.key === " "
-                    ) {
-
-                        event.preventDefault();
-
-                        toggleCard(
-                            card
-                        );
-                    }
-
-                }
-            );
-
+        if (plus) {
+            plus.textContent = "+";
         }
-    );
+
+
+        /*
+         * Clic
+         */
+
+        header.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target.closest("a") ||
+                    event.target.closest("button")
+                ) {
+                    return;
+                }
+
+                toggleCard(card);
+            }
+        );
+
+
+        /*
+         * Accessibilité clavier
+         */
+
+        header.setAttribute(
+            "tabindex",
+            "0"
+        );
+
+        header.setAttribute(
+            "role",
+            "button"
+        );
+
+        header.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+
+        header.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    toggleCard(card);
+                }
+
+            }
+        );
+
+    });
 
 
     /* =====================================================
        FLAMMES
+
+       Flammes très discrètes derrière les cartes.
     ===================================================== */
 
     const flamesContainer =
         document.querySelector(
-            ".flames"
+            ".portal-stage .flames"
         );
 
 
     if (flamesContainer) {
 
-        const flameCount = 34;
+        const flameCount = 24;
 
 
         for (
@@ -589,33 +468,35 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
 
             const flame =
-                document.createElement(
-                    "span"
-                );
+                document.createElement("span");
 
 
             flame.style.left =
                 `${Math.random() * 100}%`;
 
 
+            flame.style.bottom =
+                `${10 + Math.random() * 55}%`;
+
+
             flame.style.animationDelay =
-                `${Math.random() * 2.5}s`;
+                `${Math.random() * 4}s`;
 
 
             flame.style.animationDuration =
-                `${2 + Math.random() * 2}s`;
+                `${4 + Math.random() * 3}s`;
 
 
             flame.style.width =
-                `${10 + Math.random() * 18}px`;
+                `${8 + Math.random() * 12}px`;
 
 
             flame.style.height =
-                `${35 + Math.random() * 65}px`;
+                `${25 + Math.random() * 50}px`;
 
 
             flame.style.opacity =
-                `${0.45 + Math.random() * 0.5}`;
+                `${0.15 + Math.random() * 0.25}`;
 
 
             flamesContainer.appendChild(
@@ -629,19 +510,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        LIENS #
-       UNIQUEMENT POUR LES VRAIS LIENS NON CONFIGURÉS
+
+       Les cartes placeholder affichent le toast.
     ===================================================== */
 
     const toast =
-        document.getElementById(
-            "toast"
-        );
+        document.getElementById("toast");
 
 
     document
-        .querySelectorAll(
-            'a[href="#"]'
-        )
+        .querySelectorAll('a[href="#"]')
         .forEach(link => {
 
             link.addEventListener(
@@ -651,26 +529,25 @@ document.addEventListener("DOMContentLoaded", () => {
                     event.preventDefault();
 
 
-                    if (!toast) {
-                        return;
+                    if (toast) {
+
+                        toast.classList.add(
+                            "show"
+                        );
+
+
+                        setTimeout(
+                            () => {
+
+                                toast.classList.remove(
+                                    "show"
+                                );
+
+                            },
+                            2500
+                        );
+
                     }
-
-
-                    toast.classList.add(
-                        "show"
-                    );
-
-
-                    setTimeout(
-                        () => {
-
-                            toast.classList.remove(
-                                "show"
-                            );
-
-                        },
-                        2500
-                    );
 
                 }
             );
@@ -679,88 +556,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       PAS DE REVEAL
-       PAS D'INTERSECTION OBSERVER
-       PAS D'ANIMATION D'APPARITION
+       EMPÊCHE L'OUVERTURE D'UNE CARTE PARENT
+       QUAND ON CLIQUE SUR UN VRAI LIEN
     ===================================================== */
 
+    document
+        .querySelectorAll(
+            ".inventory-button, .maintenance-card, .large-button"
+        )
+        .forEach(link => {
 
-    /* =====================================================
-       EFFET TILT
-       UNIQUEMENT SUR LES CARTES NON DÉPLIABLES
-    ===================================================== */
+            link.addEventListener(
+                "click",
+                event => {
 
-    const tiltCards =
-        document.querySelectorAll(
-            ".premium-card:not(.inventory-card):not(.resource-card)"
-        );
+                    event.stopPropagation();
 
+                }
+            );
 
-    if (
-        window.matchMedia(
-            "(pointer:fine)"
-        ).matches
-    ) {
-
-        tiltCards.forEach(
-            card => {
-
-                card.addEventListener(
-                    "mousemove",
-                    event => {
-
-                        const rect =
-                            card.getBoundingClientRect();
-
-
-                        const x =
-                            event.clientX -
-                            rect.left;
-
-
-                        const y =
-                            event.clientY -
-                            rect.top;
-
-
-                        const rotateY =
-                            (
-                                (x / rect.width) -
-                                0.5
-                            ) * 4;
-
-
-                        const rotateX =
-                            (
-                                (y / rect.height) -
-                                0.5
-                            ) * -4;
-
-
-                        card.style.transform =
-                            `perspective(900px)
-                             rotateX(${rotateX}deg)
-                             rotateY(${rotateY}deg)
-                             translateY(-3px)`;
-
-                    }
-                );
-
-
-                card.addEventListener(
-                    "mouseleave",
-                    () => {
-
-                        card.style.transform =
-                            "";
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
+        });
 
 });
