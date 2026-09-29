@@ -15,11 +15,20 @@ document.addEventListener("DOMContentLoaded", () => {
        MENU MOBILE
     ===================================================== */
 
-    const mobileToggle = document.getElementById("mobile-menu-toggle");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const mobileOverlay = document.getElementById("mobile-menu-overlay");
-    const mobileClose = document.getElementById("mobile-menu-close");
-    const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+    const mobileToggle =
+        document.getElementById("mobile-menu-toggle");
+
+    const mobileMenu =
+        document.getElementById("mobile-menu");
+
+    const mobileOverlay =
+        document.getElementById("mobile-menu-overlay");
+
+    const mobileClose =
+        document.getElementById("mobile-menu-close");
+
+    const mobileLinks =
+        document.querySelectorAll(".mobile-nav-link");
 
 
     function openMobileMenu() {
@@ -33,10 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (mobileToggle) {
-            mobileToggle.setAttribute("aria-expanded", "true");
+            mobileToggle.classList.add("active");
+            mobileToggle.setAttribute(
+                "aria-expanded",
+                "true"
+            );
         }
 
-        mobileMenu.setAttribute("aria-hidden", "false");
+        mobileMenu.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
         document.body.classList.add("menu-open");
     }
@@ -53,46 +69,67 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (mobileToggle) {
-            mobileToggle.setAttribute("aria-expanded", "false");
+            mobileToggle.classList.remove("active");
+
+            mobileToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
         }
 
-        mobileMenu.setAttribute("aria-hidden", "true");
+        mobileMenu.setAttribute(
+            "aria-hidden",
+            "true"
+        );
 
         document.body.classList.remove("menu-open");
     }
 
 
     if (mobileToggle) {
-        mobileToggle.addEventListener("click", openMobileMenu);
+        mobileToggle.addEventListener(
+            "click",
+            openMobileMenu
+        );
     }
 
 
     if (mobileClose) {
-        mobileClose.addEventListener("click", closeMobileMenu);
+        mobileClose.addEventListener(
+            "click",
+            closeMobileMenu
+        );
     }
 
 
     if (mobileOverlay) {
-        mobileOverlay.addEventListener("click", closeMobileMenu);
+        mobileOverlay.addEventListener(
+            "click",
+            closeMobileMenu
+        );
     }
 
 
     mobileLinks.forEach(link => {
 
-        link.addEventListener("click", () => {
-            closeMobileMenu();
-        });
+        link.addEventListener(
+            "click",
+            closeMobileMenu
+        );
 
     });
 
 
-    document.addEventListener("keydown", event => {
+    document.addEventListener(
+        "keydown",
+        event => {
 
-        if (event.key === "Escape") {
-            closeMobileMenu();
+            if (event.key === "Escape") {
+                closeMobileMenu();
+            }
+
         }
-
-    });
+    );
 
 
     /* =====================================================
@@ -104,35 +141,54 @@ document.addEventListener("DOMContentLoaded", () => {
        Raccourcis
     ===================================================== */
 
-    const collapsibleCards = document.querySelectorAll(
-        "[data-collapsible]"
-    );
+    const collapsibleCards =
+        document.querySelectorAll(
+            "[data-collapsible]"
+        );
 
 
     function toggleCard(card) {
 
         if (!card) return;
 
-        const isOpen = card.classList.contains("open");
+        const isOpen =
+            card.classList.contains("open");
 
-        card.classList.toggle("open", !isOpen);
-
-        const plus = card.querySelector(
-            ".inventory-plus, .resource-plus"
+        card.classList.toggle(
+            "open",
+            !isOpen
         );
 
+        const plus =
+            card.querySelector(
+                ".inventory-plus, .resource-plus"
+            );
+
         if (plus) {
-            plus.textContent = isOpen ? "+" : "−";
+            plus.textContent =
+                isOpen ? "+" : "−";
         }
 
+        const header =
+            card.querySelector(
+                ".inventory-header, .resource-header"
+            );
+
+        if (header) {
+            header.setAttribute(
+                "aria-expanded",
+                isOpen ? "false" : "true"
+            );
+        }
     }
 
 
     collapsibleCards.forEach(card => {
 
-        const header = card.querySelector(
-            ".inventory-header, .resource-header"
-        );
+        const header =
+            card.querySelector(
+                ".inventory-header, .resource-header"
+            );
 
         if (!header) return;
 
@@ -142,9 +198,10 @@ document.addEventListener("DOMContentLoaded", () => {
         card.classList.remove("open");
 
 
-        const plus = header.querySelector(
-            ".inventory-plus, .resource-plus"
-        );
+        const plus =
+            header.querySelector(
+                ".inventory-plus, .resource-plus"
+            );
 
         if (plus) {
             plus.textContent = "+";
@@ -153,69 +210,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /* Clic souris / tactile */
 
-        header.addEventListener("click", event => {
+        header.addEventListener(
+            "click",
+            event => {
 
-            /*
-             * On empêche uniquement les clics parasites
-             * provenant d'un éventuel lien dans le header.
-             */
-
-            if (
-                event.target.closest("a") ||
-                event.target.closest("button")
-            ) {
-                return;
-            }
-
-            toggleCard(card);
-
-        });
-
-
-        /* Clavier */
-
-        header.setAttribute("tabindex", "0");
-        header.setAttribute("role", "button");
-        header.setAttribute("aria-expanded", "false");
-
-
-        header.addEventListener("keydown", event => {
-
-            if (
-                event.key === "Enter" ||
-                event.key === " "
-            ) {
-
-                event.preventDefault();
+                if (
+                    event.target.closest("a") ||
+                    event.target.closest("button")
+                ) {
+                    return;
+                }
 
                 toggleCard(card);
-
-                header.setAttribute(
-                    "aria-expanded",
-                    card.classList.contains("open")
-                        ? "true"
-                        : "false"
-                );
-
             }
+        );
 
-        });
+
+        /* Accessibilité clavier */
+
+        header.setAttribute(
+            "tabindex",
+            "0"
+        );
+
+        header.setAttribute(
+            "role",
+            "button"
+        );
+
+        header.setAttribute(
+            "aria-expanded",
+            "false"
+        );
 
 
-        /*
-         * Mise à jour de aria-expanded après clic.
-         */
+        header.addEventListener(
+            "keydown",
+            event => {
 
-        header.addEventListener("click", () => {
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
 
-            header.setAttribute(
-                "aria-expanded",
-                card.classList.contains("open")
-                    ? "true"
-                    : "false"
-            );
+                    event.preventDefault();
 
-        });
+                    toggleCard(card);
+                }
+            }
+        );
 
     });
 
@@ -224,99 +267,59 @@ document.addEventListener("DOMContentLoaded", () => {
        FLAMMES
     ===================================================== */
 
-    const flamesContainer = document.querySelector(".flames");
+    const flamesContainer =
+        document.querySelector(".flames");
 
 
     if (flamesContainer) {
 
-        const flameCount = 18;
+        const flameCount = 28;
 
-        for (let i = 0; i < flameCount; i++) {
 
-            const flame = document.createElement("span");
+        for (
+            let i = 0;
+            i < flameCount;
+            i++
+        ) {
+
+            const flame =
+                document.createElement("span");
+
 
             flame.style.left =
                 `${Math.random() * 100}%`;
 
+
             flame.style.animationDelay =
                 `${Math.random() * 2.5}s`;
+
 
             flame.style.animationDuration =
                 `${2 + Math.random() * 2}s`;
 
-            flame.style.transform =
-                `scale(${0.5 + Math.random() * 0.8})`;
 
-            flamesContainer.appendChild(flame);
+            flame.style.width =
+                `${10 + Math.random() * 18}px`;
 
+
+            flame.style.height =
+                `${35 + Math.random() * 55}px`;
+
+
+            flame.style.opacity =
+                `${0.45 + Math.random() * 0.5}`;
+
+
+            flamesContainer.appendChild(
+                flame
+            );
         }
-
-
-        const flameStyle = document.createElement("style");
-
-        flameStyle.textContent = `
-
-            @keyframes flameFloat {
-
-                0% {
-                    transform:
-                        translateY(20px)
-                        scale(.65)
-                        rotate(-3deg);
-
-                    opacity: 0;
-                }
-
-                25% {
-                    opacity: .7;
-                }
-
-                70% {
-                    opacity: .4;
-                }
-
-                100% {
-                    transform:
-                        translateY(-110px)
-                        scale(1)
-                        rotate(5deg);
-
-                    opacity: 0;
-                }
-
-            }
-
-            .flames span {
-                position: absolute;
-                bottom: 0;
-                width: 18px;
-                height: 42px;
-
-                border-radius:
-                    50% 50% 45% 45%;
-
-                background:
-                    linear-gradient(
-                        to top,
-                        rgba(184,32,50,.7),
-                        rgba(237,82,98,.05)
-                    );
-
-                filter: blur(2px);
-
-                animation:
-                    flameFloat 3s ease-in-out infinite;
-            }
-
-        `;
-
-        document.head.appendChild(flameStyle);
-
     }
 
 
     /* =====================================================
        REVEAL AU SCROLL
+       Conservé : ce n'est PAS le smooth scroll.
     ===================================================== */
 
     const revealElements =
@@ -333,12 +336,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         if (entry.isIntersecting) {
 
-                            entry.target.classList.add("visible");
+                            entry.target.classList.add(
+                                "visible"
+                            );
 
                             revealObserver.unobserve(
                                 entry.target
                             );
-
                         }
 
                     });
@@ -352,14 +356,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         revealElements.forEach(element => {
 
-            revealObserver.observe(element);
+            revealObserver.observe(
+                element
+            );
 
         });
 
     } else {
 
         revealElements.forEach(element => {
-            element.classList.add("visible");
+
+            element.classList.add(
+                "visible"
+            );
+
         });
 
     }
@@ -369,87 +379,53 @@ document.addEventListener("DOMContentLoaded", () => {
        LIENS #
     ===================================================== */
 
-    const toast = document.getElementById("toast");
+    const toast =
+        document.getElementById("toast");
 
-    document.querySelectorAll('a[href="#"]').forEach(link => {
 
-        link.addEventListener("click", event => {
+    document
+        .querySelectorAll('a[href="#"]')
+        .forEach(link => {
 
-            event.preventDefault();
+            link.addEventListener(
+                "click",
+                event => {
 
-            if (toast) {
+                    event.preventDefault();
 
-                toast.classList.add("show");
+                    if (toast) {
 
-                setTimeout(() => {
+                        toast.classList.add(
+                            "show"
+                        );
 
-                    toast.classList.remove("show");
+                        setTimeout(() => {
 
-                }, 2500);
+                            toast.classList.remove(
+                                "show"
+                            );
 
-            }
-
+                        }, 2500);
+                    }
+                }
+            );
         });
-
-    });
 
 
     /* =====================================================
-       SMOOTH SCROLL
+       IMPORTANT :
+       SMOOTH SCROLL SUPPRIMÉ
+    =====================================================
+
+       Il n'y a volontairement plus de :
+
+       window.scrollTo({
+           behavior: "smooth"
+       });
+
+       Les liens # utilisent maintenant
+       le comportement normal du navigateur.
     ===================================================== */
-
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-
-        link.addEventListener("click", event => {
-
-            const targetId =
-                link.getAttribute("href");
-
-            if (
-                !targetId ||
-                targetId === "#"
-            ) {
-                return;
-            }
-
-
-            const target =
-                document.querySelector(targetId);
-
-
-            if (!target) {
-                return;
-            }
-
-
-            event.preventDefault();
-
-
-            const header =
-                document.querySelector(".site-header");
-
-
-            const headerHeight =
-                header
-                    ? header.offsetHeight
-                    : 0;
-
-
-            const targetPosition =
-                target.getBoundingClientRect().top +
-                window.scrollY -
-                headerHeight -
-                15;
-
-
-            window.scrollTo({
-                top: targetPosition,
-                behavior: "smooth"
-            });
-
-        });
-
-    });
 
 
     /* =====================================================
@@ -463,42 +439,57 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    if (window.matchMedia("(pointer:fine)").matches) {
+    if (
+        window.matchMedia(
+            "(pointer:fine)"
+        ).matches
+    ) {
 
         tiltCards.forEach(card => {
 
-            card.addEventListener("mousemove", event => {
+            card.addEventListener(
+                "mousemove",
+                event => {
 
-                const rect =
-                    card.getBoundingClientRect();
-
-                const x =
-                    event.clientX - rect.left;
-
-                const y =
-                    event.clientY - rect.top;
-
-                const rotateY =
-                    ((x / rect.width) - 0.5) * 4;
-
-                const rotateX =
-                    ((y / rect.height) - 0.5) * -4;
+                    const rect =
+                        card.getBoundingClientRect();
 
 
-                card.style.transform =
-                    `perspective(900px)
-                     rotateX(${rotateX}deg)
-                     rotateY(${rotateY}deg)
-                     translateY(-3px)`;
-
-            });
+                    const x =
+                        event.clientX -
+                        rect.left;
 
 
-            card.addEventListener("mouseleave", () => {
+                    const y =
+                        event.clientY -
+                        rect.top;
 
-                card.style.transform = "";
 
-            });
+                    const rotateY =
+                        ((x / rect.width) - 0.5) * 4;
+
+
+                    const rotateX =
+                        ((y / rect.height) - 0.5) * -4;
+
+
+                    card.style.transform =
+                        `perspective(900px)
+                         rotateX(${rotateX}deg)
+                         rotateY(${rotateY}deg)
+                         translateY(-3px)`;
+                }
+            );
+
+
+            card.addEventListener(
+                "mouseleave",
+                () => {
+
+                    card.style.transform = "";
+
+                }
+            );
 
         });
 
@@ -507,20 +498,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        EMPÊCHE L'OUVERTURE D'UNE CARTE PARENT
-       QUAND ON CLIQUE SUR UN BOUTON / LIEN INTERNE
+       QUAND ON CLIQUE SUR UN LIEN
     ===================================================== */
 
-    document.querySelectorAll(
-        ".inventory-button, .maintenance-card, .large-button"
-    ).forEach(link => {
+    document
+        .querySelectorAll(
+            ".inventory-button, .maintenance-card, .large-button"
+        )
+        .forEach(link => {
 
-        link.addEventListener("click", event => {
+            link.addEventListener(
+                "click",
+                event => {
 
-            event.stopPropagation();
+                    event.stopPropagation();
+
+                }
+            );
 
         });
-
-    });
-
 
 });
