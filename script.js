@@ -1,545 +1,432 @@
+/* =========================================================
+   CIS VILLENAVE
+   SCRIPT PRINCIPAL
+   ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+
+/* =========================================================
+   ANNÉE AUTOMATIQUE
+   ========================================================== */
+
+const currentYear = document.getElementById("currentYear");
+
+if (currentYear) {
+    currentYear.textContent = new Date().getFullYear();
+}
 
 
-    /* =====================================================
-       ANNÉE
-    ====================================================== */
+/* =========================================================
+   FLAMMES
+   ========================================================== */
 
-    const yearElement =
-        document.getElementById("current-year");
+const flameContainer = document.querySelector(".flame-field");
 
-    if (yearElement) {
-        yearElement.textContent =
-            new Date().getFullYear();
+if (flameContainer) {
+
+    for (let i = 0; i < 18; i++) {
+
+        const flame = document.createElement("span");
+
+        flame.className = "flame";
+
+        flame.style.left = `${Math.random() * 100}%`;
+        flame.style.animationDelay = `${Math.random() * 5}s`;
+        flame.style.animationDuration = `${4 + Math.random() * 5}s`;
+
+        flameContainer.appendChild(flame);
     }
+}
 
 
-    /* =====================================================
-       FLAMMES
-    ====================================================== */
+/* =========================================================
+   APPARITION DES ÉLÉMENTS
+   ========================================================== */
 
-    const flameField =
-        document.querySelector(".flame-field");
+const revealElements = document.querySelectorAll(".reveal");
 
-    if (flameField) {
+if ("IntersectionObserver" in window) {
 
-        const isMobile =
-            window.innerWidth <= 800;
+    const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
 
-        const flameCount =
-            isMobile ? 20 : 34;
+            entries.forEach((entry) => {
 
-        for (let i = 0; i < flameCount; i++) {
+                if (entry.isIntersecting) {
 
-            const flame =
-                document.createElement("div");
+                    entry.target.classList.add("visible");
 
-            flame.className = "flame";
+                    observer.unobserve(entry.target);
+                }
 
-            const size =
-                Math.random() * 34 + 10;
+            });
 
-            const left =
-                Math.random() * 100;
-
-            const duration =
-                Math.random() * 11 + 10;
-
-            const delay =
-                Math.random() * -20;
-
-            const drift =
-                (Math.random() * 160 - 80) + "px";
-
-            const opacity =
-                Math.random() * .20 + .12;
-
-            flame.style.width =
-                `${size}px`;
-
-            flame.style.height =
-                `${size}px`;
-
-            flame.style.left =
-                `${left}%`;
-
-            flame.style.animationDuration =
-                `${duration}s`;
-
-            flame.style.animationDelay =
-                `${delay}s`;
-
-            flame.style.setProperty(
-                "--drift",
-                drift
-            );
-
-            flame.style.opacity =
-                opacity;
-
-            flameField.appendChild(flame);
+        },
+        {
+            threshold: 0.08
         }
-    }
+    );
 
 
-    /* =====================================================
-       REVEAL
-    ====================================================== */
-
-    const revealElements =
-        document.querySelectorAll(".reveal");
-
-    const revealObserver =
-        new IntersectionObserver(
-            (entries, observer) => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-                        observer.unobserve(
-                            entry.target
-                        );
-                    }
-                });
-
-            },
-            {
-                threshold:.08
-            }
-        );
-
-    revealElements.forEach(element => {
+    revealElements.forEach((element) => {
         revealObserver.observe(element);
     });
 
+} else {
 
-    /* =====================================================
-       NAVIGATION DESKTOP ACTIVE
-    ====================================================== */
-
-    const sections =
-        document.querySelectorAll(
-            "main section[id]"
-        );
-
-    const navLinks =
-        document.querySelectorAll(
-            ".nav-link"
-        );
-
-    const sectionObserver =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
-                    const id =
-                        entry.target.id;
-
-                    navLinks.forEach(link => {
-
-                        link.classList.remove(
-                            "active"
-                        );
-
-                        if (
-                            link.getAttribute("href") ===
-                            `#${id}`
-                        ) {
-                            link.classList.add(
-                                "active"
-                            );
-                        }
-
-                    });
-
-                });
-
-            },
-            {
-                rootMargin:
-                    "-35% 0px -55% 0px"
-            }
-        );
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
+    revealElements.forEach((element) => {
+        element.classList.add("visible");
     });
 
-
-    /* =====================================================
-       MENU MOBILE
-    ====================================================== */
-
-    const mobileToggle =
-        document.getElementById(
-            "mobile-menu-toggle"
-        );
-
-    const mobileMenu =
-        document.getElementById(
-            "mobile-menu"
-        );
-
-    const mobileOverlay =
-        document.getElementById(
-            "mobile-menu-overlay"
-        );
-
-    const mobileClose =
-        document.getElementById(
-            "mobile-menu-close"
-        );
-
-    const mobileLinks =
-        document.querySelectorAll(
-            ".mobile-nav-link"
-        );
+}
 
 
-    function openMobileMenu() {
+/* =========================================================
+   MENU MOBILE
+   ========================================================== */
 
-        if (!mobileMenu) {
-            return;
-        }
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileNav = document.querySelector(".mobile-nav");
 
-        mobileMenu.classList.add("open");
+if (menuToggle && mobileNav) {
 
-        mobileOverlay?.classList.add("open");
+    menuToggle.addEventListener("click", () => {
 
-        mobileToggle?.classList.add("active");
+        const isOpen = mobileNav.classList.toggle("is-open");
 
-        mobileToggle?.setAttribute(
-            "aria-expanded",
-            "true"
-        );
+        menuToggle.classList.toggle("is-open", isOpen);
 
-        mobileMenu.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-    }
-
-
-    function closeMobileMenu() {
-
-        if (!mobileMenu) {
-            return;
-        }
-
-        mobileMenu.classList.remove("open");
-
-        mobileOverlay?.classList.remove("open");
-
-        mobileToggle?.classList.remove("active");
-
-        mobileToggle?.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        mobileMenu.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        document.body.classList.remove(
-            "menu-open"
-        );
-    }
-
-
-    mobileToggle?.addEventListener(
-        "click",
-        () => {
-
-            const isOpen =
-                mobileMenu?.classList.contains(
-                    "open"
-                );
-
-            if (isOpen) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-
-        }
-    );
-
-
-    mobileClose?.addEventListener(
-        "click",
-        closeMobileMenu
-    );
-
-
-    mobileOverlay?.addEventListener(
-        "click",
-        closeMobileMenu
-    );
-
-
-    mobileLinks.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            () => {
-                closeMobileMenu();
-            }
-        );
+        menuToggle.setAttribute("aria-expanded", isOpen);
 
     });
 
 
-    document.addEventListener(
-        "keydown",
-        event => {
+    mobileNav.querySelectorAll("a").forEach((link) => {
 
-            if (event.key === "Escape") {
-                closeMobileMenu();
-            }
+        link.addEventListener("click", () => {
 
-        }
-    );
+            mobileNav.classList.remove("is-open");
+            menuToggle.classList.remove("is-open");
 
-
-    /* =====================================================
-       LIENS PLACEHOLDERS
-       UNIQUEMENT href="#"
-    ====================================================== */
-
-    const placeholderLinks =
-        document.querySelectorAll(
-            'a[href="#"]'
-        );
-
-    const toast =
-        document.getElementById("toast");
-
-    const toastMessage =
-        document.getElementById(
-            "toast-message"
-        );
-
-    let toastTimer;
-
-
-    placeholderLinks.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                if (toastMessage) {
-
-                    toastMessage.textContent =
-                        "Cette ressource doit encore être connectée.";
-                }
-
-                if (toast) {
-
-                    toast.classList.add(
-                        "show"
-                    );
-
-                    clearTimeout(
-                        toastTimer
-                    );
-
-                    toastTimer =
-                        setTimeout(() => {
-
-                            toast.classList.remove(
-                                "show"
-                            );
-
-                        }, 2600);
-                }
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       SMOOTH SCROLL
-    ====================================================== */
-
-    const internalLinks =
-        document.querySelectorAll(
-            'a[href^="#"]:not([href="#"])'
-        );
-
-
-    internalLinks.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            event => {
-
-                const targetId =
-                    link.getAttribute("href");
-
-                const target =
-                    document.querySelector(
-                        targetId
-                    );
-
-                if (!target) {
-                    return;
-                }
-
-                event.preventDefault();
-
-                const header =
-                    document.querySelector(
-                        ".site-header"
-                    );
-
-                const headerHeight =
-                    header
-                        ? header.offsetHeight
-                        : 0;
-
-                const position =
-                    target.getBoundingClientRect().top +
-                    window.scrollY -
-                    headerHeight -
-                    10;
-
-                window.scrollTo({
-                    top:position,
-                    behavior:"smooth"
-                });
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       TILT DES CARTES — DESKTOP UNIQUEMENT
-    ====================================================== */
-
-    const premiumCards =
-        document.querySelectorAll(
-            ".premium-card"
-        );
-
-    const canHover =
-        window.matchMedia(
-            "(hover:hover)"
-        ).matches;
-
-
-    if (canHover) {
-
-        premiumCards.forEach(card => {
-
-            card.addEventListener(
-                "mousemove",
-                event => {
-
-                    const rect =
-                        card.getBoundingClientRect();
-
-                    const x =
-                        event.clientX -
-                        rect.left;
-
-                    const y =
-                        event.clientY -
-                        rect.top;
-
-                    const rotateY =
-                        ((x / rect.width) - .5) * 2;
-
-                    const rotateX =
-                        ((y / rect.height) - .5) * -2;
-
-                    card.style.transform =
-                        `perspective(1000px)
-                         rotateX(${rotateX}deg)
-                         rotateY(${rotateY}deg)
-                         translateY(-5px)`;
-
-                }
-            );
-
-
-            card.addEventListener(
-                "mouseleave",
-                () => {
-
-                    card.style.transform =
-                        "";
-
-                }
-            );
+            menuToggle.setAttribute("aria-expanded", "false");
 
         });
 
+    });
+
+}
+
+
+/* =========================================================
+   NAVIGATION ACTIVE
+   ========================================================== */
+
+const navLinks = document.querySelectorAll(
+    ".desktop-nav a, .mobile-nav a"
+);
+
+const sections = document.querySelectorAll(
+    "main section[id]"
+);
+
+if ("IntersectionObserver" in window && sections.length) {
+
+    const sectionObserver = new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach((entry) => {
+
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const id = entry.target.id;
+
+                navLinks.forEach((link) => {
+
+                    link.classList.toggle(
+                        "active",
+                        link.getAttribute("href") === `#${id}`
+                    );
+
+                });
+
+            });
+
+        },
+        {
+            rootMargin: "-25% 0px -65% 0px"
+        }
+    );
+
+
+    sections.forEach((section) => {
+        sectionObserver.observe(section);
+    });
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================== */
+
+const toast = document.getElementById("toast");
+
+let toastTimer = null;
+
+
+function showToast(message) {
+
+    if (!toast) {
+        return;
     }
 
+    toast.textContent = message;
 
-    /* =====================================================
-       BOUTONS GOOGLE FORMS
-    ====================================================== */
+    toast.classList.add("show");
 
-    const inventoryButtons =
-        document.querySelectorAll(
-            ".inventory-button"
-        );
+    clearTimeout(toastTimer);
 
-    inventoryButtons.forEach(button => {
+    toastTimer = setTimeout(() => {
 
-        button.addEventListener(
-            "click",
-            event => {
+        toast.classList.remove("show");
 
-                event.stopPropagation();
+    }, 2800);
 
-            }
+}
+
+
+/* =========================================================
+   LIENS PLACEHOLDER "#"
+   ========================================================== */
+
+document.querySelectorAll('a[href="#"]').forEach((link) => {
+
+    link.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        showToast(
+            "Cette ressource doit encore être connectée."
         );
 
     });
 
+});
 
-    /* =====================================================
-       FERMETURE MENU SI ON PASSE EN DESKTOP
-    ====================================================== */
 
-    window.addEventListener(
-        "resize",
-        () => {
+/* =========================================================
+   ANCRES INTERNES
+   ========================================================== */
 
-            if (
-                window.innerWidth > 800
-            ) {
-                closeMobileMenu();
-            }
+document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((link) => {
 
+    link.addEventListener("click", (event) => {
+
+        const targetId = link.getAttribute("href");
+
+        const target = document.querySelector(targetId);
+
+        if (!target) {
+            return;
         }
-    );
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    });
 
 });
 
+
+/* =========================================================
+   CARTES DÉPLIABLES
+   ========================================================= */
+
+const collapsibleCards = document.querySelectorAll(
+    ".collapsible-card"
+);
+
+
+collapsibleCards.forEach((card, index) => {
+
+    const toggle = card.querySelector(".collapse-toggle");
+    const content = card.querySelector(".collapse-content");
+    const icon = card.querySelector(".collapse-icon");
+
+    if (!toggle || !content) {
+        return;
+    }
+
+
+    /* ID unique pour l'accessibilité */
+
+    const contentId =
+        content.id ||
+        `collapse-content-${index + 1}`;
+
+    content.id = contentId;
+
+    toggle.setAttribute(
+        "aria-controls",
+        contentId
+    );
+
+    toggle.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+
+    /* Toutes les cartes sont fermées au démarrage */
+
+    card.classList.remove("is-open");
+
+
+    /* -------------------------------------------------------
+       OUVERTURE / FERMETURE
+       ------------------------------------------------------- */
+
+    toggle.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        const isOpen =
+            card.classList.contains("is-open");
+
+
+        if (isOpen) {
+
+            /* Fermer */
+
+            card.classList.remove("is-open");
+
+            toggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            if (icon) {
+                icon.textContent = "+";
+            }
+
+        } else {
+
+            /* Ouvrir */
+
+            card.classList.add("is-open");
+
+            toggle.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            if (icon) {
+                icon.textContent = "−";
+            }
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   EFFET HOVER PREMIUM
+   On ne l'applique PAS aux cartes dépliables,
+   pour ne pas gêner le bouton + / −.
+   ========================================================== */
+
+const premiumCards = document.querySelectorAll(
+    ".premium-card:not(.collapsible-card)"
+);
+
+
+if (window.matchMedia("(hover: hover)").matches) {
+
+    premiumCards.forEach((card) => {
+
+        card.addEventListener("mousemove", (event) => {
+
+            const rect = card.getBoundingClientRect();
+
+            const x =
+                event.clientX - rect.left;
+
+            const y =
+                event.clientY - rect.top;
+
+            const centerX =
+                rect.width / 2;
+
+            const centerY =
+                rect.height / 2;
+
+            const rotateX =
+                ((y - centerY) / centerY) * -2;
+
+            const rotateY =
+                ((x - centerX) / centerX) * 2;
+
+            card.style.transform =
+                `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+
+        });
+
+
+        card.addEventListener("mouseleave", () => {
+
+            card.style.transform = "";
+
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   EMPÊCHER LES CLICS DES LIENS DE PROPAGER
+   ========================================================== */
+
+document.querySelectorAll(
+    ".maintenance-link, .card-action, .vehicle-card"
+).forEach((link) => {
+
+    link.addEventListener("click", (event) => {
+
+        event.stopPropagation();
+
+    });
+
+});
+
+
+/* =========================================================
+   FERMETURE DU MENU SI REDIMENSIONNEMENT
+   ========================================================== */
+
+window.addEventListener("resize", () => {
+
+    if (
+        window.innerWidth > 800 &&
+        mobileNav &&
+        menuToggle
+    ) {
+
+        mobileNav.classList.remove("is-open");
+        menuToggle.classList.remove("is-open");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+    }
+
+});
