@@ -1,1471 +1,688 @@
+<!DOCTYPE html>
 
-<!doctype html>
 <html lang="fr">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CIS VILLENAVE — Portail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>CIS Villenave-d'Ornon — Portail interne</title>
 
 <link rel="stylesheet" href="cis.css">
+```
+
 </head>
 
 <body>
 
+```
+<!-- =========================================================
+     ANIMATION FEU — ARRIÈRE-PLAN
+     ========================================================= -->
+<canvas id="fireCanvas" aria-hidden="true"></canvas>
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
 <header class="hero">
 
-  <a class="hero-brand" href="#" data-open="home" aria-label="Retour à l'accueil">
-    <img src="logo1.png" alt="Logo CIS Villenave-d'Ornon">
-  </a>
+    <a href="#" class="hero-brand" data-open="home" aria-label="Accueil">
+        <img src="logo1.png" alt="Logo CIS Villenave-d'Ornon">
+    </a>
 
-  <div class="hero-photo" role="img" aria-label="Pompier casqué devant les flammes">
-    <div class="hero-photo-content">
-      <span class="tag">CENTRE DE SECOURS · PORTAIL INTERNE</span>
-      <h1>CIS Villenave-d'Ornon</h1>
-      <p>Portail du centre de secours</p>
+    <div class="hero-photo">
+
+        <div class="hero-photo-overlay"></div>
+
+        <div class="hero-content">
+
+            <div class="hero-title-line">
+                <span class="hero-tag">
+                    CENTRE DE SECOURS · PORTAIL INTERNE
+                </span>
+            </div>
+
+            <h1>CIS Villenave-d'Ornon</h1>
+
+            <p>
+                Portail du centre de secours
+            </p>
+
+        </div>
+
     </div>
-  </div>
 
 </header>
 
 
+<!-- =========================================================
+     MENU STICKY — CONSERVÉ
+     ========================================================= -->
 <nav class="nav">
 
-  <div class="navin">
+    <div class="navin">
 
-    <button
-      class="nav-brand"
-      data-open="home"
-      aria-label="Accueil — logo">
-      <img src="logo1.png" alt="Logo">
-    </button>
+        <button class="nav-brand" data-open="home" aria-label="Accueil">
+            <img src="logo1.png" alt="Logo CIS">
+        </button>
 
-    <button data-open="home" class="active">
-      🏠 ACCUEIL
-    </button>
+        <button data-open="home" class="active">
+            🏠 ACCUEIL
+        </button>
 
-    <button data-open="inventaires">
-      🚒 INVENTAIRES
-    </button>
+        <button data-open="inventaires">
+            🚒 INVENTAIRES
+        </button>
 
-    <button data-open="entretiens">
-      🔧 ENTRETIENS
-    </button>
+        <button data-open="entretiens">
+            🔧 ENTRETIENS
+        </button>
 
-    <button data-open="documents">
-      📄 DOCUMENTS
-    </button>
+        <button data-open="documents">
+            📄 DOCUMENTS
+        </button>
 
-    <button data-open="amicale">
-      ⭐ AMICALE
-    </button>
+        <button data-open="amicale">
+            ⭐ AMICALE
+        </button>
 
-    <button data-open="raccourcis">
-      🔗 RACCOURCIS
-    </button>
+        <button data-open="raccourcis">
+            🔗 RACCOURCIS
+        </button>
 
-  </div>
+    </div>
 
 </nav>
 
 
 <main>
 
-  <!-- =========================
-       ACCUEIL
-  ========================== -->
+    <!-- =====================================================
+         ACCUEIL
+         ===================================================== -->
+    <section id="home" class="view active">
 
-  <section id="home" class="view active">
+        <div class="home-intro">
 
-    <h2>Bienvenue</h2>
-
-    <p class="intro">
-      Bienvenue dans votre centre de secours.
-    </p>
-
-    <div class="grid">
-
-      <a
-        class="card home-card"
-        href="#inventaires"
-        data-open="inventaires"
-        aria-label="Accéder à inventaires">
-
-        <span class="home-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M3 7h12v9H3zM15 10h3l3 3v3h-6M6 16a2 2 0 1 0 4 0M17 16a2 2 0 1 0 4 0M6 10h5M8.5 8v4"/>
-          </svg>
-        </span>
-
-        <h3>Inventaires</h3>
-
-        <p>
-          Tous les inventaires et matériels.
-        </p>
-
-        <span class="home-card-arrow" aria-hidden="true">
-          ›
-        </span>
-
-      </a>
-
-
-      <a
-        class="card home-card"
-        href="#entretiens"
-        data-open="entretiens"
-        aria-label="Accéder à entretiens">
-
-        <span class="home-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M14 5a5 5 0 0 0-6 6l-5 5a2 2 0 0 0 3 3l5-5a5 5 0 0 0 6-6l-3 3-3-3z"/>
-          </svg>
-        </span>
-
-        <h3>Entretiens</h3>
-
-        <p>
-          Formulaires directs.
-        </p>
-
-        <span class="home-card-arrow" aria-hidden="true">
-          ›
-        </span>
-
-      </a>
-
-
-      <a
-        class="card home-card"
-        href="#documents"
-        data-open="documents"
-        aria-label="Accéder à documents">
-
-        <span class="home-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M5 3h9l5 5v13H5zM14 3v5h5M8 12h8M8 16h8"/>
-          </svg>
-        </span>
-
-        <h3>Documents</h3>
-
-        <p>
-          PDF et dossiers Google Drive.
-        </p>
-
-        <span class="home-card-arrow" aria-hidden="true">
-          ›
-        </span>
-
-      </a>
-
-
-      <a
-        class="card home-card"
-        href="#amicale"
-        data-open="amicale"
-        aria-label="Accéder à amicale">
-
-        <span class="home-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 21s-9-5-9-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 11-9 11z"/>
-          </svg>
-        </span>
-
-        <h3>Amicale</h3>
-
-        <p>
-          Sorties, commandes, documents et services.
-        </p>
-
-        <span class="home-card-arrow" aria-hidden="true">
-          ›
-        </span>
-
-      </a>
-
-
-      <a
-        class="card home-card"
-        href="#raccourcis"
-        data-open="raccourcis"
-        aria-label="Accéder à raccourcis">
-
-        <span class="home-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-2 2M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l2-2"/>
-          </svg>
-        </span>
-
-        <h3>Raccourcis</h3>
-
-        <p>
-          Accès aux outils utiles.
-        </p>
-
-        <span class="home-card-arrow" aria-hidden="true">
-          ›
-        </span>
-
-      </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       INVENTAIRES
-  ========================== -->
-
-  <section id="inventaires" class="view">
-
-    <h2>Inventaires</h2>
-
-    <p class="intro">
-      Tous les inventaires de votre Centre de Secours.
-    </p>
-
-
-    <!-- SSUAP -->
-
-    <details class="inventory-category cat-suap">
-
-      <summary>
-        <span class="category-heading">
-          <span class="category-icon" aria-hidden="true">🚑</span>
-          <span>SSUAP</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <div
-          class="vsav-box"
-          style="--vsav-color:#2563eb;--vsav-bg:#eff6ff">
-
-          <div class="vsav-title">
-
-            <span class="vsav-icon-wrap">
-
-              <svg
-                class="vsav-badge-icon"
-                viewBox="0 0 28 28"
-                aria-hidden="true">
-
-                <rect
-                  x="3"
-                  y="7"
-                  width="17"
-                  height="11"
-                  rx="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"/>
-
-                <path
-                  d="M20 10h3l2 3.2V18h-5M6.5 18.5a2 2 0 1 0 4 0M19 18.5a2 2 0 1 0 4 0M8 10v5M5.5 12.5h5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"/>
-
-              </svg>
-
+            <span class="section-kicker">
+                CIS VILLENAVE-D'ORNON
             </span>
 
-            <div>
-              <strong>VSAV 1</strong>
-              <small>Inventaire de l'équipage</small>
-            </div>
+            <h2>
+                Portail opérationnel
+            </h2>
 
-          </div>
-
-
-          <div class="vsav-role-grid">
-
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav1_chef"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">★</span>
-              <span>Chef d'agrès</span>
-              <span class="role-arrow">↗</span>
-
-            </a>
-
-
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav1_conducteur"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">🚒</span>
-              <span>Conducteur</span>
-              <span class="role-arrow">↗</span>
-
-            </a>
-
-
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav1_equipier"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">🎒</span>
-              <span>Équipier</span>
-              <span class="role-arrow">↗</span>
-
-            </a>
-
-          </div>
+            <p>
+                Accès rapide aux ressources, inventaires,
+                entretiens, documents et services du centre.
+            </p>
 
         </div>
 
 
-        <div
-          class="vsav-box"
-          style="--vsav-color:#dc2626;--vsav-bg:#fef2f2">
+        <div class="home-grid">
 
-          <div class="vsav-title">
+            <article class="home-card" data-open="inventaires">
 
-            <span class="vsav-icon-wrap">
+                <div class="home-card-icon">
+                    🚒
+                </div>
 
-              <svg
-                class="vsav-badge-icon"
-                viewBox="0 0 28 28"
-                aria-hidden="true">
+                <div>
+                    <span>01</span>
+                    <h3>Inventaires</h3>
+                    <p>
+                        Inventaires des véhicules,
+                        matériels et équipements.
+                    </p>
+                </div>
 
-                <rect
-                  x="3"
-                  y="7"
-                  width="17"
-                  height="11"
-                  rx="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"/>
+                <strong>→</strong>
 
-                <path
-                  d="M20 10h3l2 3.2V18h-5M6.5 18.5a2 2 0 1 0 4 0M19 18.5a2 2 0 1 0 4 0M8 10v5M5.5 12.5h5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"/>
+            </article>
 
-              </svg>
 
+            <article class="home-card" data-open="entretiens">
+
+                <div class="home-card-icon">
+                    🔧
+                </div>
+
+                <div>
+                    <span>02</span>
+                    <h3>Entretiens</h3>
+                    <p>
+                        Suivi et accès aux formulaires
+                        d'entretien.
+                    </p>
+                </div>
+
+                <strong>→</strong>
+
+            </article>
+
+
+            <article class="home-card" data-open="documents">
+
+                <div class="home-card-icon">
+                    📄
+                </div>
+
+                <div>
+                    <span>03</span>
+                    <h3>Documents</h3>
+                    <p>
+                        Notes, procédures et documents
+                        opérationnels.
+                    </p>
+                </div>
+
+                <strong>→</strong>
+
+            </article>
+
+
+            <article class="home-card" data-open="amicale">
+
+                <div class="home-card-icon">
+                    ⭐
+                </div>
+
+                <div>
+                    <span>04</span>
+                    <h3>Amicale</h3>
+                    <p>
+                        Informations et services
+                        de l'amicale.
+                    </p>
+                </div>
+
+                <strong>→</strong>
+
+            </article>
+
+
+            <article class="home-card" data-open="raccourcis">
+
+                <div class="home-card-icon">
+                    🔗
+                </div>
+
+                <div>
+                    <span>05</span>
+                    <h3>Raccourcis</h3>
+                    <p>
+                        Accès direct aux outils
+                        et plateformes utiles.
+                    </p>
+                </div>
+
+                <strong>→</strong>
+
+            </article>
+
+        </div>
+
+
+        <div class="home-status">
+
+            <div>
+                <span class="status-dot"></span>
+                Portail interne
+            </div>
+
+            <div>
+                CIS Villenave-d'Ornon
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         INVENTAIRES
+         ===================================================== -->
+    <section id="inventaires" class="view">
+
+        <div class="page-heading">
+
+            <span class="section-kicker">
+                MATÉRIEL & VÉHICULES
             </span>
 
-            <div>
-              <strong>VSAV 2</strong>
-              <small>Inventaire de l'équipage</small>
-            </div>
+            <h2>Inventaires</h2>
 
-          </div>
-
-
-          <div class="vsav-role-grid">
-
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav2_chef"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">★</span>
-              <span>Chef d'agrès</span>
-              <span class="role-arrow">↗</span>
-
-            </a>
-
-
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav2_conducteur"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">🚒</span>
-              <span>Conducteur</span>
-              <span class="role-arrow">↗</span>
-
-            </a>
-
-
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav2_equipier"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">🎒</span>
-              <span>Équipier</span>
-              <span class="role-arrow">↗</span>
-
-            </a>
-
-          </div>
+            <p>
+                Tous les inventaires du Centre de Secours.
+                Cliquez sur une rubrique pour afficher son contenu.
+            </p>
 
         </div>
 
 
-        <div
-          class="vsav-box"
-          style="--vsav-color:#16a34a;--vsav-bg:#f0fdf4">
+        <!-- SSUAP -->
+        <details class="inventory-category cat-ssuap">
 
-          <div class="vsav-title">
+            <summary>
+                <span class="category-number">01</span>
 
-            <span class="vsav-icon-wrap">
+                <span class="category-title">
+                    <strong>SSUAP</strong>
+                    <small>Secours à personnes</small>
+                </span>
 
-              <svg
-                class="vsav-badge-icon"
-                viewBox="0 0 28 28"
-                aria-hidden="true">
+                <span class="category-arrow">+</span>
+            </summary>
 
-                <rect
-                  x="3"
-                  y="7"
-                  width="17"
-                  height="11"
-                  rx="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"/>
 
-                <path
-                  d="M20 10h3l2 3.2V18h-5M6.5 18.5a2 2 0 1 0 4 0M19 18.5a2 2 0 1 0 4 0M8 10v5M5.5 12.5h5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"/>
+            <div class="inventory-inner">
 
-              </svg>
+                <div class="inventory-group">
 
+                    <h3>VSAV 1</h3>
+
+                    <div class="inventory-links">
+                        <a href="#" data-link="vsav1_chef">Chef d'agrès ↗</a>
+                        <a href="#" data-link="vsav1_conducteur">Conducteur ↗</a>
+                        <a href="#" data-link="vsav1_equipier">Équipier ↗</a>
+                    </div>
+
+                </div>
+
+
+                <div class="inventory-group">
+
+                    <h3>VSAV 2</h3>
+
+                    <div class="inventory-links">
+                        <a href="#" data-link="vsav2_chef">Chef d'agrès ↗</a>
+                        <a href="#" data-link="vsav2_conducteur">Conducteur ↗</a>
+                        <a href="#" data-link="vsav2_equipier">Équipier ↗</a>
+                    </div>
+
+                </div>
+
+
+                <div class="inventory-group">
+
+                    <h3>VSAV 3</h3>
+
+                    <div class="inventory-links">
+                        <a href="#" data-link="vsav3_chef">Chef d'agrès ↗</a>
+                        <a href="#" data-link="vsav3_conducteur">Conducteur ↗</a>
+                        <a href="#" data-link="vsav3_equipier">Équipier ↗</a>
+                    </div>
+
+                </div>
+
+
+                <div class="inventory-group">
+
+                    <h3>ASU</h3>
+
+                    <div class="inventory-links">
+                        <a href="#" data-link="asu_pdg">
+                            PDG ASU ↗
+                        </a>
+
+                        <a href="#" data-link="asu_utilisation">
+                            Utilisation ASU sur intervention ↗
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </details>
+
+
+        <!-- INCENDIE -->
+        <details class="inventory-category cat-incendie">
+
+            <summary>
+
+                <span class="category-number">02</span>
+
+                <span class="category-title">
+                    <strong>INCENDIE</strong>
+                    <small>Engins incendie</small>
+                </span>
+
+                <span class="category-arrow">+</span>
+
+            </summary>
+
+
+            <div class="inventory-inner">
+
+                <div class="inventory-links-grid">
+
+                    <a href="#" data-link="fpt01">
+                        FPT 01 ↗
+                    </a>
+
+                    <a href="#" data-link="fptgp02">
+                        FPTGP 02 ↗
+                    </a>
+
+                    <a href="#" data-link="ech">
+                        ECH ↗
+                    </a>
+
+                    <a href="#" data-link="fmogp">
+                        FMOGP ↗
+                    </a>
+
+                    <a href="#" data-link="vl_cdgg">
+                        VL CDGG ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </details>
+
+
+        <!-- DIV -->
+        <details class="inventory-category cat-div">
+
+            <summary>
+
+                <span class="category-number">03</span>
+
+                <span class="category-title">
+                    <strong>DIV</strong>
+                    <small>Opérations diverses</small>
+                </span>
+
+                <span class="category-arrow">+</span>
+
+            </summary>
+
+
+            <div class="inventory-inner">
+
+                <div class="inventory-links-grid">
+
+                    <a href="#" data-link="vtu1_via">
+                        VTU 1 — VIA ↗
+                    </a>
+
+                    <a href="#" data-link="vtu2">
+                        VTU 2 ↗
+                    </a>
+
+                    <a href="#" data-link="vsrm">
+                        VSR M ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </details>
+
+
+        <!-- FDF -->
+        <details class="inventory-category cat-fdf">
+
+            <summary>
+
+                <span class="category-number">04</span>
+
+                <span class="category-title">
+                    <strong>FDF</strong>
+                    <small>Feux de forêt</small>
+                </span>
+
+                <span class="category-arrow">+</span>
+
+            </summary>
+
+
+            <div class="inventory-inner">
+
+                <div class="inventory-links-grid">
+
+                    <a href="#" data-link="ccf1">
+                        CCF 1 ↗
+                    </a>
+
+                    <a href="#" data-link="ccf2">
+                        CCF 2 ↗
+                    </a>
+
+                    <a href="#" data-link="vlhr">
+                        VLHR ↗
+                    </a>
+
+                    <a href="#" data-link="amsec">
+                        AMSEC ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </details>
+
+
+        <!-- SPECIALITES -->
+        <details class="inventory-category cat-specialites">
+
+            <summary>
+
+                <span class="category-number">05</span>
+
+                <span class="category-title">
+                    <strong>SPÉCIALITÉS</strong>
+                    <small>Équipements spécialisés</small>
+                </span>
+
+                <span class="category-arrow">+</span>
+
+            </summary>
+
+
+            <div class="inventory-inner">
+
+                <div class="inventory-links-grid">
+
+                    <a href="#" data-link="eld">
+                        ELD ↗
+                    </a>
+
+                    <a href="#" data-link="drone">
+                        DRONE ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </details>
+
+
+        <!-- STANDARD -->
+        <details class="inventory-category cat-standard">
+
+            <summary>
+
+                <span class="category-number">06</span>
+
+                <span class="category-title">
+                    <strong>STANDARD</strong>
+                    <small>Matériel standard</small>
+                </span>
+
+                <span class="category-arrow">+</span>
+
+            </summary>
+
+
+            <div class="inventory-inner">
+
+                <div class="inventory-links-grid">
+
+                    <a href="#" data-link="stas">
+                        STAS ↗
+                    </a>
+
+                    <a href="#" data-link="sac_ps_stas">
+                        SAC PS STAS ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </details>
+
+
+        <!-- CASERNEMENT -->
+        <details class="inventory-category cat-casernement">
+
+            <summary>
+
+                <span class="category-number">07</span>
+
+                <span class="category-title">
+                    <strong>CASERNEMENT</strong>
+                    <small>Ressources du centre</small>
+                </span>
+
+                <span class="category-arrow">+</span>
+
+            </summary>
+
+
+            <div class="inventory-inner">
+
+                <div class="inventory-links-grid">
+
+                    <a href="#" data-link="reserve_inc">
+                        RESERVE INC ↗
+                    </a>
+
+                    <a href="#" data-link="pharmacie_asu">
+                        PHARMACIE ASU ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </details>
+
+
+        <!-- RESULTATS -->
+        <a href="#" data-link="resultats_inventaires"
+           class="results-card">
+
+            <div class="results-icon">
+                ✓
+            </div>
+
+            <div>
+                <span>CONSULTATION</span>
+                <strong>Résultats inventaires</strong>
+                <p>
+                    Accéder aux résultats des inventaires.
+                </p>
+            </div>
+
+            <b>↗</b>
+
+        </a>
+
+    </section>
+
+
+    <!-- =====================================================
+         ENTRETIENS
+         ===================================================== -->
+    <section id="entretiens" class="view">
+
+        <div class="page-heading">
+
+            <span class="section-kicker">
+                MAINTENANCE
             </span>
 
-            <div>
-              <strong>VSAV 3</strong>
-              <small>Inventaire de l'équipage</small>
-            </div>
+            <h2>Entretiens</h2>
 
-          </div>
+            <p>
+                Accès aux formulaires et suivis d'entretien.
+            </p>
+
+        </div>
 
 
-          <div class="vsav-role-grid">
+        <div class="service-grid">
 
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav3_chef"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">★</span>
-              <span>Chef d'agrès</span>
-              <span class="role-arrow">↗</span>
-
+            <a href="#" data-link="entretien_vsav" class="service-card">
+                <span>01</span>
+                <h3>VSAV</h3>
+                <p>Entretiens et contrôles VSAV.</p>
+                <b>↗</b>
             </a>
 
-
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav3_conducteur"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">🚒</span>
-              <span>Conducteur</span>
-              <span class="role-arrow">↗</span>
-
+            <a href="#" data-link="entretien_incendie" class="service-card">
+                <span>02</span>
+                <h3>INCENDIE</h3>
+                <p>Entretiens des engins incendie.</p>
+                <b>↗</b>
             </a>
 
-
-            <a
-              class="vsav-role-link"
-              href="#"
-              data-link="vsav3_equipier"
-              target="_blank"
-              rel="noopener">
-
-              <span class="role-icon" aria-hidden="true">🎒</span>
-              <span>Équipier</span>
-              <span class="role-arrow">↗</span>
-
+            <a href="#" data-link="entretien_div" class="service-card">
+                <span>03</span>
+                <h3>DIV</h3>
+                <p>Entretiens des véhicules DIV.</p>
+                <b>↗</b>
             </a>
 
-          </div>
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DOCUMENTS
+         ===================================================== -->
+    <section id="documents" class="view">
+
+        <div class="page-heading">
+
+            <span class="section-kicker">
+                RESSOURCES
+            </span>
+
+            <h2>Documents</h2>
+
+            <p>
+                Documents et ressources utiles au centre.
+            </p>
 
         </div>
 
-      </div>
 
-    </details>
-
-
-    <!-- INCENDIE -->
-
-    <details class="inventory-category cat-incendie">
-
-      <summary>
-        <span class="category-heading">
-          <span class="category-icon">🚒</span>
-          <span>INCENDIE</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link" data-link="fourgon" href="#" target="_blank" rel="noopener">
-          <span class="inventory-item-icon">🚒</span>
-          <span class="inventory-item-label">Fourgon incendie</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link" data-link="echelle" href="#" target="_blank" rel="noopener">
-          <span class="inventory-item-icon">🪜</span>
-          <span class="inventory-item-label">Échelle</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link" data-link="mousse" href="#" target="_blank" rel="noopener">
-          <span class="inventory-item-icon">🧯</span>
-          <span class="inventory-item-label">Mousse</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <!-- DIV -->
-
-    <details class="inventory-category cat-div">
-
-      <summary>
-        <span class="category-heading">
-          <span class="category-icon">🛠️</span>
-          <span>DIV</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link" data-link="div1" href="#" target="_blank" rel="noopener">
-          <span class="inventory-item-icon">🛠️</span>
-          <span class="inventory-item-label">Matériel DIV</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <!-- FDF -->
-
-    <details class="inventory-category cat-fdf">
-
-      <summary>
-        <span class="category-heading">
-          <span class="category-icon">🌲</span>
-          <span>FDF</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link" data-link="fdf1" href="#" target="_blank" rel="noopener">
-          <span class="inventory-item-icon">🌲</span>
-          <span class="inventory-item-label">Matériel FDF</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <!-- SPÉCIALITÉS -->
-
-    <details class="inventory-category cat-specialites">
-
-      <summary>
-        <span class="category-heading">
-          <span class="category-icon specialty-category-icon">
-            🧭
-          </span>
-          <span>SPÉCIALITÉS</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link" data-link="specialite1" href="#" target="_blank" rel="noopener">
-          <span class="specialty-mark">🧭</span>
-          <span class="specialty-label">Spécialités</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <!-- STANDARD -->
-
-    <details class="inventory-category cat-standard">
-
-      <summary>
-        <span class="category-heading">
-          <span class="category-icon">📋</span>
-          <span>STANDARD</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link" data-link="standard1" href="#" target="_blank" rel="noopener">
-          <span class="inventory-item-icon">📋</span>
-          <span class="inventory-item-label">Matériel standard</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <!-- CASERNEMENT -->
-
-    <details class="inventory-category cat-casernement">
-
-      <summary>
-        <span class="category-heading">
-          <span class="category-icon">🏠</span>
-          <span>CASERNEMENT</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link" data-link="casernement1" href="#" target="_blank" rel="noopener">
-          <span class="inventory-item-icon">🏠</span>
-          <span class="inventory-item-label">Casernement</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-  </section>
-
-
-  <!-- =========================
-       ENTRETIENS
-  ========================== -->
-
-  <section id="entretiens" class="view">
-
-    <h2>Entretiens</h2>
-
-    <p class="intro">
-      Accès aux formulaires d'entretien et de suivi.
-    </p>
-
-    <div class="grid">
-
-      <a class="link visual-link"
-         data-link="entretien_vsav"
-         href="#"
-         target="_blank"
-         rel="noopener">
-
-        <span class="visual-icon">🚑</span>
-        <span class="visual-label">Entretiens VSAV</span>
-        <span>↗</span>
-
-      </a>
-
-
-      <a class="link visual-link"
-         data-link="entretien_incendie"
-         href="#"
-         target="_blank"
-         rel="noopener">
-
-        <span class="visual-icon">🚒</span>
-        <span class="visual-label">Entretiens incendie</span>
-        <span>↗</span>
-
-      </a>
-
-
-      <a class="link visual-link"
-         data-link="entretien_div"
-         href="#"
-         target="_blank"
-         rel="noopener">
-
-        <span class="visual-icon">🛠️</span>
-        <span class="visual-label">Entretiens DIV</span>
-        <span>↗</span>
-
-      </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       DOCUMENTS
-  ========================== -->
-
-  <section id="documents" class="view">
-
-    <h2>Documents</h2>
-
-    <p class="intro">
-      Documents et dossiers utiles du CIS.
-    </p>
-
-    <div class="grid">
-
-      <a
-        class="card document-card"
-        data-link="notes_service"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <div class="documents-icon-title">
-          <span class="doc-icon">📄</span>
-          <h3>Notes de service</h3>
-        </div>
-
-        <p>
-          Notes et informations de service.
-        </p>
-
-        <span class="document-card-arrow">↗</span>
-
-      </a>
-
-
-      <a
-        class="card document-card"
-        data-link="procedures"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <div class="documents-icon-title">
-          <span class="doc-icon">📕</span>
-          <h3>Procédures opérationnelles</h3>
-        </div>
-
-        <p>
-          Procédures et documents opérationnels.
-        </p>
-
-        <span class="document-card-arrow">↗</span>
-
-      </a>
-
-
-      <a
-        class="card document-card"
-        data-link="documents_ssuap"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <div class="documents-icon-title">
-          <span class="doc-icon">🚑</span>
-          <h3>SSUAP</h3>
-        </div>
-
-        <p>
-          Documents relatifs au SSUAP.
-        </p>
-
-        <span class="document-card-arrow">↗</span>
-
-      </a>
-
-
-      <a
-        class="card document-card"
-        data-link="auto_protection_mensuel"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <div class="documents-icon-title">
-          <span class="doc-icon">🛡️</span>
-          <h3>Auto Protection Mensuel</h3>
-        </div>
-
-        <p>
-          Document mensuel d'auto-protection.
-        </p>
-
-        <span class="document-card-arrow">↗</span>
-
-      </a>
-
-
-      <a
-        class="card document-card"
-        data-link="auto_protection_hebdo"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <div class="documents-icon-title">
-          <span class="doc-icon google-drive-icon">📁</span>
-          <h3>Auto Protection Hebdo</h3>
-        </div>
-
-        <p>
-          Document hebdomadaire d'auto-protection.
-        </p>
-
-        <span class="document-card-arrow">↗</span>
-
-      </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       AMICALE
-  ========================== -->
-
-  <section id="amicale" class="view">
-
-    <h2>Amicale</h2>
-
-    <p class="intro">
-      Sorties, commandes, documents et services de l'Amicale.
-    </p>
-
-
-    <details class="amicale-section theme-0">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">🎉</span>
-          <span>Services</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link visual-link"
-           data-link="amicale_services"
-           href="#"
-           target="_blank"
-           rel="noopener">
-
-          <span class="visual-icon">🔑</span>
-          <span class="visual-label">Location matériel</span>
-          <span>↗</span>
-
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-1">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">🎟️</span>
-          <span>Inscriptions sorties / commandes</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link visual-link"
-           data-link="amicale_enjoy2"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🎉</span>
-          <span class="visual-label">Soirée</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="amicale_ubb2"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🏉</span>
-          <span class="visual-label">Inscriptions matchs</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="regles_ubb"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🔗</span>
-          <span class="visual-label">Rappel des règles d'attribution</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="amicale_padel2"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🎾</span>
-          <span class="visual-label">Tournoi Padel</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="amicale_speedpark2"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🏎️</span>
-          <span class="visual-label">Soirée SpeedPark</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-2">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">💳</span>
-          <span>Trésorerie</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link visual-link"
-           data-link="sumup"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">💳</span>
-          <span class="visual-label">Lien pour payer une prestation</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="remboursement"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">💶</span>
-          <span class="visual-label">Demande d'indemnisation / remboursement</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="prestations"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">📊</span>
-          <span class="visual-label">Tableau prestations</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-3">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">🔑</span>
-          <span>Location</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link visual-link"
-           data-link="location_materiel"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🔑</span>
-          <span class="visual-label">Demande de location du matériel</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="location_jolt"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🔑</span>
-          <span class="visual-label">Demande de location matériel</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="location_salles"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🔑</span>
-          <span class="visual-label">Location salle des fêtes</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-4">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">📄</span>
-          <span>Documents cadres</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link visual-link"
-           data-link="statuts"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">📄</span>
-          <span class="visual-label">Statuts de l'Amicale</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="reglement_interieur"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">📄</span>
-          <span class="visual-label">Règlement intérieur</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="regles_amicale"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🔗</span>
-          <span class="visual-label">Règles pour être amicaliste</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="tableau_prestations"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">📊</span>
-          <span class="visual-label">Tableau prestations Amicale</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="doc_partenaires"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🤝</span>
-          <span class="visual-label">Compte-rendu / documents partenaires</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-5">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">👥</span>
-          <span>Adhérents</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link visual-link"
-           data-link="adhesion"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">👥</span>
-          <span class="visual-label">Demande adhésion</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="compobureau"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">👥</span>
-          <span class="visual-label">Composition bureau</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-0">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">🗓️</span>
-          <span>Calendriers</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link visual-link"
-           data-link="mymaps"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🗓️</span>
-          <span class="visual-label">Secteurs calendriers</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="reglement_cal"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🗓️</span>
-          <span class="visual-label">Règlements distribution calendriers</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="fiche_retour"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">📄</span>
-          <span class="visual-label">Fiche retour collecte</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="fiche_taches"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">📄</span>
-          <span class="visual-label">Fiche de tâches distributeur</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="fiche_sumup"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">💳</span>
-          <span class="visual-label">Utilisation appli SumUp</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-1">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">🎉</span>
-          <span>Bal</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <div class="card">
-          <b>Bal annuel</b>
-          <p>Informations à venir.</p>
-        </div>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-2">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">☎️</span>
-          <span>Contact</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <div class="card">
-          <b>Amicale</b>
-          <p>Coordonnées à compléter.</p>
-        </div>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-3">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">🤝</span>
-          <span>Partenariat</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <a class="link visual-link"
-           data-link="doc_partenaires2"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🗓️</span>
-          <span class="visual-label">Affiche recherche partenaires</span>
-          <span>↗</span>
-        </a>
-
-        <a class="link visual-link"
-           data-link="form_partenariat"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          <span class="visual-icon">🗓️</span>
-          <span class="visual-label">Formulaire contact partenariat</span>
-          <span>↗</span>
-        </a>
-
-      </div>
-
-    </details>
-
-
-    <details class="amicale-section theme-4">
-
-      <summary>
-        <span class="amicale-heading">
-          <span class="amicale-icon">🗂️</span>
-          <span>Bureau</span>
-        </span>
-      </summary>
-
-      <div class="inner">
-
-        <div class="card">
-
-          <a
-            class="link visual-link"
-            data-link="ref_formation2"
-            href="#"
-            target="_blank"
-            rel="noopener">
-
-            <span class="visual-icon">🎓</span>
-            <span class="visual-label">Référentiel formation</span>
-            <span>↗</span>
-
-          </a>
-
-        </div>
-
-      </div>
-
-    </details>
-
-
-    <a
-      class="amicale-section amicale-direct theme-5"
-      data-link="sumup_mess"
-      href="#"
-      target="_blank"
-      rel="noopener">
-
-      <span class="amicale-heading">
-        <span class="amicale-icon">💳</span>
-        <span>SumUp — recharger la carte</span>
-      </span>
-
-      <span class="direct-arrow" aria-hidden="true">
-        ↗
-      </span>
-
-    </a>
-
-  </section>
-
-
-  <!-- =========================
-       RACCOURCIS
-  ========================== -->
-
-  <section id="raccourcis" class="view">
-
-    <h2>Raccourcis</h2>
-
-    <p class="intro">
-      Accès directs aux services utilisés au CIS.
-    </p>
-
-    <div class="grid">
-
-      <a
-        class="link visual-link"
-        data-link="agatt"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <span class="visual-icon">🗓️</span>
-        <span class="visual-label">AGATT</span>
-        <span>↗</span>
-
-      </a>
-
-
-      <a
-        class="link visual-link"
-        data-link="zimbra"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <span class="visual-icon">✉️</span>
-        <span class="visual-label">ZIMBRA</span>
-        <span>↗</span>
-
-      </a>
-
-
-      <a
-        class="link visual-link"
-        data-link="gipsi"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <span class="visual-icon">🗂️</span>
-        <span class="visual-label">GIPSI</span>
-        <span>↗</span>
-
-      </a>
-
-
-      <a
-        class="link visual-link"
-        data-link="enasis"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <span class="visual-icon">🎓</span>
-        <span class="visual-label">ENASIS</span>
-        <span>↗</span>
-
-      </a>
-
-
-      <a
-        class="link visual-link"
-        data-link="udsp"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <span class="visual-icon">🚒</span>
-        <span class="visual-label">UDSP</span>
-        <span>↗</span>
-
-      </a>
-
-
-      <a
-        class="link visual-link"
-        data-link="cos"
-        href="#"
-        target="_blank"
-        rel="noopener">
-
-        <span class="visual-icon">👥</span>
-        <span class="visual-label">COS</span>
-        <span>↗</span>
-
-      </a>
-
-    </div>
-
-  </section>
-
-</main>
-
-
-<footer>
-  CIS VILLENAVE · Portail interne
-</footer>
-
-
-<script src="script.js"></script>
-
-</body>
-</html>
+        <div class="service-grid">
+
+            <a href="#" data-link="notes_service" class="service-card">
+                <span>01</span>
+                <h3>Notes de service</h3>
+                <p>Consulter les notes de service.</p>
+                <b>↗</b>
+            </a>
+
+            <a href="#" data-link="procedures" class="service-card">
+                <span>02</span>
+                <h3>Procédures</h3>
+                <p>Accéder aux procédures opérationnelles.</p>
+                <b>↗</b>
+            </a>
 
