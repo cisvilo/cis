@@ -44,9 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (mobileToggle) {
-
             mobileToggle.classList.add("active");
-
             mobileToggle.setAttribute(
                 "aria-expanded",
                 "true"
@@ -58,9 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "false"
         );
 
-        document.body.classList.add(
-            "menu-open"
-        );
+        document.body.classList.add("menu-open");
     }
 
 
@@ -75,10 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (mobileToggle) {
-
-            mobileToggle.classList.remove(
-                "active"
-            );
+            mobileToggle.classList.remove("active");
 
             mobileToggle.setAttribute(
                 "aria-expanded",
@@ -91,9 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "true"
         );
 
-        document.body.classList.remove(
-            "menu-open"
-        );
+        document.body.classList.remove("menu-open");
     }
 
 
@@ -145,8 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        NAVIGATION
-       Une seule rubrique visible.
-       Pas de smooth scroll.
+       UNE SEULE RUBRIQUE VISIBLE
+       PAS DE SMOOTH SCROLL
     ===================================================== */
 
     const views =
@@ -156,13 +147,18 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".main-nav a");
 
 
-    function showView(targetId, updateHash = true) {
+    function showView(
+        targetId,
+        updateHash = true
+    ) {
 
         if (!targetId) return;
 
         const cleanId =
             targetId.replace("#", "");
 
+
+        /* ACCUEIL */
 
         if (cleanId === "accueil") {
 
@@ -174,16 +170,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 "home-view"
             );
 
+
             views.forEach(view => {
+
                 view.classList.remove("active");
+
             });
 
-        } else {
+        }
+
+
+        /* RUBRIQUE */
+
+        else {
 
             const target =
                 document.getElementById(cleanId);
 
             if (!target) return;
+
 
             document.body.classList.remove(
                 "home-view"
@@ -192,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add(
                 "category-view"
             );
+
 
             views.forEach(view => {
 
@@ -204,6 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
+        /* MENU ACTIF */
 
         mainNavLinks.forEach(link => {
 
@@ -218,6 +226,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
+        /* HASH */
+
         if (updateHash) {
 
             history.pushState(
@@ -229,13 +239,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        window.scrollTo(0, 0);
+        /* REMONTE EN HAUT */
+
+        window.scrollTo(
+            0,
+            0
+        );
     }
 
 
+    /* =====================================================
+       CLICS NAVIGATION
+    ===================================================== */
+
     document
         .querySelectorAll(
-            '.main-nav a[href^="#"], .mobile-nav-link[href^="#"], .quick-card[href^="#"]'
+            '.main-nav a[href^="#"], ' +
+            '.mobile-nav-link[href^="#"], ' +
+            '.quick-card[href^="#"]'
         )
         .forEach(link => {
 
@@ -253,6 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
+
                     const targetId =
                         href.substring(1);
 
@@ -261,7 +283,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             targetId
                         );
 
+
                     if (!target) return;
+
 
                     event.preventDefault();
 
@@ -273,6 +297,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
+    /* =====================================================
+       BOUTON RETOUR NAVIGATEUR
+    ===================================================== */
+
     window.addEventListener(
         "popstate",
         () => {
@@ -282,23 +310,35 @@ document.addEventListener("DOMContentLoaded", () => {
                     ? window.location.hash.substring(1)
                     : "accueil";
 
-            showView(hash, false);
+            showView(
+                hash,
+                false
+            );
 
         }
     );
 
+
+    /* =====================================================
+       VUE INITIALE
+    ===================================================== */
 
     const initialHash =
         window.location.hash
             ? window.location.hash.substring(1)
             : "accueil";
 
-    showView(initialHash, false);
+    showView(
+        initialHash,
+        false
+    );
 
 
     /* =====================================================
        CARTES DÉPLIABLES
-       UNIQUEMENT INVENTAIRES + ENTRETIENS
+       UNIQUEMENT :
+       - INVENTAIRES
+       - ENTRETIENS
     ===================================================== */
 
     const collapsibleCards =
@@ -311,8 +351,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!card) return;
 
+
         const isOpen =
             card.classList.contains("open");
+
 
         card.classList.toggle(
             "open",
@@ -321,7 +363,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const plus =
-            card.querySelector(".inventory-plus");
+            card.querySelector(
+                ".inventory-plus"
+            );
 
 
         if (plus) {
@@ -333,14 +377,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const header =
-            card.querySelector(".inventory-header");
+            card.querySelector(
+                ".inventory-header"
+            );
 
 
         if (header) {
 
             header.setAttribute(
                 "aria-expanded",
-                isOpen ? "false" : "true"
+                isOpen
+                    ? "false"
+                    : "true"
             );
 
         }
@@ -351,7 +399,10 @@ document.addEventListener("DOMContentLoaded", () => {
     collapsibleCards.forEach(card => {
 
         const header =
-            card.querySelector(".inventory-header");
+            card.querySelector(
+                ".inventory-header"
+            );
+
 
         if (!header) return;
 
@@ -360,7 +411,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const plus =
-            header.querySelector(".inventory-plus");
+            header.querySelector(
+                ".inventory-plus"
+            );
 
 
         if (plus) {
@@ -378,6 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ) {
                     return;
                 }
+
 
                 toggleCard(card);
 
@@ -413,7 +467,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const flameContainers =
         document.querySelectorAll(
-            ".home-stage .flames, .portal-stage .flames"
+            ".home-stage .flames, " +
+            ".portal-stage .flames"
         );
 
 
@@ -421,13 +476,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!container) return;
 
+
         container.innerHTML = "";
 
 
         const flameCount = 34;
 
 
-        for (let i = 0; i < flameCount; i++) {
+        for (
+            let i = 0;
+            i < flameCount;
+            i++
+        ) {
 
             const flame =
                 document.createElement("span");
@@ -476,16 +536,20 @@ document.addEventListener("DOMContentLoaded", () => {
             flame.style.opacity =
                 opacity.toFixed(2);
 
+
             flame.style.setProperty(
                 "--flame-duration",
                 `${duration.toFixed(2)}s`
             );
 
+
             flame.style.animationDelay =
                 `${delay.toFixed(2)}s`;
 
 
-            container.appendChild(flame);
+            container.appendChild(
+                flame
+            );
 
         }
 
@@ -499,7 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        LIENS PLACEHOLDER
-       Seulement si un vrai # reste éventuellement.
+       UNIQUEMENT SI UN # EXISTE
     ===================================================== */
 
     const toast =
@@ -516,9 +580,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     event.preventDefault();
 
+
                     if (!toast) return;
 
-                    toast.classList.add("show");
+
+                    toast.classList.add(
+                        "show"
+                    );
 
 
                     clearTimeout(
@@ -546,13 +614,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        LIENS EXTERNES
-       Empêche l'ouverture de la carte
-       dépliable par propagation.
+       EMPÊCHE L'OUVERTURE D'UNE CARTE
+       DÉPLIABLE PAR PROPAGATION
     ===================================================== */
 
     document
         .querySelectorAll(
-            ".vehicle-card, .maintenance-card, .large-button"
+            ".vehicle-card, " +
+            ".maintenance-card, " +
+            ".large-button"
         )
         .forEach(link => {
 
