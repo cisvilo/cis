@@ -2,1445 +2,2125 @@
 <html lang="fr">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>CIS VILLENAVE — Portail opérationnel</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-    <link rel="stylesheet" href="cis.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="cis.css"
+    >
+
 </head>
+
 
 <body>
 
-<!-- =========================================================
+
+<!-- =====================================================
      HEADER
-========================================================= -->
+===================================================== -->
 
 <header class="site-header">
 
-    <a href="#accueil" class="brand">
-        <img src="logo1.png" alt="CIS Villenave">
-        <div>
-            <span>CENTRE D'INCENDIE ET DE SECOURS</span>
-            <strong>VILLENAVE</strong>
-        </div>
-    </a>
+    <div class="header-inner">
 
-    <nav class="main-nav">
-        <a href="#accueil">ACCUEIL</a>
-        <a href="#inventaires">INVENTAIRES</a>
-        <a href="#entretiens">ENTRETIENS</a>
-        <a href="#documents">DOCUMENTS</a>
-        <a href="#amicale">AMICALE</a>
-        <a href="#raccourcis">RACCOURCIS</a>
-    </nav>
+        <a
+            href="#accueil"
+            class="brand"
+            data-view="accueil"
+        >
 
-</header>
+            <img
+                src="logo1.png"
+                alt="CIS Villenave"
+            >
+
+            <span class="brand-text">
+
+                <strong>
+                    CENTRE D'INCENDIE ET DE SECOURS
+                </strong>
+
+                <span>
+                    VILLENAVE-D'ORNON
+                </span>
+
+            </span>
+
+        </a>
 
 
-<!-- =========================================================
-     MOBILE MENU
-========================================================= -->
+        <nav class="main-nav">
 
-<button
-    class="mobile-menu-toggle"
-    id="mobile-menu-toggle"
-    type="button"
-    aria-label="Ouvrir le menu"
-    aria-controls="mobile-menu"
-    aria-expanded="false"
->
-    <span></span>
-    <span></span>
-    <span></span>
-</button>
+            <a
+                href="#accueil"
+                data-view="accueil"
+                class="active"
+            >
+                ACCUEIL
+            </a>
 
-<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+            <a
+                href="#inventaires"
+                data-view="inventaires"
+            >
+                INVENTAIRES
+            </a>
 
-<aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+            <a
+                href="#entretiens"
+                data-view="entretiens"
+            >
+                ENTRETIENS
+            </a>
 
-    <div class="mobile-menu-header">
+            <a
+                href="#documents"
+                data-view="documents"
+            >
+                DOCUMENTS
+            </a>
 
-        <div>
-            <span class="mobile-menu-kicker">CIS VILLENAVE</span>
-            <strong>MENU</strong>
-        </div>
+            <a
+                href="#amicale"
+                data-view="amicale"
+            >
+                AMICALE
+            </a>
+
+            <a
+                href="#raccourcis"
+                data-view="raccourcis"
+            >
+                RACCOURCIS
+            </a>
+
+        </nav>
+
 
         <button
-            class="mobile-menu-close"
-            id="mobile-menu-close"
+            id="mobile-menu-toggle"
+            class="mobile-menu-toggle"
             type="button"
-            aria-label="Fermer le menu"
+            aria-expanded="false"
+            aria-label="Ouvrir le menu"
         >
-            ×
+
+            <span></span>
+            <span></span>
+            <span></span>
+
         </button>
 
     </div>
 
+</header>
+
+
+<!-- =====================================================
+     MENU MOBILE
+===================================================== -->
+
+<div
+    id="mobile-menu-overlay"
+    class="mobile-menu-overlay"
+></div>
+
+
+<aside
+    id="mobile-menu"
+    class="mobile-menu"
+    aria-hidden="true"
+>
+
+    <button
+        id="mobile-menu-close"
+        class="mobile-menu-close"
+        type="button"
+        aria-label="Fermer"
+    >
+        ×
+    </button>
+
+
     <nav class="mobile-nav">
 
-        <a href="#accueil" class="mobile-nav-link">
-            <span>01</span>
-            <div>
-                <strong>ACCUEIL</strong>
-                <small>Page principale</small>
-            </div>
-            <b>↗</b>
+        <a
+            href="#accueil"
+            class="mobile-nav-link"
+            data-view="accueil"
+        >
+            ACCUEIL
         </a>
 
-        <a href="#inventaires" class="mobile-nav-link">
-            <span>02</span>
-            <div>
-                <strong>INVENTAIRES</strong>
-                <small>Véhicules et matériels</small>
-            </div>
-            <b>↗</b>
+        <a
+            href="#inventaires"
+            class="mobile-nav-link"
+            data-view="inventaires"
+        >
+            INVENTAIRES
         </a>
 
-        <a href="#entretiens" class="mobile-nav-link">
-            <span>03</span>
-            <div>
-                <strong>ENTRETIENS</strong>
-                <small>Suivi des équipements</small>
-            </div>
-            <b>↗</b>
+        <a
+            href="#entretiens"
+            class="mobile-nav-link"
+            data-view="entretiens"
+        >
+            ENTRETIENS
         </a>
 
-        <a href="#documents" class="mobile-nav-link">
-            <span>04</span>
-            <div>
-                <strong>DOCUMENTS</strong>
-                <small>Documents et formulaires</small>
-            </div>
-            <b>↗</b>
+        <a
+            href="#documents"
+            class="mobile-nav-link"
+            data-view="documents"
+        >
+            DOCUMENTS
         </a>
 
-        <a href="#amicale" class="mobile-nav-link">
-            <span>05</span>
-            <div>
-                <strong>AMICALE</strong>
-                <small>Vie du CIS</small>
-            </div>
-            <b>↗</b>
+        <a
+            href="#amicale"
+            class="mobile-nav-link"
+            data-view="amicale"
+        >
+            AMICALE
         </a>
 
-        <a href="#raccourcis" class="mobile-nav-link">
-            <span>06</span>
-            <div>
-                <strong>RACCOURCIS</strong>
-                <small>Accès rapides</small>
-            </div>
-            <b>↗</b>
+        <a
+            href="#raccourcis"
+            class="mobile-nav-link"
+            data-view="raccourcis"
+        >
+            RACCOURCIS
         </a>
 
     </nav>
 
-    <div class="mobile-menu-footer">
-        PORTAIL OPÉRATIONNEL
-    </div>
-
 </aside>
 
 
-<main>
+<!-- =====================================================
+     ZONE PORTAIL
+===================================================== -->
 
-<!-- =========================================================
-     ACCUEIL / HERO
-========================================================= -->
-
-<section id="accueil" class="hero">
-
-    <div class="hero-photo">
-
-        <img src="photo.png" alt="CIS Villenave">
-
-        <div class="hero-overlay"></div>
-
-        <!-- Flammes en arrière-plan -->
-        <div class="flames" aria-hidden="true"></div>
-
-    </div>
-
-</section>
+<main id="portal">
 
 
-<!-- =========================================================
-     ACCÈS RAPIDE
-========================================================= -->
+    <!-- =================================================
+         VUE ACCUEIL
+    ================================================= -->
 
-<section class="intro-section">
-
-    <div class="section-heading reveal">
-
-        <span class="section-kicker">
-            ESPACE INTERNE
-        </span>
-
-        <h2>Accès opérationnel</h2>
-
-    </div>
+    <section
+        id="view-accueil"
+        class="page-view active"
+        data-page="accueil"
+        style="padding:0;width:100%;"
+    >
 
 
-    <div class="quick-grid quick-grid-five">
+        <!-- HERO -->
 
-        <a href="#inventaires" class="quick-card premium-card reveal">
-            <span class="card-number">01</span>
+        <section
+            id="accueil"
+            class="hero"
+        >
 
-            <div>
-                <span class="card-kicker">VÉHICULES</span>
-                <h3>Inventaires</h3>
-                <p>Accéder aux inventaires opérationnels.</p>
+            <div class="hero-photo">
+
+                <img
+                    src="photo.png"
+                    alt="Centre d'incendie et de secours de Villenave-d'Ornon"
+                >
+
+                <div class="hero-overlay"></div>
+
             </div>
 
-            <span class="card-arrow">↗</span>
-        </a>
+        </section>
 
 
-        <a href="#entretiens" class="quick-card premium-card reveal">
-            <span class="card-number">02</span>
+        <!-- CONTENU ACCUEIL -->
+
+        <div class="portal-stage">
+
+            <div
+                class="flames"
+                aria-hidden="true"
+            ></div>
+
+
+            <section class="intro-section">
+
+                <span class="section-kicker">
+                    PORTAIL OPÉRATIONNEL
+                </span>
+
+                <h1 class="section-title">
+                    CIS VILLENAVE
+                </h1>
+
+                <p class="section-description">
+                    Accès rapide aux inventaires, entretiens,
+                    documents opérationnels, ressources de
+                    l'amicale et outils du centre.
+                </p>
+
+
+                <div class="quick-grid">
+
+
+                    <div
+                        class="quick-card"
+                        data-view="inventaires"
+                        role="button"
+                        tabindex="0"
+                    >
+
+                        <span class="quick-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Inventaires
+                        </h3>
+
+                        <p>
+                            Suivi du matériel et des engins.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="quick-card"
+                        data-view="entretiens"
+                        role="button"
+                        tabindex="0"
+                    >
+
+                        <span class="quick-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Entretiens
+                        </h3>
+
+                        <p>
+                            Contrôles et maintenance des véhicules.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="quick-card"
+                        data-view="documents"
+                        role="button"
+                        tabindex="0"
+                    >
+
+                        <span class="quick-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Documents
+                        </h3>
+
+                        <p>
+                            Procédures et ressources opérationnelles.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="quick-card"
+                        data-view="amicale"
+                        role="button"
+                        tabindex="0"
+                    >
+
+                        <span class="quick-number">
+                            04
+                        </span>
+
+                        <h3>
+                            Amicale
+                        </h3>
+
+                        <p>
+                            Informations et services de l'amicale.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="quick-card"
+                        data-view="raccourcis"
+                        role="button"
+                        tabindex="0"
+                    >
+
+                        <span class="quick-number">
+                            05
+                        </span>
+
+                        <h3>
+                            Raccourcis
+                        </h3>
+
+                        <p>
+                            Accès direct aux outils du SDIS.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         VUE INVENTAIRES
+    ================================================= -->
+
+    <section
+        id="view-inventaires"
+        class="page-view"
+        data-page="inventaires"
+    >
+
+        <div class="view-top">
 
             <div>
-                <span class="card-kicker">SUIVI</span>
-                <h3>Entretiens</h3>
-                <p>Accéder aux suivis et contrôles.</p>
+
+                <span class="section-kicker">
+                    INVENTAIRES
+                </span>
+
+                <h2 class="section-title">
+                    ENGINS & MATÉRIELS
+                </h2>
+
             </div>
 
-            <span class="card-arrow">↗</span>
-        </a>
+            <button
+                class="view-home-button"
+                data-view="accueil"
+                type="button"
+            >
+                RETOUR À L'ACCUEIL
+            </button>
 
+        </div>
 
-        <a href="#documents" class="quick-card premium-card reveal">
-            <span class="card-number">03</span>
-
-            <div>
-                <span class="card-kicker">RESSOURCES</span>
-                <h3>Documents</h3>
-                <p>Retrouver les documents utiles.</p>
-            </div>
-
-            <span class="card-arrow">↗</span>
-        </a>
-
-
-        <a href="#amicale" class="quick-card premium-card reveal">
-            <span class="card-number">04</span>
-
-            <div>
-                <span class="card-kicker">VIE DU CIS</span>
-                <h3>Amicale</h3>
-                <p>Sorties, commandes et informations.</p>
-            </div>
-
-            <span class="card-arrow">↗</span>
-        </a>
-
-
-        <a href="#raccourcis" class="quick-card premium-card reveal">
-            <span class="card-number">05</span>
-
-            <div>
-                <span class="card-kicker">ACCÈS RAPIDE</span>
-                <h3>Raccourcis</h3>
-                <p>Les outils utilisés au quotidien.</p>
-            </div>
-
-            <span class="card-arrow">↗</span>
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     INVENTAIRES
-========================================================= -->
-
-<section id="inventaires" class="content-section">
-
-    <div class="section-heading reveal">
-
-        <span class="section-kicker">
-            01 / OPÉRATIONNEL
-        </span>
-
-        <h2>Inventaires</h2>
-
-        <p>
-            Accès aux inventaires des véhicules et équipements du CIS.
-        </p>
-
-    </div>
-
-
-    <div class="inventory-grid">
 
         <!-- SSUAP -->
 
-        <article class="inventory-card premium-card reveal" data-collapsible>
+        <div class="category-title">
+            <h3>SSUAP</h3>
+        </div>
 
-            <div class="inventory-header">
-
-                <div>
-                    <span class="inventory-code">01</span>
-                    <h3>SSUAP</h3>
-                    <p>Secours et soins d'urgence aux personnes</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-
-            </div>
+        <div class="inventory-grid">
 
 
-            <div class="inventory-content">
+            <article
+                class="inventory-card"
+                data-collapsible
+            >
 
-                <div class="vehicle-grid">
+                <div class="inventory-header">
 
-                    <div class="vehicle-card">
-
-                        <div>
-                            <span>VSAV 01</span>
-                            <small>Navette Cestas</small>
-                        </div>
-
-                        <div class="vehicle-buttons">
-
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSfL36QKhU4DK_iWfPn4x19gmU9dLKnTLWVugFOpg3ryMzXapg/viewform?ouid=105918993275116743934&usp=sharing">
-                                Chef d’agrès ↗
-                            </a>
-
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSfN9bmArWPwC8NEfdnblLJE0y_ZaOb0yOlnw8BgW_F55drkiQ/viewform?ouid=105918993275116743934&usp=sharing">
-                                Conducteur ↗
-                            </a>
-
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSebAsFhD7KUh9XLMHKAeTNGjriSt-GvxNeqYLgoTC3nS7K8uA/viewform?ouid=105918993275116743934&usp=sharing">
-                                Équipier ↗
-                            </a>
-
-                        </div>
-
+                    <div>
+                        <h3>VSAV 01</h3>
+                        <small>Inventaire opérationnel</small>
                     </div>
 
+                    <span class="inventory-plus">+</span>
 
-                    <div class="vehicle-card">
+                </div>
 
-                        <div>
-                            <span>VSAV 02</span>
-                        </div>
 
-                        <div class="vehicle-buttons">
+                <div class="inventory-body">
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSe1eA0Huf_T1sYWfYJLW9qUiCo8_IYR5ksxcDNwUbu9nNtDWg/viewform?ouid=105918993275116743934&usp=sharing">
-                                Chef d’agrès ↗
-                            </a>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfL36QleQ9V0Q7wT3o6JvVQ9P6FQ4f7H9W8M7A6B5C4D3E2F1/viewform"
+                    >
+                        CHEF D'AGRÈS
+                    </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSeNDvuMxyEKKqKmP8QXnKiAqz2-etivAUsY8djY-1vpnywdUg/viewform?ouid=105918993275116743934&usp=sharing">
-                                Conducteur ↗
-                            </a>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfL36QleQ9V0Q7wT3o6JvVQ9P6FQ4f7H9W8M7A6B5C4D3E2F1/viewform"
+                    >
+                        CONDUCTEUR
+                    </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSez3wjIVUbJyvEF3fLr3ypWshs6PR-rdwWS8wSdeNRq307w3w/viewform?ouid=105918993275116743934&usp=sharing">
-                                Équipier ↗
-                            </a>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfL36QleQ9V0Q7wT3o6JvVQ9P6FQ4f7H9W8M7A6B5C4D3E2F1/viewform"
+                    >
+                        ÉQUIPIER
+                    </a>
 
-                        </div>
+                </div>
 
+            </article>
+
+
+            <article
+                class="inventory-card"
+                data-collapsible
+            >
+
+                <div class="inventory-header">
+
+                    <div>
+                        <h3>VSAV 02</h3>
+                        <small>Inventaire opérationnel</small>
                     </div>
 
+                    <span class="inventory-plus">+</span>
 
-                    <div class="vehicle-card">
+                </div>
 
-                        <div>
-                            <span>VSAV 03</span>
-                        </div>
+                <div class="inventory-body">
 
-                        <div class="vehicle-buttons">
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="#"
+                    >
+                        CHEF D'AGRÈS
+                    </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLScgbGPy4RV--YguFozawOFSlJ7zzAFMduGsnY6KHvA_nMTxsw/viewform?ouid=105918993275116743934&usp=sharing">
-                                Chef d’agrès ↗
-                            </a>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="#"
+                    >
+                        CONDUCTEUR
+                    </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSe3hYxzlyHCIg_xiC_oHxIFeVI5MkSlTYq70egr3Y94Ct8h9w/viewform?ouid=105918993275116743934&usp=sharing">
-                                Conducteur ↗
-                            </a>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="#"
+                    >
+                        ÉQUIPIER
+                    </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSdRylJ0WaeCGLISlIBWq0tO3GZoghE-7KpfD2e5SPOXARe_pA/viewform?ouid=105918993275116743934&usp=sharing">
-                                Équipier ↗
-                            </a>
+                </div>
 
-                        </div>
+            </article>
 
+
+            <article
+                class="inventory-card"
+                data-collapsible
+            >
+
+                <div class="inventory-header">
+
+                    <div>
+                        <h3>VSAV 03</h3>
+                        <small>Inventaire opérationnel</small>
                     </div>
 
+                    <span class="inventory-plus">+</span>
 
-                    <div class="vehicle-card">
+                </div>
 
-                        <div>
-                            <span>ASU</span>
-                        </div>
+                <div class="inventory-body">
 
-                        <div class="vehicle-buttons asu-buttons">
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="#"
+                    >
+                        CHEF D'AGRÈS
+                    </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSe7PR0zvF8s1S_6WXaZ1bjyqoSbXXyRkYZxFiTqp1Z2TjZkoA/viewform?ouid=109470243720371980618&usp=sharing">
-                                PDG ASU ↗
-                            </a>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="#"
+                    >
+                        CONDUCTEUR
+                    </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLScziBdaxCw204Pgq3e08IISIgJmAzAKsDHjrKkI0FuoFDjxeg/viewform?ouid=109470243720371980618&usp=sharing">
-                                Utilisation ↗
-                            </a>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="#"
+                    >
+                        ÉQUIPIER
+                    </a>
 
-                        </div>
+                </div>
 
+            </article>
+
+
+            <article
+                class="inventory-card"
+                data-collapsible
+            >
+
+                <div class="inventory-header">
+
+                    <div>
+                        <h3>ASU</h3>
+                        <small>Inventaire spécifique</small>
                     </div>
 
+                    <span class="inventory-plus">+</span>
+
                 </div>
 
-            </div>
+                <div class="inventory-body">
 
-        </article>
-
-
-        <!-- INCENDIE -->
-
-        <article class="inventory-card premium-card reveal" data-collapsible>
-
-            <div class="inventory-header">
-                <div>
-                    <span class="inventory-code">02</span>
-                    <h3>INCENDIE</h3>
-                    <p>Engins incendie</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-            </div>
-
-            <div class="inventory-content">
-
-                <div class="vehicle-grid">
-
-                    <a href="#" class="vehicle-card">
-                        <span>FPT 01</span>
-                        <small>Fourgon pompe tonne</small>
-                        <span class="vehicle-arrow">↗</span>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="#"
+                    >
+                        ASU — PDG
                     </a>
 
-                    <a href="#" class="vehicle-card">
-                        <span>FPTGP 02</span>
-                        <small>FPT grande puissance</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>ECH</span>
-                        <small>Échelle</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>FMOGP</span>
-                        <small>Feux majeurs</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>VL CDGG</span>
-                        <small>Véhicule léger</small>
-                        <span class="vehicle-arrow">↗</span>
+                    <a
+                        class="inventory-button"
+                        target="_blank"
+                        href="#"
+                    >
+                        ASU — UTILISATION
                     </a>
 
                 </div>
 
-            </div>
+            </article>
 
-        </article>
-
-
-        <!-- DIV -->
-
-        <article class="inventory-card premium-card reveal" data-collapsible>
-
-            <div class="inventory-header">
-                <div>
-                    <span class="inventory-code">03</span>
-                    <h3>DIV</h3>
-                    <p>Divers</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-            </div>
-
-            <div class="inventory-content">
-
-                <div class="vehicle-grid">
-
-                    <a href="#" class="vehicle-card">
-                        <span>VTU 01</span>
-                        <small>Véhicule tout usage</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>VTU 02</span>
-                        <small>Véhicule tout usage</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>VSR M</span>
-                        <small>Secours routier</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- FDF -->
-
-        <article class="inventory-card premium-card reveal" data-collapsible>
-
-            <div class="inventory-header">
-                <div>
-                    <span class="inventory-code">04</span>
-                    <h3>FDF</h3>
-                    <p>Feux de forêt</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-            </div>
-
-            <div class="inventory-content">
-
-                <div class="vehicle-grid">
-
-                    <a href="#" class="vehicle-card">
-                        <span>CCF 01</span>
-                        <small>Camion citerne feux</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>CCF 02</span>
-                        <small>Camion citerne feux</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>VLHR</span>
-                        <small>Véhicule léger hors route</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>AMSEC</span>
-                        <small>Appui spécialisé</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- SPÉCIALITÉS -->
-
-        <article class="inventory-card premium-card reveal" data-collapsible>
-
-            <div class="inventory-header">
-                <div>
-                    <span class="inventory-code">05</span>
-                    <h3>SPÉCIALITÉS</h3>
-                    <p>Ressources spécialisées</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-            </div>
-
-            <div class="inventory-content">
-
-                <div class="vehicle-grid">
-
-                    <a href="#" class="vehicle-card">
-                        <span>ELD</span>
-                        <small>Équipe spécialisée</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>DRONE</span>
-                        <small>Drone opérationnel</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- STANDARD -->
-
-        <article class="inventory-card premium-card reveal" data-collapsible>
-
-            <div class="inventory-header">
-                <div>
-                    <span class="inventory-code">06</span>
-                    <h3>STANDARD</h3>
-                    <p>Équipements standards</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-            </div>
-
-            <div class="inventory-content">
-
-                <div class="vehicle-grid">
-
-                    <a href="#" class="vehicle-card">
-                        <span>STAS</span>
-                        <small>Équipement standard</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>SAC PS STAS</span>
-                        <small>Matériel standard</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- CASERNEMENT -->
-
-        <article class="inventory-card premium-card reveal" data-collapsible>
-
-            <div class="inventory-header">
-                <div>
-                    <span class="inventory-code">07</span>
-                    <h3>CASERNEMENT</h3>
-                    <p>Ressources du centre</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-            </div>
-
-            <div class="inventory-content">
-
-                <div class="vehicle-grid">
-
-                    <a href="#" class="vehicle-card">
-                        <span>RÉSERVE INC</span>
-                        <small>Réserve incendie</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                    <a href="#" class="vehicle-card">
-                        <span>PHARMACIE ASU</span>
-                        <small>Pharmacie</small>
-                        <span class="vehicle-arrow">↗</span>
-                    </a>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <a href="#" class="result-card premium-card reveal">
-
-            <div>
-                <span class="section-kicker">BILAN</span>
-                <h3>RÉSULTATS INVENTAIRES</h3>
-                <p>Consulter les résultats des inventaires.</p>
-            </div>
-
-            <span class="result-arrow">↗</span>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     ENTRETIENS
-========================================================= -->
-
-<section id="entretiens" class="content-section">
-
-    <div class="section-heading reveal">
-
-        <span class="section-kicker">02 / SUIVI</span>
-
-        <h2>Entretiens</h2>
-
-        <p>
-            Accès direct aux formulaires de suivi et d'entretien des véhicules.
-        </p>
-
-    </div>
-
-
-    <article class="inventory-card premium-card reveal entretien-card" data-collapsible>
-
-        <div class="inventory-header">
-
-            <div>
-                <span class="inventory-code">01</span>
-
-                <h3>ENTRETIENS VÉHICULES</h3>
-
-                <p>
-                    Contrôles et entretiens des véhicules du CIS.
-                </p>
-            </div>
-
-            <span class="inventory-plus">+</span>
 
         </div>
 
 
-        <div class="inventory-content">
+        <!-- TYPES DE VÉHICULES -->
 
-            <div class="maintenance-grid">
+        <div class="category-title">
+            <h3>Types d'engins</h3>
+        </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSfZQSjmudmFNhIiM9rMcCZNVQ7Q8170Wa6AyoV86-jAAZXQWA/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚒</span>
+
+        <div class="vehicle-grid">
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Fourgon%20Pompe%20Tonne%20L%C3%A9ger%20%28FPTL%29.jpg"
+                    alt="Fourgon Pompe Tonne"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>FPT 01</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Fourgon Pompe Tonne</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSeZ56XeTt0LrIe5a1a1I8CDqd3iHFU_e8G60ZZb0dUefL2UrA/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚒</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Fourgon%20Pompe%20Tonne%20L%C3%A9ger%20%28FPTL%29.jpg"
+                    alt="FPTGP"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>FPTGP 02</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Fourgon Pompe Tonne Grande Puissance</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSdp7xykQc6NyZiupN6Z4C1GCCv_UgkQ7hZozlaYLhW-iRQ6ZQ/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚒</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.usfirepolice.net/france_75/france_75_bspp_1_10_2_epan_505_%282%29-1.jpg"
+                    alt="Échelle pompier"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>ECH</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Échelle</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSexPEtpJJaCjY6opzUm7rM04LYddi6be8BpXhpt57niuaqklQ/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚑</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.usfirepolice.net/france_75/france_75_bspp_3_4_1_vsav_164-1.jpg"
+                    alt="VSAV"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VSAV 1</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Secours et assistance aux victimes</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSfK6T-RljeWJKpeQKXlDfJQp76ILd6vx72KZTq9Pu3ay5Ytkg/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚑</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.usfirepolice.net/france_75/france_75_bspp_3_4_1_vsav_164-1.jpg"
+                    alt="VSAV"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VSAV 2</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Secours et assistance aux victimes</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSd-YqNzMoOnLyfymA_F8GQeqwPyc9fKqQ3icW5pwQhSA2fBaw/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚑</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.usfirepolice.net/france_75/france_75_bspp_3_4_1_vsav_164-1.jpg"
+                    alt="VSAV"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VSAV 3</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Secours et assistance aux victimes</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLScGpf5CnajHpkX1shdvShQ0K1zE42meWOZIpfNiIXZ1F-C3cQ/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🌲</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://up.autotitre.com/d4d2bbcf05.jpg"
+                    alt="CCF"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>CCF 1</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Camion citerne feux de forêt</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSfCB2kfLpJh7Twf0AdOZjXpEPbtZv7S_Yzswycm9HmGlEg2LQ/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🌲</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://up.autotitre.com/d4d2bbcf05.jpg"
+                    alt="CCF"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>CCF 2</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Camion citerne feux de forêt</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSftcEsezcTAlCkSyYK3tQetz5XOV76e3ItEgNiL6ohq9zmSMw/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🌲</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.usfirepolice.net/france_62/france_62_montreuil_sur_mer_vlhr_%287%29-1.jpg"
+                    alt="VLHR"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VLHR</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Véhicule de liaison hors route</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLScrbu5B8utOjph7NM5iGsWJkVdcKeDt9mORvsaqjAx5S-1SVg/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚒</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Fourgon%20Mousse%20Grande%20Puissance%20%28FMOGP%29.jpg"
+                    alt="FMOGP"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>FMOGP</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Fourgon mousse grande puissance</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSc6CeuZIV-1c0EXIFWpWxX2qwSDa9TMi8J0I673H2_xvfYjeA/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🛠️</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/VSR%20Renault%20Midliner%20-%20Bemaex.jpg"
+                    alt="VSR"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VSR M</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Véhicule de secours routier moyen</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSf3HfP82F2Om6bb23rBeJdnOhDa16bOjVRXHDAS_0Wtgxbrnw/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🛠️</span>
-                    <strong>VTU 1 (VIA)</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+            </article>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSdVecrUXja7EYTMccqFexNsJ2op8UDjhzVD889DQG_xLHZCDw/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🛠️</span>
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.radioscoop.com/imgs/717753_952_475.png"
+                    alt="VTU"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
+                    <strong>VTU 1</strong>
+                    <span>Véhicule tout usage</span>
+                </div>
+
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.radioscoop.com/imgs/717753_952_475.png"
+                    alt="VTU"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VTU 2</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Véhicule tout usage</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSeTErRJarDO-FcVdIecawmBva-XAX2xolyWbDlLOqFdmLXGLg/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚑</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A9hicule%20L%C3%A9ger%20Infirmer%20de%20la%20BSPP%20%28VLI%29.jpg"
+                    alt="Véhicule léger santé"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VLS 1</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Véhicule léger de santé</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSdebOPjUy2yD8771XaYzOo7aeDxmAzryuR22ecRT2y184BACQ/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚑</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A9hicule%20L%C3%A9ger%20Infirmer%20de%20la%20BSPP%20%28VLI%29.jpg"
+                    alt="Véhicule léger santé"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VLS 2</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Véhicule léger de santé</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSfL7ula_m4T8RUsMjSnQ5N0PKrDzz5S7tGaJ6ddTo2HwuB_EA/viewform?ouid=105918993275116743934&usp=sharing">
-                    <span>🚑</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A9hicule%20L%C3%A9ger%20Infirmer%20de%20la%20BSPP%20%28VLI%29.jpg"
+                    alt="Véhicule léger santé"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>VLS 3</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Véhicule léger de santé</span>
+                </div>
 
-                <a class="maintenance-card" target="_blank" rel="noopener noreferrer"
-                   href="https://docs.google.com/forms/d/e/1FAIpQLSd4PTpwoy6y--ZvKibPerkZNp4RajKCW_I4WjuMwNZf-q_cDg/viewform">
-                    <span>🛸</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.sdis50.fr/app/uploads/2026/03/IMG_8196-1024x683.jpg"
+                    alt="Drone des sapeurs-pompiers"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
                     <strong>V DRONE</strong>
-                    <small>Entretien</small>
-                    <b>↗</b>
-                </a>
+                    <span>Unité drone</span>
+                </div>
 
-            </div>
+            </article>
+
 
         </div>
 
-    </article>
 
-</section>
+        <!-- AUTRES TYPES -->
 
+        <div class="category-title">
+            <h3>Autres moyens</h3>
+        </div>
 
-<!-- =========================================================
-     DOCUMENTS
-========================================================= -->
 
-<section id="documents" class="content-section">
+        <div class="vehicle-grid">
 
-    <div class="section-heading reveal">
 
-        <span class="section-kicker">03 / RESSOURCES</span>
+            <article class="vehicle-photo-card">
 
-        <h2>Documents</h2>
+                <img
+                    src="https://www.usfirepolice.net/france_75/france_75_bspp_1_14_1_fptl_126-1.jpg"
+                    alt="Véhicule incendie"
+                    loading="lazy"
+                >
 
-        <p>
-            Retrouvez les documents et ressources utiles du CIS.
-        </p>
-
-    </div>
-
-
-    <div class="resource-grid">
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">01</span>
-                    <h3>NOTES DE SERVICE</h3>
-                    <p>Dossier Google Drive</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://drive.google.com/drive/folders/1mZU_QXucWcthPotO1mkU4cxS8GGF8erV?usp=sharing"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR LE DOSSIER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">02</span>
-                    <h3>PROCÉDURES OPÉRATIONNELLES</h3>
-                    <p>Dossier Google Drive</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://drive.google.com/drive/folders/162tWotH18UoYEwiueZNTLvwbDYLzesX?usp=sharing"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR LE DOSSIER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">03</span>
-                    <h3>SSUAP</h3>
-                    <p>Dossier Google Drive</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://drive.google.com/drive/folders/1oXW1lqGMaBO__y8poG2fD16YAqLebj5T?usp=sharing"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR LE DOSSIER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">04</span>
-                    <h3>FDF</h3>
-                    <p>Dossier Google Drive</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://drive.google.com/drive/mobile/folders/1S62aYs2HzCjxg-smzg9RKRJuesNdlRdp?usp=sharing"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR LE DOSSIER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">05</span>
-                    <h3>DRIVE</h3>
-                    <p>Référentiel formation</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://drive.google.com/drive/mobile/folders/1yFyqAzbyJ7C4_enN2PCHoPK3YlpPo9mR"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR LE DOSSIER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     AMICALE
-========================================================= -->
-
-<section id="amicale" class="content-section">
-
-    <div class="section-heading reveal">
-
-        <span class="section-kicker">04 / VIE DU CIS</span>
-
-        <h2>Amicale</h2>
-
-        <p>
-            Accès aux rubriques de l'Amicale des Sapeurs-Pompiers de Madère.
-        </p>
-
-    </div>
-
-
-    <div class="resource-grid amicale-grid">
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">01</span>
-                    <h3>NOUVEAUTÉS</h3>
-                    <p>Actualités de l'amicale</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/nouveautes"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">02</span>
-                    <h3>INSCRIPTIONS / COMMANDES</h3>
-                    <p>Sorties et commandes</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/inscriptions-sorties-commandes"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">03</span>
-                    <h3>TRÉSORERIE</h3>
-                    <p>Gestion de l'amicale</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/tresorerie"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">04</span>
-                    <h3>LOCATION</h3>
-                    <p>Location de matériel</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/locations"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">05</span>
-                    <h3>DOCUMENTS CADRES</h3>
-                    <p>Documents de référence</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/documents-cadre"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">06</span>
-                    <h3>ADHÉRENTS</h3>
-                    <p>Espace adhérents</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/adherents"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">07</span>
-                    <h3>CALENDRIERS</h3>
-                    <p>Calendriers de l'amicale</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/calendriers"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">08</span>
-                    <h3>BAL</h3>
-                    <p>Bal 2026</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/bal-2026"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">09</span>
-                    <h3>CONTACT</h3>
-                    <p>Contacter l'amicale</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/contact"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">10</span>
-                    <h3>PARTENARIAT</h3>
-                    <p>Partenaires de l'amicale</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/partenariat"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">11</span>
-                    <h3>BUREAU</h3>
-                    <p>Bureau de l'amicale</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/bureau"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">12</span>
-                    <h3>SUMUP</h3>
-                    <p>Recharger la carte du MES</p>
-                </div>
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://pay.sumup.com/b2c/QN2MQ7XB?utm_campaign=pdf&utm_medium=print&utm_source=qr"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    ACCÉDER <span>↗</span>
-                </a>
-            </div>
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     RACCOURCIS
-========================================================= -->
-
-<section id="raccourcis" class="content-section">
-
-    <div class="section-heading reveal">
-
-        <span class="section-kicker">05 / ACCÈS RAPIDE</span>
-
-        <h2>Raccourcis</h2>
-
-        <p>
-            Accès directs aux services utilisés au CIS.
-        </p>
-
-    </div>
-
-
-    <div class="resource-grid shortcut-resource-grid">
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">01</span>
-                    <h3>AGATT</h3>
-                    <p>Planning et gestion</p>
+                <div class="vehicle-photo-label">
+                    <strong>VL CDGG</strong>
+                    <span>Véhicule de liaison</span>
                 </div>
 
-                <span class="resource-plus">+</span>
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.radioscoop.com/imgs/717753_952_475.png"
+                    alt="Véhicule utilitaire pompier"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
+                    <strong>VTU 01</strong>
+                    <span>Division</span>
+                </div>
+
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://www.radioscoop.com/imgs/717753_952_475.png"
+                    alt="Véhicule utilitaire pompier"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
+                    <strong>VTU 02</strong>
+                    <span>Division</span>
+                </div>
+
+            </article>
+
+
+            <article class="vehicle-photo-card">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/VSR%20Renault%20Midliner%20-%20Bemaex.jpg"
+                    alt="VSR"
+                    loading="lazy"
+                >
+
+                <div class="vehicle-photo-label">
+                    <strong>VSR M</strong>
+                    <span>Secours routier</span>
+                </div>
+
+            </article>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         VUE ENTRETIENS
+    ================================================= -->
+
+    <section
+        id="view-entretiens"
+        class="page-view"
+        data-page="entretiens"
+    >
+
+        <div class="view-top">
+
+            <div>
+
+                <span class="section-kicker">
+                    MAINTENANCE
+                </span>
+
+                <h2 class="section-title">
+                    ENTRETIENS
+                </h2>
+
             </div>
 
-            <div class="resource-content">
-                <a href="https://agatt.sdis33.fr/public/index.php"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR AGATT <span>↗</span>
-                </a>
+            <button
+                class="view-home-button"
+                data-view="accueil"
+                type="button"
+            >
+                RETOUR À L'ACCUEIL
+            </button>
+
+        </div>
+
+
+        <article
+            class="entretien-card"
+            data-collapsible
+        >
+
+            <div class="entretien-header">
+
+                <div>
+
+                    <h3>
+                        CONTRÔLES DES VÉHICULES
+                    </h3>
+
+                    <small>
+                        Accès aux formulaires d'entretien
+                    </small>
+
+                </div>
+
+                <span class="resource-plus">
+                    +
+                </span>
+
+            </div>
+
+
+            <div class="entretien-body">
+
+                <div class="maintenance-grid">
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfZQSjmudmFNhIiM9rMcCZNVQ7Q8170Wa6AyoV86-jAAZXQWA/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚒</span>
+
+                        <div>
+                            <strong>FPT 01</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSeZ56XeTt0LrIe5a1a1I8CDqd3iHFU_e8G60ZZb0dUefL2UrA/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚒</span>
+
+                        <div>
+                            <strong>FPTGP 02</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSdp7xykQc6NyZiupN6Z4C1GCCv_UgkQ7hZozlaYLhW-iRQ6ZQ/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🪜</span>
+
+                        <div>
+                            <strong>ECH</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSexPEtpJJaCjY6opzUm7rM04LYddi6be8BpXhpt57niuaqklQ/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚑</span>
+
+                        <div>
+                            <strong>VSAV 1</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfK6T-RljeWJKpeQKXlDfJQp76ILd6vx72KZTq9Pu3ay5Ytkg/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚑</span>
+
+                        <div>
+                            <strong>VSAV 2</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSd-YqNzMoOnLyfymA_F8GQeqwPyc9fKqQ3icW5pwQhSA2fBaw/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚑</span>
+
+                        <div>
+                            <strong>VSAV 3</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScGpf5CnajHpkX1shdvShQ0K1zE42meWOZIpfNiIXZ1F-C3cQ/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🔥</span>
+
+                        <div>
+                            <strong>CCF 1</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfCB2kfLpJh7Twf0AdOZjXpEPbtZv7S_Yzswycm9HmGlEg2LQ/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🔥</span>
+
+                        <div>
+                            <strong>CCF 2</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSftcEsezcTAlCkSyYK3tQetz5XOV76e3ItEgNiL6ohq9zmSMw/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚙</span>
+
+                        <div>
+                            <strong>VLHR</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScrbu5B8utOjph7NM5iGsWJkVdcKeDt9mORvsaqjAx5S-1SVg/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🧯</span>
+
+                        <div>
+                            <strong>FMOGP</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSc6CeuZIV-1c0EXIFWpWxX2qwSDa9TMi8J0I673H2_xvfYjeA/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚧</span>
+
+                        <div>
+                            <strong>VSR M</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSf3HfP82F2Om6bb23rBeJdnOhDa16bOjVRXHDAS_0Wtgxbrnw/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚐</span>
+
+                        <div>
+                            <strong>VTU 1 — VIA</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSdVecrUXja7EYTMccqFexNsJ2op8UDjhzVD889DQG_xLHZCDw/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🚐</span>
+
+                        <div>
+                            <strong>VTU 2</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSeTErRJarDO-FcVdIecawmBva-XAX2xolyWbDlLOqFdmLXGLg/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🩺</span>
+
+                        <div>
+                            <strong>VLS 1</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSdebOPjUy2yD8771XaYzOo7aeDxmAzryuR22ecRT2y184BACQ/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🩺</span>
+
+                        <div>
+                            <strong>VLS 2</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfL7ula_m4T8RUsMjSnQ5N0PKrDzz5S7tGaJ6ddTo2HwuB_EA/viewform?ouid=105918993275116743934&usp=sharing"
+                    >
+                        <span class="maintenance-icon">🩺</span>
+
+                        <div>
+                            <strong>VLS 3</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                    <a
+                        class="maintenance-card"
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSd4PTpwoy6y--ZvKibPerkZNp4RajKCW_I4WjuMwNZf-q_cDg/viewform"
+                    >
+                        <span class="maintenance-icon">🛸</span>
+
+                        <div>
+                            <strong>V DRONE</strong>
+                            <small>Entretien</small>
+                        </div>
+                    </a>
+
+
+                </div>
+
             </div>
 
         </article>
 
+    </section>
 
-        <article class="resource-card premium-card reveal" data-collapsible>
 
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">02</span>
-                    <h3>ZIMBRA</h3>
-                    <p>Messagerie</p>
+
+    <!-- =================================================
+         DOCUMENTS
+    ================================================= -->
+
+    <section
+        id="view-documents"
+        class="page-view"
+        data-page="documents"
+    >
+
+        <div class="view-top">
+
+            <div>
+
+                <span class="section-kicker">
+                    RESSOURCES
+                </span>
+
+                <h2 class="section-title">
+                    DOCUMENTS
+                </h2>
+
+            </div>
+
+            <button
+                class="view-home-button"
+                data-view="accueil"
+                type="button"
+            >
+                RETOUR À L'ACCUEIL
+            </button>
+
+        </div>
+
+
+        <div class="resource-grid">
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+
+                        <h3>
+                            NOTES DE SERVICE
+                        </h3>
+
+                        <small>
+                            Documents internes
+                        </small>
+
+                    </div>
+
                 </div>
 
-                <span class="resource-plus">+</span>
-            </div>
+                <div class="resource-body">
 
-            <div class="resource-content">
-                <a href="https://messagerie.sdis33.fr/"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR ZIMBRA <span>↗</span>
-                </a>
-            </div>
+                    <p class="resource-description">
+                        Accès au dossier des notes de service.
+                    </p>
 
-        </article>
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://drive.google.com/drive/folders/1mZU_QXucWcthPotO1mkU4cxS8GGF8erV?usp=sharing"
+                    >
+                        OUVRIR LE DOSSIER
+                    </a>
 
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">03</span>
-                    <h3>GIPSI</h3>
-                    <p>Accès SDIS</p>
                 </div>
 
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://gate.sdis33.fr/gate/cloud/?domainid=1586354925552&orgname=sdis33"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR GIPSI <span>↗</span>
-                </a>
-            </div>
-
-        </article>
+            </article>
 
 
-        <article class="resource-card premium-card reveal" data-collapsible>
+            <article class="resource-card">
 
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">04</span>
-                    <h3>ENASIS</h3>
-                    <p>Plateforme de formation</p>
+                <div class="resource-header">
+
+                    <div>
+
+                        <h3>
+                            PROCÉDURES OPÉRATIONNELLES
+                        </h3>
+
+                        <small>
+                            Référentiels
+                        </small>
+
+                    </div>
+
                 </div>
 
-                <span class="resource-plus">+</span>
-            </div>
+                <div class="resource-body">
 
-            <div class="resource-content">
-                <a href="https://enasis.fr/"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR ENASIS <span>↗</span>
-                </a>
-            </div>
+                    <p class="resource-description">
+                        Procédures et documents opérationnels.
+                    </p>
 
-        </article>
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://drive.google.com/drive/folders/162tWotH18UoYEwiueZNTLvwbDYLzesX?usp=sharing"
+                    >
+                        OUVRIR LE DOSSIER
+                    </a>
 
-
-        <article class="resource-card premium-card reveal" data-collapsible>
-
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">05</span>
-                    <h3>UDSP 33</h3>
-                    <p>Union départementale</p>
                 </div>
 
-                <span class="resource-plus">+</span>
-            </div>
-
-            <div class="resource-content">
-                <a href="https://www.udsp33.fr/"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR UDSP 33 <span>↗</span>
-                </a>
-            </div>
-
-        </article>
+            </article>
 
 
-        <article class="resource-card premium-card reveal" data-collapsible>
+            <article class="resource-card">
 
-            <div class="resource-header">
-                <div>
-                    <span class="resource-number">06</span>
-                    <h3>COS SDIS 33</h3>
-                    <p>Comité des œuvres sociales</p>
+                <div class="resource-header">
+
+                    <div>
+
+                        <h3>
+                            SSUAP
+                        </h3>
+
+                        <small>
+                            Secours à personnes
+                        </small>
+
+                    </div>
+
                 </div>
 
-                <span class="resource-plus">+</span>
+                <div class="resource-body">
+
+                    <p class="resource-description">
+                        Documents relatifs au SSUAP.
+                    </p>
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://drive.google.com/drive/folders/1oXW1lqGMaBO__y8poG2fD16YAqLebj5T?usp=sharing"
+                    >
+                        OUVRIR LE DOSSIER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+
+                        <h3>
+                            FDF
+                        </h3>
+
+                        <small>
+                            Feux de forêt
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="resource-body">
+
+                    <p class="resource-description">
+                        Documents et ressources FDF.
+                    </p>
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://drive.google.com/drive/mobile/folders/1S62aYs2HzCjxg-smzg9RKRJuesNdlRdp?usp=sharing"
+                    >
+                        OUVRIR LE DOSSIER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+
+                        <h3>
+                            DRIVE
+                        </h3>
+
+                        <small>
+                            Ressources partagées
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="resource-body">
+
+                    <p class="resource-description">
+                        Accès au Drive partagé du centre.
+                    </p>
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://drive.google.com/drive/mobile/folders/1yFyqAzbyJ7C4_enN2PCHoPK3YlpPo9mR"
+                    >
+                        OUVRIR LE DRIVE
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         AMICALE
+    ================================================= -->
+
+    <section
+        id="view-amicale"
+        class="page-view"
+        data-page="amicale"
+    >
+
+        <div class="view-top">
+
+            <div>
+
+                <span class="section-kicker">
+                    VIE DU CENTRE
+                </span>
+
+                <h2 class="section-title">
+                    AMICALE
+                </h2>
+
             </div>
 
-            <div class="resource-content">
-                <a href="https://www.cossdis33.fr/authentification/index?ReturnUrl=https%3A%2F%2Fwww.cossdis33.fr%2Fdossiers%2Flisterocumul"
-                   target="_blank" rel="noopener noreferrer" class="large-button">
-                    OUVRIR COS SDIS 33 <span>↗</span>
-                </a>
+            <button
+                class="view-home-button"
+                data-view="accueil"
+                type="button"
+            >
+                RETOUR À L'ACCUEIL
+            </button>
+
+        </div>
+
+
+        <div class="resource-grid">
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>NOUVEAUTÉS</h3>
+                        <small>Actualités</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/nouveautes"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>INSCRIPTIONS / COMMANDES</h3>
+                        <small>Sorties et commandes</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/inscriptions-sorties-commandes"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>TRÉSORERIE</h3>
+                        <small>Informations financières</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/tresorerie"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>LOCATIONS</h3>
+                        <small>Services</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/locations"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>DOCUMENTS CADRES</h3>
+                        <small>Documents</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/documents-cadre"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>ADHÉRENTS</h3>
+                        <small>Vie associative</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/adherents"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>CALENDRIERS</h3>
+                        <small>Planning</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/calendriers"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>BAL 2026</h3>
+                        <small>Événement</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/bal-2026"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>CONTACT</h3>
+                        <small>Nous contacter</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/contact"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>PARTENARIAT</h3>
+                        <small>Partenaires</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/partenariat"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>BUREAU</h3>
+                        <small>Organisation</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://sites.google.com/view/amicale-pompiers-madere/menu/bureau"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+                    <div>
+                        <h3>SUMUP</h3>
+                        <small>Paiement</small>
+                    </div>
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://pay.sumup.com/b2c/QN2MQ7XB?utm_campaign=pdf&utm_medium=print&utm_source=qr"
+                    >
+                        ACCÉDER
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RACCOURCIS
+    ================================================= -->
+
+    <section
+        id="view-raccourcis"
+        class="page-view"
+        data-page="raccourcis"
+    >
+
+        <div class="view-top">
+
+            <div>
+
+                <span class="section-kicker">
+                    ACCÈS DIRECT
+                </span>
+
+                <h2 class="section-title">
+                    RACCOURCIS
+                </h2>
+
             </div>
 
-        </article>
+            <button
+                class="view-home-button"
+                data-view="accueil"
+                type="button"
+            >
+                RETOUR À L'ACCUEIL
+            </button>
 
-    </div>
+        </div>
 
-</section>
+
+        <div class="resource-grid">
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+                        <h3>AGATT</h3>
+                        <small>Gestion opérationnelle</small>
+                    </div>
+
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://agatt.sdis33.fr/public/index.php"
+                    >
+                        OUVRIR AGATT
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+                        <h3>ZIMBRA</h3>
+                        <small>Messagerie</small>
+                    </div>
+
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://messagerie.sdis33.fr/"
+                    >
+                        OUVRIR ZIMBRA
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+                        <h3>GIPSI</h3>
+                        <small>Plateforme SDIS</small>
+                    </div>
+
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://gate.sdis33.fr/gate/cloud/?domainid=1586354925552&orgname=sdis33"
+                    >
+                        OUVRIR GIPSI
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+                        <h3>ENASIS</h3>
+                        <small>Formation</small>
+                    </div>
+
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://enasis.fr/"
+                    >
+                        OUVRIR ENASIS
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+                        <h3>UDSP 33</h3>
+                        <small>Union départementale</small>
+                    </div>
+
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://www.udsp33.fr/"
+                    >
+                        OUVRIR UDSP 33
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="resource-card">
+
+                <div class="resource-header">
+
+                    <div>
+                        <h3>COS SDIS 33</h3>
+                        <small>Œuvres sociales</small>
+                    </div>
+
+                </div>
+
+                <div class="resource-body">
+
+                    <a
+                        class="resource-link"
+                        target="_blank"
+                        href="https://www.cossdis33.fr/authentification/index?ReturnUrl=https%3A%2F%2Fwww.cossdis33.fr%2Fdossiers%2Flisterocumul"
+                    >
+                        OUVRIR COS SDIS 33
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
 
 </main>
 
 
-<!-- =========================================================
+
+<!-- =====================================================
      FOOTER
-========================================================= -->
+===================================================== -->
 
 <footer class="site-footer">
 
-    <div class="footer-brand">
+    <img
+        class="footer-logo"
+        src="logo1.png"
+        alt="CIS Villenave"
+    >
 
-        <img src="logo1.png" alt="CIS Villenave">
+    <p>
+        CIS VILLENAVE — Portail opérationnel
+    </p>
 
-        <div>
-            <strong>CIS VILLENAVE</strong>
-            <span>Centre d'incendie et de secours</span>
-        </div>
+    <p>
+        © <span id="current-year"></span>
+        — Centre d'incendie et de secours
+    </p>
 
-    </div>
-
-
-    <div class="footer-right">
-
-        <span>PORTAIL INTERNE</span>
-
-        <span>
-            © <span id="current-year"></span>
-        </span>
-
-    </div>
+    <p class="photo-credits">
+        Photos véhicules : sources publiques spécialisées,
+        Wikimedia Commons et services d'incendie.
+    </p>
 
 </footer>
 
 
-<div class="toast" id="toast">
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="toast"
+    class="toast"
+    role="status"
+>
     Lien à connecter à votre ressource.
 </div>
 
