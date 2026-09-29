@@ -2,209 +2,121 @@
 <html lang="fr">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CIS Villenave-d'Ornon — Portail interne</title>
+    <title>CIS VILLENAVE — Portail opérationnel</title>
 
-    <meta
-        name="description"
-        content="Portail interne du Centre d'incendie et de secours de Villenave-d'Ornon."
-    >
+    <meta name="description"
+        content="Portail opérationnel du Centre d'incendie et de secours de Villenave-d'Ornon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600&display=swap"
-        rel="stylesheet"
-    >
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="cis.css">
-
 </head>
-
 
 <body>
 
-    <!-- =========================================================
-         LUMIÈRES D'AMBIANCE
-    ========================================================== -->
-
-    <div class="ambient-light ambient-light-1"></div>
-    <div class="ambient-light ambient-light-2"></div>
+    <!-- =========================
+         AMBIANCE FLAMMES
+    ========================== -->
+    <div class="flame-field" aria-hidden="true"></div>
 
 
-    <!-- =========================================================
-         FLAMMES D'AMBIANCE
-    ========================================================== -->
-
-    <div
-        class="flame-field"
-        aria-hidden="true"
-    ></div>
-
-
-    <!-- =========================================================
-         NAVIGATION
-    ========================================================== -->
-
+    <!-- =========================
+         HEADER
+    ========================== -->
     <header class="site-header">
 
-        <div class="nav-shell">
+        <div class="header-inner">
 
-            <a
-                href="#accueil"
-                class="brand-mini"
-            >
-
-                <span class="brand-dot"></span>
-
-                <span>
-                    CIS VILLENAVE
-                </span>
-
+            <a href="#accueil" class="brand">
+                <img src="logo1.png" alt="CIS Villenave">
+                <div class="brand-text">
+                    <strong>CIS VILLENAVE</strong>
+                    <span>Centre d'incendie et de secours</span>
+                </div>
             </a>
 
+            <nav class="main-nav">
 
-            <nav
-                class="main-nav"
-                aria-label="Navigation principale"
-            >
-
-                <a
-                    href="#accueil"
-                    class="nav-link active"
-                >
+                <a href="#accueil" class="nav-link active">
                     <span>01</span>
                     ACCUEIL
                 </a>
 
-                <a
-                    href="#inventaires"
-                    class="nav-link"
-                >
+                <a href="#inventaires" class="nav-link">
                     <span>02</span>
                     INVENTAIRES
                 </a>
 
-                <a
-                    href="#entretiens"
-                    class="nav-link"
-                >
+                <a href="#entretiens" class="nav-link">
                     <span>03</span>
                     ENTRETIENS
                 </a>
 
-                <a
-                    href="#documents"
-                    class="nav-link"
-                >
+                <a href="#documents" class="nav-link">
                     <span>04</span>
                     DOCUMENTS
                 </a>
 
-                <a
-                    href="#amicale"
-                    class="nav-link"
-                >
+                <a href="#amicale" class="nav-link">
                     <span>05</span>
                     AMICALE
                 </a>
 
-                <a
-                    href="#raccourcis"
-                    class="nav-link"
-                >
+                <a href="#raccourcis" class="nav-link">
                     <span>06</span>
                     RACCOURCIS
                 </a>
 
             </nav>
 
-
-            <div class="nav-status">
-
-                <span class="status-light"></span>
-
-                CENTRE ACTIF
-
-            </div>
-
         </div>
 
     </header>
 
 
-
+    <!-- =========================
+         MAIN
+    ========================== -->
     <main>
 
 
-        <!-- =====================================================
-             HERO
-        ====================================================== -->
-
-        <section
-            id="accueil"
-            class="hero"
-        >
+        <!-- =========================
+             ACCUEIL
+        ========================== -->
+        <section id="accueil" class="hero-section">
 
             <div class="hero-photo">
 
-                <img
-                    src="photo.png"
-                    alt="Centre d'incendie et de secours de Villenave-d'Ornon"
-                >
+                <img src="photo.png" alt="Centre d'incendie et de secours de Villenave-d'Ornon">
 
-                <div class="hero-photo-overlay"></div>
-
-                <div class="hero-photo-gradient"></div>
+                <div class="hero-overlay"></div>
 
             </div>
 
 
             <div class="hero-content">
 
-                <div class="hero-logo">
-
-                    <img
-                        src="logo1.png"
-                        alt="Logo CIS Villenave-d'Ornon"
-                    >
-
-                </div>
-
-
-                <div class="hero-line"></div>
-
+                <img src="logo1.png" alt="CIS Villenave" class="hero-logo">
 
                 <div class="hero-kicker">
-
                     CENTRE D'INCENDIE ET DE SECOURS
-
                 </div>
 
-
                 <h1>
-
                     CIS
-
-                    <strong>
-                        VILLENAVE
-                    </strong>
-
+                    <span>VILLENAVE</span>
                 </h1>
 
-
                 <div class="hero-location">
-
                     VILLENAVE-D'ORNON
-
-                    <span></span>
-
-                    GIRONDE
-
                 </div>
 
             </div>
@@ -212,30 +124,13 @@
 
             <div class="hero-bottom">
 
-                <div class="hero-scroll">
+                <div class="hero-bottom-line"></div>
 
-                    <span class="scroll-line"></span>
-
-                    <span>
-                        EXPLORER LE PORTAIL
-                    </span>
-
+                <div class="hero-bottom-label">
+                    PORTAIL OPÉRATIONNEL
                 </div>
 
-
-                <div class="hero-index">
-
-                    <strong>
-                        01
-                    </strong>
-
-                    <span>/</span>
-
-                    <span>
-                        06
-                    </span>
-
-                </div>
+                <div class="hero-bottom-line"></div>
 
             </div>
 
@@ -243,31 +138,25 @@
 
 
 
-        <!-- =====================================================
-             INTRODUCTION
-        ====================================================== -->
-
-        <section class="section intro-section">
+        <!-- =========================
+             INTRO
+        ========================== -->
+        <section class="intro-section">
 
             <div class="section-heading reveal">
 
                 <div>
-
-                    <span class="section-number">
-                        01 — PORTAIL
-                    </span>
-
-                    <h2>
-                        L'espace du centre
-                    </h2>
-
+                    <span class="section-number">00</span>
+                    <span class="section-kicker">ESPACE CIS</span>
                 </div>
 
+                <h2>
+                    Accès rapide
+                </h2>
 
                 <p>
-                    Retrouvez les ressources essentielles du CIS
-                    depuis un espace unique, clair et pensé pour
-                    l'utilisation quotidienne.
+                    Retrouvez les ressources opérationnelles du centre,
+                    les inventaires, les entretiens et les documents utiles.
                 </p>
 
             </div>
@@ -275,116 +164,59 @@
 
             <div class="quick-grid">
 
+                <a href="#inventaires" class="premium-card quick-card reveal">
 
-                <a
-                    href="#inventaires"
-                    class="quick-card premium-card reveal"
-                >
+                    <div class="card-number">01</div>
 
-                    <div class="card-number">
-                        01
+                    <div class="card-icon">
+                        ✓
                     </div>
 
-                    <div class="quick-icon">
-                        ▣
-                    </div>
+                    <h3>Inventaires</h3>
 
-                    <div class="quick-content">
+                    <p>
+                        Accéder aux inventaires des véhicules et matériels.
+                    </p>
 
-                        <span>
-                            RESSOURCES
-                        </span>
-
-                        <h3>
-                            Inventaires
-                        </h3>
-
-                        <p>
-                            Accès aux inventaires des véhicules,
-                            équipements et espaces du centre.
-                        </p>
-
-                    </div>
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
 
+                <a href="#entretiens" class="premium-card quick-card reveal">
 
-                <a
-                    href="#entretiens"
-                    class="quick-card premium-card reveal"
-                >
+                    <div class="card-number">02</div>
 
-                    <div class="card-number">
-                        02
+                    <div class="card-icon">
+                        ◉
                     </div>
 
-                    <div class="quick-icon">
-                        ◌
-                    </div>
+                    <h3>Entretiens</h3>
 
-                    <div class="quick-content">
+                    <p>
+                        Suivi des véhicules, matériels et opérations.
+                    </p>
 
-                        <span>
-                            MAINTENANCE
-                        </span>
-
-                        <h3>
-                            Entretiens
-                        </h3>
-
-                        <p>
-                            Suivi des opérations d'entretien
-                            et des actions à réaliser.
-                        </p>
-
-                    </div>
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
 
+                <a href="#documents" class="premium-card quick-card reveal">
 
-                <a
-                    href="#documents"
-                    class="quick-card premium-card reveal"
-                >
+                    <div class="card-number">03</div>
 
-                    <div class="card-number">
-                        03
-                    </div>
-
-                    <div class="quick-icon">
+                    <div class="card-icon">
                         ▤
                     </div>
 
-                    <div class="quick-content">
+                    <h3>Documents</h3>
 
-                        <span>
-                            DOCUMENTATION
-                        </span>
+                    <p>
+                        Documents du CIS, formulaires et informations utiles.
+                    </p>
 
-                        <h3>
-                            Documents
-                        </h3>
-
-                        <p>
-                            Retrouvez rapidement les documents
-                            et ressources utiles du CIS.
-                        </p>
-
-                    </div>
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
@@ -394,33 +226,24 @@
 
 
 
-        <!-- =====================================================
+        <!-- =========================
              INVENTAIRES
-        ====================================================== -->
-
-        <section
-            id="inventaires"
-            class="section inventory-section"
-        >
+        ========================== -->
+        <section id="inventaires" class="content-section">
 
             <div class="section-heading reveal">
 
                 <div>
-
-                    <span class="section-number">
-                        02 — INVENTAIRES
-                    </span>
-
-                    <h2>
-                        Ressources opérationnelles
-                    </h2>
-
+                    <span class="section-number">01</span>
+                    <span class="section-kicker">RESSOURCES OPÉRATIONNELLES</span>
                 </div>
 
+                <h2>
+                    Inventaires
+                </h2>
 
                 <p>
-                    Sélectionnez une catégorie pour accéder
-                    aux ressources et inventaires correspondants.
+                    Accès aux inventaires opérationnels du CIS Villenave.
                 </p>
 
             </div>
@@ -429,630 +252,595 @@
             <div class="inventory-grid">
 
 
-                <!-- SSUAP -->
+                <!-- =========================
+                     SSUAP
+                ========================== -->
+                <article class="premium-card inventory-panel reveal">
 
-                <details
-                    class="inventory-card premium-card reveal"
-                    open
-                >
+                    <div class="inventory-header">
 
-                    <summary>
+                        <div>
+                            <span class="inventory-code">01</span>
 
-                        <div class="inventory-title">
+                            <h3>SSUAP</h3>
 
-                            <span class="inventory-code">
-                                01
-                            </span>
+                            <p>
+                                Secours d'urgence aux personnes
+                            </p>
+                        </div>
 
-                            <div>
+                        <div class="inventory-symbol">
+                            +
+                        </div>
 
-                                <small>
-                                    SECOURS À PERSONNES
-                                </small>
+                    </div>
 
-                                <h3>
-                                    SSUAP
-                                </h3>
+
+                    <div class="inventory-body">
+
+
+                        <!-- VSAV 1 -->
+                        <div class="vehicle-card">
+
+                            <div class="vehicle-top">
+                                <span class="vehicle-code">VSAV 01</span>
+                                <span class="vehicle-name">Navette Cestas</span>
+                            </div>
+
+                            <div class="vehicle-buttons">
+
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSfL36QKhU4DK_iWfPn4x19gmU9dLKnTLWVugFOpg3ryMzXapg/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <span class="button-label">
+                                        CHEF D'AGRÈS
+                                    </span>
+
+                                    <span class="button-arrow">↗</span>
+
+                                </a>
+
+
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSfN9bmArWPwC8NEfdnblLJE0y_ZaOb0yOlnw8BgW_F55drkiQ/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <span class="button-label">
+                                        CONDUCTEUR
+                                    </span>
+
+                                    <span class="button-arrow">↗</span>
+
+                                </a>
+
+
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSebAsFhD7KUh9XLMHKAeTNGjriSt-GvxNeqYLgoTC3nS7K8uA/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <span class="button-label">
+                                        ÉQUIPIER
+                                    </span>
+
+                                    <span class="button-arrow">↗</span>
+
+                                </a>
 
                             </div>
 
                         </div>
 
 
-                        <span class="details-plus">
-                            +
-                        </span>
 
-                    </summary>
+                        <!-- VSAV 2 -->
+                        <div class="vehicle-card">
 
+                            <div class="vehicle-top">
+                                <span class="vehicle-code">VSAV 02</span>
+                                <span class="vehicle-name">VSAV 02</span>
+                            </div>
 
-                    <div class="inventory-body">
+                            <div class="vehicle-buttons">
 
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSe1eA0Huf_T1sYWfYJLW9qUiCo8_IYR5ksxcDNwUbu9nNtDWg/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
+                                    <span class="button-label">
+                                        CHEF D'AGRÈS
+                                    </span>
 
-                            <span>
-                                VSAV 01
-                            </span>
+                                    <span class="button-arrow">↗</span>
 
-                            <strong>
-                                Inventaire
-                            </strong>
-
-                            <small>
-                                Chef d'agrès · Conducteur · Équipier
-                            </small>
-
-                            <b>
-                                ↗
-                            </b>
-
-                        </a>
+                                </a>
 
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSeNDvuMxyEKKqKmP8QXnKiAqz2-etivAUsY8djY-1vpnywdUg/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
 
-                            <span>
-                                VSAV 02
-                            </span>
+                                    <span class="button-label">
+                                        CONDUCTEUR
+                                    </span>
 
-                            <strong>
-                                Inventaire
-                            </strong>
+                                    <span class="button-arrow">↗</span>
 
-                            <small>
-                                Chef d'agrès · Conducteur · Équipier
-                            </small>
-
-                            <b>
-                                ↗
-                            </b>
-
-                        </a>
+                                </a>
 
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSez3wjIVUbJyvEF3fLr3ypWshs6PR-rdwWS8wSdeNRq307w3w/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
 
-                            <span>
-                                VSAV 03
-                            </span>
+                                    <span class="button-label">
+                                        ÉQUIPIER
+                                    </span>
 
-                            <strong>
-                                Inventaire
-                            </strong>
+                                    <span class="button-arrow">↗</span>
 
-                            <small>
-                                Chef d'agrès · Conducteur · Équipier
-                            </small>
-
-                            <b>
-                                ↗
-                            </b>
-
-                        </a>
-
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-
-                            <span>
-                                ASU
-                            </span>
-
-                            <strong>
-                                Inventaire
-                            </strong>
-
-                            <small>
-                                PDG ASU · Utilisation sur intervention
-                            </small>
-
-                            <b>
-                                ↗
-                            </b>
-
-                        </a>
-
-                    </div>
-
-                </details>
-
-
-
-                <!-- INCENDIE -->
-
-                <details
-                    class="inventory-card premium-card reveal"
-                >
-
-                    <summary>
-
-                        <div class="inventory-title">
-
-                            <span class="inventory-code">
-                                02
-                            </span>
-
-                            <div>
-
-                                <small>
-                                    INCENDIE
-                                </small>
-
-                                <h3>
-                                    ENGINS INCENDIE
-                                </h3>
+                                </a>
 
                             </div>
 
                         </div>
 
-                        <span class="details-plus">
-                            +
-                        </span>
-
-                    </summary>
 
 
-                    <div class="inventory-body">
+                        <!-- VSAV 3 -->
+                        <div class="vehicle-card">
+
+                            <div class="vehicle-top">
+                                <span class="vehicle-code">VSAV 03</span>
+                                <span class="vehicle-name">VSAV 03</span>
+                            </div>
+
+                            <div class="vehicle-buttons">
+
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLScgbGPy4RV--YguFozawOFSlJ7zzAFMduGsnY6KHvA_nMTxsw/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <span class="button-label">
+                                        CHEF D'AGRÈS
+                                    </span>
+
+                                    <span class="button-arrow">↗</span>
+
+                                </a>
 
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>FPT 01</span>
-                            <strong>Inventaire</strong>
-                            <small>Fourgon pompe tonne</small>
-                            <b>↗</b>
-                        </a>
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSe3hYxzlyHCIg_xiC_oHxIFeVI5MkSlTYq70egr3Y94Ct8h9w/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <span class="button-label">
+                                        CONDUCTEUR
+                                    </span>
+
+                                    <span class="button-arrow">↗</span>
+
+                                </a>
 
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>FPTGP 02</span>
-                            <strong>Inventaire</strong>
-                            <small>Fourgon pompe grande puissance</small>
-                            <b>↗</b>
-                        </a>
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSdRylJ0WaeCGLISlIBWq0tO3GZoghE-7KpfD2e5SPOXARe_pA/viewform?ouid=105918993275116743934&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
 
+                                    <span class="button-label">
+                                        ÉQUIPIER
+                                    </span>
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>ECH</span>
-                            <strong>Inventaire</strong>
-                            <small>Échelle</small>
-                            <b>↗</b>
-                        </a>
+                                    <span class="button-arrow">↗</span>
 
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>FMOGP</span>
-                            <strong>Inventaire</strong>
-                            <small>Fourgon mousse grande puissance</small>
-                            <b>↗</b>
-                        </a>
-
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>VL CDGG</span>
-                            <strong>Inventaire</strong>
-                            <small>Véhicule léger</small>
-                            <b>↗</b>
-                        </a>
-
-                    </div>
-
-                </details>
-
-
-
-                <!-- DIV -->
-
-                <details
-                    class="inventory-card premium-card reveal"
-                >
-
-                    <summary>
-
-                        <div class="inventory-title">
-
-                            <span class="inventory-code">
-                                03
-                            </span>
-
-                            <div>
-
-                                <small>
-                                    OPÉRATIONS DIVERSES
-                                </small>
-
-                                <h3>
-                                    DIV
-                                </h3>
+                                </a>
 
                             </div>
 
                         </div>
 
-                        <span class="details-plus">
-                            +
-                        </span>
-
-                    </summary>
 
 
-                    <div class="inventory-body">
+                        <!-- ASU -->
+                        <div class="vehicle-card">
+
+                            <div class="vehicle-top">
+                                <span class="vehicle-code">ASU</span>
+                                <span class="vehicle-name">Ambulance de secours et d'urgence</span>
+                            </div>
+
+                            <div class="vehicle-buttons asu-buttons">
+
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSe7PR0zvF8s1S_6WXaZ1bjyqoSbXXyRkYZxFiTqp1Z2TjZkoA/viewform?ouid=109470243720371980618&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+
+                                    <span class="button-label">
+                                        PDG ASU
+                                    </span>
+
+                                    <span class="button-arrow">↗</span>
+
+                                </a>
 
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>VTU 01</span>
-                            <strong>Inventaire</strong>
-                            <small>VIA</small>
-                            <b>↗</b>
-                        </a>
+                                <a
+                                    class="inventory-button"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLScziBdaxCw204Pgq3e08IISIgJmAzAKsDHjrKkI0FuoFDjxeg/viewform?ouid=109470243720371980618&usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
 
+                                    <span class="button-label">
+                                        UTILISATION ASU
+                                    </span>
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>VTU 02</span>
-                            <strong>Inventaire</strong>
-                            <small>Véhicule tous usages</small>
-                            <b>↗</b>
-                        </a>
+                                    <span class="button-arrow">↗</span>
 
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>VSR M</span>
-                            <strong>Inventaire</strong>
-                            <small>Secours routier</small>
-                            <b>↗</b>
-                        </a>
-
-                    </div>
-
-                </details>
-
-
-
-                <!-- FDF -->
-
-                <details
-                    class="inventory-card premium-card reveal"
-                >
-
-                    <summary>
-
-                        <div class="inventory-title">
-
-                            <span class="inventory-code">
-                                04
-                            </span>
-
-                            <div>
-
-                                <small>
-                                    FEUX DE FORÊTS
-                                </small>
-
-                                <h3>
-                                    FDF
-                                </h3>
+                                </a>
 
                             </div>
 
                         </div>
 
-                        <span class="details-plus">
-                            +
-                        </span>
-
-                    </summary>
-
-
-                    <div class="inventory-body">
-
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>CCF 01</span>
-                            <strong>Inventaire</strong>
-                            <small>Camion-citerne feux de forêts</small>
-                            <b>↗</b>
-                        </a>
-
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>CCF 02</span>
-                            <strong>Inventaire</strong>
-                            <small>Camion-citerne feux de forêts</small>
-                            <b>↗</b>
-                        </a>
-
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>VLHR</span>
-                            <strong>Inventaire</strong>
-                            <small>Véhicule léger hors route</small>
-                            <b>↗</b>
-                        </a>
-
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>AMSEC</span>
-                            <strong>Inventaire</strong>
-                            <small>Matériel spécialisé</small>
-                            <b>↗</b>
-                        </a>
-
                     </div>
 
-                </details>
+                </article>
 
 
 
-                <!-- SPECIALITES -->
+                <!-- =========================
+                     INCENDIE
+                ========================== -->
+                <article class="premium-card inventory-panel reveal">
 
-                <details
-                    class="inventory-card premium-card reveal"
-                >
+                    <div class="inventory-header">
 
-                    <summary>
+                        <div>
+                            <span class="inventory-code">02</span>
 
-                        <div class="inventory-title">
+                            <h3>INCENDIE</h3>
 
-                            <span class="inventory-code">
-                                05
-                            </span>
-
-                            <div>
-
-                                <small>
-                                    CAPACITÉS SPÉCIFIQUES
-                                </small>
-
-                                <h3>
-                                    SPÉCIALITÉS
-                                </h3>
-
-                            </div>
-
+                            <p>
+                                Véhicules et moyens incendie
+                            </p>
                         </div>
 
-                        <span class="details-plus">
-                            +
-                        </span>
-
-                    </summary>
-
-
-                    <div class="inventory-body">
-
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>ELD</span>
-                            <strong>Inventaire</strong>
-                            <small>Équipe spécialisée</small>
-                            <b>↗</b>
-                        </a>
-
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>DRONE</span>
-                            <strong>Inventaire</strong>
-                            <small>Matériel drone</small>
-                            <b>↗</b>
-                        </a>
-
-                    </div>
-
-                </details>
-
-
-
-                <!-- STANDARD -->
-
-                <details
-                    class="inventory-card premium-card reveal"
-                >
-
-                    <summary>
-
-                        <div class="inventory-title">
-
-                            <span class="inventory-code">
-                                06
-                            </span>
-
-                            <div>
-
-                                <small>
-                                    ÉQUIPEMENT COURANT
-                                </small>
-
-                                <h3>
-                                    STANDARD
-                                </h3>
-
-                            </div>
-
+                        <div class="inventory-symbol">
+                            ◇
                         </div>
 
-                        <span class="details-plus">
-                            +
-                        </span>
-
-                    </summary>
+                    </div>
 
 
                     <div class="inventory-body">
 
+                        <a href="#" class="vehicle-card">
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>STAS</span>
-                            <strong>Inventaire</strong>
-                            <small>Équipement standard</small>
-                            <b>↗</b>
+                            <span class="vehicle-code">FPT 01</span>
+                            <span class="vehicle-name">Fourgon pompe tonne</span>
+                            <span class="vehicle-arrow">↗</span>
+
                         </a>
 
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>SAC PS STAS</span>
-                            <strong>Inventaire</strong>
-                            <small>Sac premiers secours</small>
-                            <b>↗</b>
+                        <a href="#" class="vehicle-card">
+
+                            <span class="vehicle-code">FPTGP 02</span>
+                            <span class="vehicle-name">FPT grande puissance</span>
+                            <span class="vehicle-arrow">↗</span>
+
+                        </a>
+
+
+                        <a href="#" class="vehicle-card">
+
+                            <span class="vehicle-code">ECH</span>
+                            <span class="vehicle-name">Échelle</span>
+                            <span class="vehicle-arrow">↗</span>
+
+                        </a>
+
+
+                        <a href="#" class="vehicle-card">
+
+                            <span class="vehicle-code">FMOGP</span>
+                            <span class="vehicle-name">Fourgon mousse grande puissance</span>
+                            <span class="vehicle-arrow">↗</span>
+
+                        </a>
+
+
+                        <a href="#" class="vehicle-card">
+
+                            <span class="vehicle-code">VL CDGG</span>
+                            <span class="vehicle-name">Véhicule léger</span>
+                            <span class="vehicle-arrow">↗</span>
+
                         </a>
 
                     </div>
 
-                </details>
+                </article>
 
 
 
-                <!-- CASERNEMENT -->
+                <!-- =========================
+                     DIV
+                ========================== -->
+                <article class="premium-card inventory-panel reveal">
 
-                <details
-                    class="inventory-card premium-card reveal"
-                >
+                    <div class="inventory-header">
 
-                    <summary>
+                        <div>
+                            <span class="inventory-code">03</span>
 
-                        <div class="inventory-title">
+                            <h3>DIV</h3>
 
-                            <span class="inventory-code">
-                                07
-                            </span>
-
-                            <div>
-
-                                <small>
-                                    CASERNEMENT
-                                </small>
-
-                                <h3>
-                                    CASERNEMENT
-                                </h3>
-
-                            </div>
-
+                            <p>
+                                Opérations diverses
+                            </p>
                         </div>
 
-                        <span class="details-plus">
-                            +
-                        </span>
+                        <div class="inventory-symbol">
+                            ◇
+                        </div>
 
-                    </summary>
+                    </div>
 
 
                     <div class="inventory-body">
 
-
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>RÉSERVE INC</span>
-                            <strong>Inventaire</strong>
-                            <small>Réserve incendie</small>
-                            <b>↗</b>
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">VTU 01</span>
+                            <span class="vehicle-name">Véhicule tout usage</span>
+                            <span class="vehicle-arrow">↗</span>
                         </a>
 
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">VTU 02</span>
+                            <span class="vehicle-name">Véhicule tout usage</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
 
-                        <a
-                            href="#"
-                            class="vehicle-card"
-                        >
-                            <span>PHARMACIE ASU</span>
-                            <strong>Inventaire</strong>
-                            <small>Pharmacie</small>
-                            <b>↗</b>
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">VSR M</span>
+                            <span class="vehicle-name">Véhicule secours routier</span>
+                            <span class="vehicle-arrow">↗</span>
                         </a>
 
                     </div>
 
-                </details>
+                </article>
 
 
 
-                <!-- RESULTATS -->
+                <!-- =========================
+                     FDF
+                ========================== -->
+                <article class="premium-card inventory-panel reveal">
 
-                <a
-                    href="#"
-                    class="results-card premium-card reveal"
-                >
+                    <div class="inventory-header">
+
+                        <div>
+                            <span class="inventory-code">04</span>
+
+                            <h3>FDF</h3>
+
+                            <p>
+                                Feux de forêts
+                            </p>
+                        </div>
+
+                        <div class="inventory-symbol">
+                            △
+                        </div>
+
+                    </div>
+
+
+                    <div class="inventory-body">
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">CCF 01</span>
+                            <span class="vehicle-name">Camion citerne feux de forêts</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">CCF 02</span>
+                            <span class="vehicle-name">Camion citerne feux de forêts</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">VLHR</span>
+                            <span class="vehicle-name">Véhicule léger hors route</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">AMSEC</span>
+                            <span class="vehicle-name">Appui matériel</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =========================
+                     SPÉCIALITÉS
+                ========================== -->
+                <article class="premium-card inventory-panel reveal">
+
+                    <div class="inventory-header">
+
+                        <div>
+                            <span class="inventory-code">05</span>
+
+                            <h3>SPÉCIALITÉS</h3>
+
+                            <p>
+                                Moyens spécialisés
+                            </p>
+                        </div>
+
+                        <div class="inventory-symbol">
+                            ✦
+                        </div>
+
+                    </div>
+
+
+                    <div class="inventory-body">
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">ELD</span>
+                            <span class="vehicle-name">Équipe spécialisée</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">DRONE</span>
+                            <span class="vehicle-name">Drone opérationnel</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =========================
+                     STANDARD
+                ========================== -->
+                <article class="premium-card inventory-panel reveal">
+
+                    <div class="inventory-header">
+
+                        <div>
+                            <span class="inventory-code">06</span>
+
+                            <h3>STANDARD</h3>
+
+                            <p>
+                                Matériel standard
+                            </p>
+                        </div>
+
+                        <div class="inventory-symbol">
+                            □
+                        </div>
+
+                    </div>
+
+
+                    <div class="inventory-body">
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">STAS</span>
+                            <span class="vehicle-name">Matériel STAS</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">SAC PS STAS</span>
+                            <span class="vehicle-name">Sac premiers secours</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =========================
+                     CASERNEMENT
+                ========================== -->
+                <article class="premium-card inventory-panel reveal">
+
+                    <div class="inventory-header">
+
+                        <div>
+                            <span class="inventory-code">07</span>
+
+                            <h3>CASERNEMENT</h3>
+
+                            <p>
+                                Ressources du centre
+                            </p>
+                        </div>
+
+                        <div class="inventory-symbol">
+                            ▣
+                        </div>
+
+                    </div>
+
+
+                    <div class="inventory-body">
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">RÉSERVE INC</span>
+                            <span class="vehicle-name">Réserve incendie</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                        <a href="#" class="vehicle-card">
+                            <span class="vehicle-code">PHARMACIE ASU</span>
+                            <span class="vehicle-name">Pharmacie ASU</span>
+                            <span class="vehicle-arrow">↗</span>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =========================
+                     RESULTATS
+                ========================== -->
+                <a href="#" class="premium-card result-card reveal">
 
                     <div>
-
-                        <span class="inventory-code">
-                            08
-                        </span>
-
-                        <small>
-                            CONSULTATION
-                        </small>
+                        <span class="section-kicker">SYNTHÈSE</span>
 
                         <h3>
-                            RÉSULTATS<br>
-                            INVENTAIRES
+                            Résultats<br>
+                            inventaires
                         </h3>
 
+                        <p>
+                            Consulter les résultats et le suivi des inventaires.
+                        </p>
                     </div>
 
-                    <span class="big-arrow">
-                        ↗
-                    </span>
+                    <span class="result-arrow">↗</span>
 
                 </a>
 
@@ -1062,121 +850,78 @@
 
 
 
-        <!-- =====================================================
+        <!-- =========================
              ENTRETIENS
-        ====================================================== -->
-
-        <section
-            id="entretiens"
-            class="section dark-section"
-        >
+        ========================== -->
+        <section id="entretiens" class="content-section alternate-section">
 
             <div class="section-heading reveal">
 
                 <div>
-
-                    <span class="section-number">
-                        03 — MAINTENANCE
-                    </span>
-
-                    <h2>
-                        Entretiens
-                    </h2>
-
+                    <span class="section-number">02</span>
+                    <span class="section-kicker">SUIVI</span>
                 </div>
 
+                <h2>
+                    Entretiens
+                </h2>
 
                 <p>
-                    Retrouvez les informations et ressources
-                    liées au suivi des équipements et véhicules.
+                    Suivi des opérations d'entretien du CIS.
                 </p>
 
             </div>
 
 
-            <div class="service-grid">
+            <div class="quick-grid">
 
+                <a href="#" class="premium-card quick-card reveal">
 
-                <a
-                    href="#"
-                    class="service-card premium-card reveal"
-                >
+                    <div class="card-number">01</div>
 
-                    <span class="service-number">
-                        01
-                    </span>
+                    <div class="card-icon">◉</div>
 
-                    <span class="service-icon">
-                        ◈
-                    </span>
-
-                    <h3>
-                        Véhicules
-                    </h3>
+                    <h3>Véhicules</h3>
 
                     <p>
-                        Suivi des entretiens et opérations à réaliser.
+                        Suivi et entretien des véhicules.
                     </p>
 
-                    <span class="service-arrow">
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
 
-                <a
-                    href="#"
-                    class="service-card premium-card reveal"
-                >
+                <a href="#" class="premium-card quick-card reveal">
 
-                    <span class="service-number">
-                        02
-                    </span>
+                    <div class="card-number">02</div>
 
-                    <span class="service-icon">
-                        ◌
-                    </span>
+                    <div class="card-icon">◇</div>
 
-                    <h3>
-                        Matériels
-                    </h3>
+                    <h3>Matériels</h3>
 
                     <p>
-                        Suivi des contrôles et de la maintenance.
+                        Suivi du matériel opérationnel.
                     </p>
 
-                    <span class="service-arrow">
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
 
-                <a
-                    href="#"
-                    class="service-card premium-card reveal"
-                >
+                <a href="#" class="premium-card quick-card reveal">
 
-                    <span class="service-number">
-                        03
-                    </span>
+                    <div class="card-number">03</div>
 
-                    <span class="service-icon">
-                        ✓
-                    </span>
+                    <div class="card-icon">✓</div>
 
-                    <h3>
-                        Suivi
-                    </h3>
+                    <h3>Suivi</h3>
 
                     <p>
-                        Actions et informations de maintenance.
+                        Consulter les suivis et interventions.
                     </p>
 
-                    <span class="service-arrow">
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
@@ -1186,121 +931,78 @@
 
 
 
-        <!-- =====================================================
+        <!-- =========================
              DOCUMENTS
-        ====================================================== -->
-
-        <section
-            id="documents"
-            class="section"
-        >
+        ========================== -->
+        <section id="documents" class="content-section">
 
             <div class="section-heading reveal">
 
                 <div>
-
-                    <span class="section-number">
-                        04 — RESSOURCES
-                    </span>
-
-                    <h2>
-                        Documents
-                    </h2>
-
+                    <span class="section-number">03</span>
+                    <span class="section-kicker">RESSOURCES</span>
                 </div>
 
+                <h2>
+                    Documents
+                </h2>
 
                 <p>
-                    L'ensemble des ressources documentaires
-                    accessibles depuis le portail.
+                    Accéder aux documents et ressources du CIS.
                 </p>
 
             </div>
 
 
-            <div class="document-grid">
+            <div class="quick-grid">
 
+                <a href="#" class="premium-card quick-card reveal">
 
-                <a
-                    href="#"
-                    class="document-card premium-card reveal"
-                >
+                    <div class="card-number">01</div>
 
-                    <span class="document-index">
-                        01
-                    </span>
+                    <div class="card-icon">▤</div>
 
-                    <div>
+                    <h3>Documents du CIS</h3>
 
-                        <small>
-                            RESSOURCES
-                        </small>
+                    <p>
+                        Documents et ressources internes.
+                    </p>
 
-                        <h3>
-                            Documents du CIS
-                        </h3>
-
-                    </div>
-
-                    <span>
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
 
-                <a
-                    href="#"
-                    class="document-card premium-card reveal"
-                >
+                <a href="#" class="premium-card quick-card reveal">
 
-                    <span class="document-index">
-                        02
-                    </span>
+                    <div class="card-number">02</div>
 
-                    <div>
+                    <div class="card-icon">✓</div>
 
-                        <small>
-                            FORMULAIRES
-                        </small>
+                    <h3>Formulaires</h3>
 
-                        <h3>
-                            Formulaires
-                        </h3>
+                    <p>
+                        Formulaires disponibles.
+                    </p>
 
-                    </div>
-
-                    <span>
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
 
-                <a
-                    href="#"
-                    class="document-card premium-card reveal"
-                >
+                <a href="#" class="premium-card quick-card reveal">
 
-                    <span class="document-index">
-                        03
-                    </span>
+                    <div class="card-number">03</div>
 
-                    <div>
+                    <div class="card-icon">i</div>
 
-                        <small>
-                            INFORMATIONS
-                        </small>
+                    <h3>Informations utiles</h3>
 
-                        <h3>
-                            Informations utiles
-                        </h3>
+                    <p>
+                        Informations pratiques du centre.
+                    </p>
 
-                    </div>
-
-                    <span>
-                        ↗
-                    </span>
+                    <span class="card-arrow">↗</span>
 
                 </a>
 
@@ -1310,106 +1012,75 @@
 
 
 
-        <!-- =====================================================
+        <!-- =========================
              AMICALE
-        ====================================================== -->
-
-        <section
-            id="amicale"
-            class="section dark-section"
-        >
+        ========================== -->
+        <section id="amicale" class="content-section alternate-section">
 
             <div class="section-heading reveal">
 
                 <div>
-
-                    <span class="section-number">
-                        05 — VIE DU CENTRE
-                    </span>
-
-                    <h2>
-                        Amicale
-                    </h2>
-
+                    <span class="section-number">04</span>
+                    <span class="section-kicker">VIE DU CENTRE</span>
                 </div>
 
+                <h2>
+                    Amicale
+                </h2>
 
                 <p>
-                    Accès aux informations, activités et ressources
-                    de l'amicale du centre.
+                    Retrouvez les ressources et informations de l'amicale.
                 </p>
 
             </div>
 
 
-            <div class="amicale-panel premium-card reveal">
+            <a href="#" class="premium-card amicale-card reveal">
 
-                <div class="amicale-content">
+                <div>
 
-                    <span>
-                        VIE ASSOCIATIVE
+                    <span class="section-kicker">
+                        ESPACE AMICALE
                     </span>
 
                     <h3>
-                        L'amicale<br>
-                        du CIS
+                        Accéder à l'espace amicale
                     </h3>
 
                     <p>
-                        Retrouvez les actualités, informations,
-                        calendriers et ressources de l'amicale.
+                        Informations, événements, calendriers et ressources.
                     </p>
 
-                    <a
-                        href="#"
-                        class="premium-button"
-                    >
-                        ACCÉDER À L'AMICALE
-                        <span>↗</span>
-                    </a>
-
                 </div>
 
+                <span class="large-arrow">
+                    ↗
+                </span>
 
-                <div class="amicale-mark">
-                    <span>
-                        AM
-                    </span>
-                </div>
-
-            </div>
+            </a>
 
         </section>
 
 
 
-        <!-- =====================================================
+        <!-- =========================
              RACCOURCIS
-        ====================================================== -->
-
-        <section
-            id="raccourcis"
-            class="section"
-        >
+        ========================== -->
+        <section id="raccourcis" class="content-section">
 
             <div class="section-heading reveal">
 
                 <div>
-
-                    <span class="section-number">
-                        06 — ACCÈS DIRECT
-                    </span>
-
-                    <h2>
-                        Raccourcis
-                    </h2>
-
+                    <span class="section-number">05</span>
+                    <span class="section-kicker">ACCÈS DIRECT</span>
                 </div>
 
+                <h2>
+                    Raccourcis
+                </h2>
 
                 <p>
-                    Les accès les plus utilisés réunis
-                    au même endroit.
+                    Accès rapide aux principales ressources opérationnelles.
                 </p>
 
             </div>
@@ -1417,91 +1088,58 @@
 
             <div class="shortcut-grid">
 
+                <a href="#inventaires" class="shortcut-card reveal">
 
-                <a
-                    href="#"
-                    class="shortcut-card premium-card reveal"
-                >
+                    <span class="shortcut-number">01</span>
 
-                    <span>01</span>
+                    <div>
+                        <strong>SSUAP</strong>
+                        <small>Inventaires VSAV / ASU</small>
+                    </div>
 
-                    <strong>
-                        SSUAP
-                    </strong>
-
-                    <small>
-                        Accès direct
-                    </small>
-
-                    <b>
-                        ↗
-                    </b>
+                    <span class="shortcut-arrow">↗</span>
 
                 </a>
 
 
-                <a
-                    href="#"
-                    class="shortcut-card premium-card reveal"
-                >
+                <a href="#inventaires" class="shortcut-card reveal">
 
-                    <span>02</span>
+                    <span class="shortcut-number">02</span>
 
-                    <strong>
-                        INCENDIE
-                    </strong>
+                    <div>
+                        <strong>INCENDIE</strong>
+                        <small>Véhicules incendie</small>
+                    </div>
 
-                    <small>
-                        Accès direct
-                    </small>
-
-                    <b>
-                        ↗
-                    </b>
+                    <span class="shortcut-arrow">↗</span>
 
                 </a>
 
 
-                <a
-                    href="#"
-                    class="shortcut-card premium-card reveal"
-                >
+                <a href="#documents" class="shortcut-card reveal">
 
-                    <span>03</span>
+                    <span class="shortcut-number">03</span>
 
-                    <strong>
-                        DOCUMENTS
-                    </strong>
+                    <div>
+                        <strong>DOCUMENTS</strong>
+                        <small>Ressources du CIS</small>
+                    </div>
 
-                    <small>
-                        Accès direct
-                    </small>
-
-                    <b>
-                        ↗
-                    </b>
+                    <span class="shortcut-arrow">↗</span>
 
                 </a>
 
 
-                <a
-                    href="#"
-                    class="shortcut-card premium-card reveal"
-                >
+                <a href="#amicale" class="shortcut-card reveal">
 
-                    <span>04</span>
+                    <span class="shortcut-number">04</span>
 
-                    <strong>
-                        AMICALE
-                    </strong>
+                    <div>
+                        <strong>AMICALE</strong>
+                        <small>Vie du centre</small>
+                    </div>
 
-                    <small>
-                        Accès direct
-                    </small>
-
-                    <b>
-                        ↗
-                    </b>
+                    <span class="shortcut-arrow">↗</span>
 
                 </a>
 
@@ -1513,54 +1151,49 @@
 
 
 
-    <!-- =========================================================
+    <!-- =========================
          FOOTER
-    ========================================================== -->
-
+    ========================== -->
     <footer class="site-footer">
 
         <div class="footer-inner">
 
             <div class="footer-brand">
 
-                <img
-                    src="logo1.png"
-                    alt="CIS Villenave-d'Ornon"
-                >
+                <img src="logo1.png" alt="CIS Villenave">
 
                 <div>
-
-                    <strong>
-                        CIS VILLENAVE-D'ORNON
-                    </strong>
-
-                    <span>
-                        Centre d'incendie et de secours
-                    </span>
-
+                    <strong>CIS VILLENAVE</strong>
+                    <span>Centre d'incendie et de secours</span>
                 </div>
 
             </div>
 
 
-            <div class="footer-line"></div>
+            <div class="footer-center">
+                PORTAIL OPÉRATIONNEL
+            </div>
 
 
             <div class="footer-right">
-
-                <span>
-                    PORTAIL INTERNE
-                </span>
-
-                <span>
-                    © <span id="current-year"></span>
-                </span>
-
+                © <span id="current-year"></span> CIS Villenave
             </div>
 
         </div>
 
     </footer>
+
+
+
+    <!-- =========================
+         TOAST
+    ========================== -->
+    <div id="toast" class="toast">
+        <span class="toast-dot"></span>
+        <span id="toast-message">
+            Lien à connecter à votre ressource.
+        </span>
+    </div>
 
 
     <script src="script.js"></script>
