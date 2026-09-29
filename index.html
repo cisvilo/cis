@@ -44,7 +44,7 @@
 
 
 <!-- =========================================================
-     MENU MOBILE
+     MOBILE MENU
 ========================================================= -->
 
 <button
@@ -53,17 +53,14 @@
     type="button"
     aria-label="Ouvrir le menu"
     aria-controls="mobile-menu"
-    aria-expanded="false">
-
+    aria-expanded="false"
+>
     <span></span>
     <span></span>
     <span></span>
-
 </button>
 
-
 <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-
 
 <aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
 
@@ -78,12 +75,12 @@
             class="mobile-menu-close"
             id="mobile-menu-close"
             type="button"
-            aria-label="Fermer le menu">
+            aria-label="Fermer le menu"
+        >
             ×
         </button>
 
     </div>
-
 
     <nav class="mobile-nav">
 
@@ -153,7 +150,7 @@
 <main>
 
 <!-- =========================================================
-     ACCUEIL
+     ACCUEIL / HERO
 ========================================================= -->
 
 <section id="accueil" class="hero">
@@ -166,27 +163,6 @@
 
         <div class="flames" aria-hidden="true"></div>
 
-        <div class="hero-content">
-
-            <img src="logo1.png" class="hero-logo" alt="Logo CIS Villenave">
-
-            <span class="hero-kicker">
-                CENTRE D'INCENDIE ET DE SECOURS
-            </span>
-
-            <h1>CIS VILLENAVE</h1>
-
-            <p>VILLENAVE-D'ORNON</p>
-
-        </div>
-
-        <div class="hero-bottom">
-
-            <span>PORTAIL INTERNE</span>
-
-            <span>OPÉRATIONNEL</span>
-
-        </div>
 
     </div>
 
@@ -194,25 +170,23 @@
 
 
 <!-- =========================================================
-     INTRO
+     ACCÈS RAPIDE
 ========================================================= -->
 
 <section class="intro-section">
 
     <div class="section-heading reveal">
 
-        <span class="section-kicker">ESPACE INTERNE</span>
+        <span class="section-kicker">
+            ESPACE INTERNE
+        </span>
 
         <h2>Accès opérationnel</h2>
-
-        <p>
-            Retrouvez rapidement les ressources et outils du CIS Villenave.
-        </p>
 
     </div>
 
 
-    <div class="quick-grid">
+    <div class="quick-grid quick-grid-five">
 
         <a href="#inventaires" class="quick-card premium-card reveal">
 
@@ -258,6 +232,36 @@
 
         </a>
 
+
+        <a href="#amicale" class="quick-card premium-card reveal">
+
+            <span class="card-number">04</span>
+
+            <div>
+                <span class="card-kicker">VIE DU CIS</span>
+                <h3>Amicale</h3>
+                <p>Sorties, commandes et informations.</p>
+            </div>
+
+            <span class="card-arrow">↗</span>
+
+        </a>
+
+
+        <a href="#raccourcis" class="quick-card premium-card reveal">
+
+            <span class="card-number">05</span>
+
+            <div>
+                <span class="card-kicker">ACCÈS RAPIDE</span>
+                <h3>Raccourcis</h3>
+                <p>Les outils utilisés au quotidien.</p>
+            </div>
+
+            <span class="card-arrow">↗</span>
+
+        </a>
+
     </div>
 
 </section>
@@ -271,7 +275,9 @@
 
     <div class="section-heading reveal">
 
-        <span class="section-kicker">01 / OPÉRATIONNEL</span>
+        <span class="section-kicker">
+            01 / OPÉRATIONNEL
+        </span>
 
         <h2>Inventaires</h2>
 
@@ -287,7 +293,10 @@
 
         <!-- SSUAP -->
 
-        <article class="inventory-card premium-card reveal">
+        <article
+            class="inventory-card premium-card reveal"
+            data-collapsible
+        >
 
             <div class="inventory-header">
 
@@ -301,9 +310,11 @@
 
             </div>
 
+
             <div class="inventory-content">
 
                 <div class="vehicle-grid">
+
 
                     <div class="vehicle-card">
 
@@ -314,18 +325,30 @@
 
                         <div class="vehicle-buttons">
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSfL36QKhU4DK_iWfPn4x19gmU9dLKnTLWVugFOpg3ryMzXapg/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSfL36QKhU4DK_iWfPn4x19gmU9dLKnTLWVugFOpg3ryMzXapg/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Chef d’agrès ↗
                             </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSfN9bmArWPwC8NEfdnblLJE0y_ZaOb0yOlnw8BgW_F55drkiQ/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSfN9bmArWPwC8NEfdnblLJE0y_ZaOb0yOlnw8BgW_F55drkiQ/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Conducteur ↗
                             </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSebAsFhD7KUh9XLMHKAeTNGjriSt-GvxNeqYLgoTC3nS7K8uA/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSebAsFhD7KUh9XLMHKAeTNGjriSt-GvxNeqYLgoTC3nS7K8uA/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Équipier ↗
                             </a>
 
@@ -342,18 +365,30 @@
 
                         <div class="vehicle-buttons">
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSe1eA0Huf_T1sYWfYJLW9qUiCo8_IYR5ksxcDNwUbu9nNtDWg/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSe1eA0Huf_T1sYWfYJLW9qUiCo8_IYR5ksxcDNwUbu9nNtDWg/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Chef d’agrès ↗
                             </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSeNDvuMxyEKKqKmP8QXnKiAqz2-etivAUsY8djY-1vpnywdUg/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSeNDvuMxyEKKqKmP8QXnKiAqz2-etivAUsY8djY-1vpnywdUg/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Conducteur ↗
                             </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSez3wjIVUbJyvEF3fLr3ypWshs6PR-rdwWS8wSdeNRq307w3w/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSez3wjIVUbJyvEF3fLr3ypWshs6PR-rdwWS8wSdeNRq307w3w/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Équipier ↗
                             </a>
 
@@ -370,18 +405,30 @@
 
                         <div class="vehicle-buttons">
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLScgbGPy4RV--YguFozawOFSlJ7zzAFMduGsnY6KHvA_nMTxsw/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScgbGPy4RV--YguFozawOFSlJ7zzAFMduGsnY6KHvA_nMTxsw/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Chef d’agrès ↗
                             </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSe3hYxzlyHCIg_xiC_oHxIFeVI5MkSlTYq70egr3Y94Ct8h9w/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSe3hYxzlyHCIg_xiC_oHxIFeVI5MkSlTYq70egr3Y94Ct8h9w/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Conducteur ↗
                             </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSdRylJ0WaeCGLISlIBWq0tO3GZoghE-7KpfD2e5SPOXARe_pA/viewform?ouid=105918993275116743934&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSdRylJ0WaeCGLISlIBWq0tO3GZoghE-7KpfD2e5SPOXARe_pA/viewform?ouid=105918993275116743934&usp=sharing"
+                            >
                                 Équipier ↗
                             </a>
 
@@ -398,13 +445,21 @@
 
                         <div class="vehicle-buttons asu-buttons">
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLSe7PR0zvF8s1S_6WXaZ1bjyqoSbXXyRkYZxFiTqp1Z2TjZkoA/viewform?ouid=109470243720371980618&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSe7PR0zvF8s1S_6WXaZ1bjyqoSbXXyRkYZxFiTqp1Z2TjZkoA/viewform?ouid=109470243720371980618&usp=sharing"
+                            >
                                 PDG ASU ↗
                             </a>
 
-                            <a class="inventory-button" target="_blank" rel="noopener noreferrer"
-                               href="https://docs.google.com/forms/d/e/1FAIpQLScziBdaxCw204Pgq3e08IISIgJmAzAKsDHjrKkI0FuoFDjxeg/viewform?ouid=109470243720371980618&usp=sharing">
+                            <a
+                                class="inventory-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScziBdaxCw204Pgq3e08IISIgJmAzAKsDHjrKkI0FuoFDjxeg/viewform?ouid=109470243720371980618&usp=sharing"
+                            >
                                 Utilisation ↗
                             </a>
 
@@ -421,7 +476,7 @@
 
         <!-- INCENDIE -->
 
-        <article class="inventory-card premium-card reveal">
+        <article class="inventory-card premium-card reveal" data-collapsible>
 
             <div class="inventory-header">
 
@@ -434,6 +489,7 @@
                 <span class="inventory-plus">+</span>
 
             </div>
+
 
             <div class="inventory-content">
 
@@ -478,7 +534,7 @@
 
         <!-- DIV -->
 
-        <article class="inventory-card premium-card reveal">
+        <article class="inventory-card premium-card reveal" data-collapsible>
 
             <div class="inventory-header">
 
@@ -491,6 +547,7 @@
                 <span class="inventory-plus">+</span>
 
             </div>
+
 
             <div class="inventory-content">
 
@@ -523,7 +580,7 @@
 
         <!-- FDF -->
 
-        <article class="inventory-card premium-card reveal">
+        <article class="inventory-card premium-card reveal" data-collapsible>
 
             <div class="inventory-header">
 
@@ -536,6 +593,7 @@
                 <span class="inventory-plus">+</span>
 
             </div>
+
 
             <div class="inventory-content">
 
@@ -574,7 +632,7 @@
 
         <!-- SPÉCIALITÉS -->
 
-        <article class="inventory-card premium-card reveal">
+        <article class="inventory-card premium-card reveal" data-collapsible>
 
             <div class="inventory-header">
 
@@ -587,6 +645,7 @@
                 <span class="inventory-plus">+</span>
 
             </div>
+
 
             <div class="inventory-content">
 
@@ -613,7 +672,7 @@
 
         <!-- STANDARD -->
 
-        <article class="inventory-card premium-card reveal">
+        <article class="inventory-card premium-card reveal" data-collapsible>
 
             <div class="inventory-header">
 
@@ -626,6 +685,7 @@
                 <span class="inventory-plus">+</span>
 
             </div>
+
 
             <div class="inventory-content">
 
@@ -652,7 +712,7 @@
 
         <!-- CASERNEMENT -->
 
-        <article class="inventory-card premium-card reveal">
+        <article class="inventory-card premium-card reveal" data-collapsible>
 
             <div class="inventory-header">
 
@@ -665,6 +725,7 @@
                 <span class="inventory-plus">+</span>
 
             </div>
+
 
             <div class="inventory-content">
 
@@ -689,9 +750,12 @@
         </article>
 
 
-        <!-- RESULTATS -->
+        <!-- RÉSULTATS -->
 
-        <a href="#" class="result-card premium-card reveal">
+        <a
+            href="#"
+            class="result-card premium-card reveal"
+        >
 
             <div>
                 <span class="section-kicker">BILAN</span>
@@ -716,7 +780,9 @@
 
     <div class="section-heading reveal">
 
-        <span class="section-kicker">02 / SUIVI</span>
+        <span class="section-kicker">
+            02 / SUIVI
+        </span>
 
         <h2>Entretiens</h2>
 
@@ -727,303 +793,260 @@
     </div>
 
 
-    <div class="inventory-grid">
+    <article
+        class="inventory-card premium-card reveal entretien-card"
+        data-collapsible
+    >
 
+        <div class="inventory-header">
 
-        <!-- ENTRETIENS VÉHICULES -->
+            <div>
 
-        <article class="inventory-card premium-card reveal">
+                <span class="inventory-code">01</span>
 
-            <div class="inventory-header">
+                <h3>ENTRETIENS VÉHICULES</h3>
 
-                <div>
-                    <span class="inventory-code">01</span>
-                    <h3>VÉHICULES</h3>
-                    <p>Entretiens et contrôles</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
+                <p>
+                    Contrôles et entretiens des véhicules du CIS.
+                </p>
 
             </div>
 
-
-            <div class="inventory-content">
-
-                <div class="maintenance-list">
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSfZQSjmudmFNhIiM9rMcCZNVQ7Q8170Wa6AyoV86-jAAZXQWA/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>FPT 01</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSeZ56XeTt0LrIe5a1a1I8CDqd3iHFU_e8G60ZZb0dUefL2UrA/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>FPTGP 02</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSdp7xykQc6NyZiupN6Z4C1GCCv_UgkQ7hZozlaYLhW-iRQ6ZQ/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>ECH</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSexPEtpJJaCjY6opzUm7rM04LYddi6be8BpXhpt57niuaqklQ/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VSAV 1</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSfK6T-RljeWJKpeQKXlDfJQp76ILd6vx72KZTq9Pu3ay5Ytkg/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VSAV 2</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSd-YqNzMoOnLyfymA_F8GQeqwPyc9fKqQ3icW5pwQhSA2fBaw/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VSAV 3</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLScGpf5CnajHpkX1shdvShQ0K1zE42meWOZIpfNiIXZ1F-C3cQ/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>CCF 1</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSfCB2kfLpJh7Twf0AdOZjXpEPbtZv7S_Yzswycm9HmGlEg2LQ/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>CCF 2</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSftcEsezcTAlCkSyYK3tQetz5XOV76e3ItEgNiL6ohq9zmSMw/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VLHR</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLScrbu5B8utOjph7NM5iGsWJkVdcKeDt9mORvsaqjAx5S-1SVg/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>FMOGP</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSc6CeuZIV-1c0EXIFWpWxX2qwSDa9TMi8J0I673H2_xvfYjeA/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VSR M</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSf3HfP82F2Om6bb23rBeJdnOhDa16bOjVRXHDAS_0Wtgxbrnw/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VTU 1 (VIA)</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSdVecrUXja7EYTMccqFexNsJ2op8UDjhzVD889DQG_xLHZCDw/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VTU 2</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSeTErRJarDO-FcVdIecawmBva-XAX2xolyWbDlLOqFdmLXGLg/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VLS 1</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSdebOPjUy2yD8771XaYzOo7aeDxmAzryuR22ecRT2y184BACQ/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VLS 2</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSfL7ula_m4T8RUsMjSnQ5N0PKrDzz5S7tGaJ6ddTo2HwuB_EA/viewform?ouid=105918993275116743934&usp=sharing">
-
-                        <span>VLS 3</span>
-                        <b>↗</b>
-
-                    </a>
-
-
-                    <a
-                        class="maintenance-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSd4PTpwoy6y--ZvKibPerkZNp4RajKCW_I4WjuMwNZf-q_cDg/viewform">
-
-                        <span>V DRONE</span>
-                        <b>↗</b>
-
-                    </a>
-
-                </div>
+            <span class="inventory-plus">+</span>
+
+        </div>
+
+
+        <div class="inventory-content">
+
+            <div class="maintenance-grid">
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfZQSjmudmFNhIiM9rMcCZNVQ7Q8170Wa6AyoV86-jAAZXQWA/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚒</span>
+                    <strong>FPT 01</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSeZ56XeTt0LrIe5a1a1I8CDqd3iHFU_e8G60ZZb0dUefL2UrA/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚒</span>
+                    <strong>FPTGP 02</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdp7xykQc6NyZiupN6Z4C1GCCv_UgkQ7hZozlaYLhW-iRQ6ZQ/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚒</span>
+                    <strong>ECH</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSexPEtpJJaCjY6opzUm7rM04LYddi6be8BpXhpt57niuaqklQ/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚑</span>
+                    <strong>VSAV 1</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfK6T-RljeWJKpeQKXlDfJQp76ILd6vx72KZTq9Pu3ay5Ytkg/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚑</span>
+                    <strong>VSAV 2</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSd-YqNzMoOnLyfymA_F8GQeqwPyc9fKqQ3icW5pwQhSA2fBaw/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚑</span>
+                    <strong>VSAV 3</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScGpf5CnajHpkX1shdvShQ0K1zE42meWOZIpfNiIXZ1F-C3cQ/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🌲</span>
+                    <strong>CCF 1</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfCB2kfLpJh7Twf0AdOZjXpEPbtZv7S_Yzswycm9HmGlEg2LQ/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🌲</span>
+                    <strong>CCF 2</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSftcEsezcTAlCkSyYK3tQetz5XOV76e3ItEgNiL6ohq9zmSMw/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🌲</span>
+                    <strong>VLHR</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScrbu5B8utOjph7NM5iGsWJkVdcKeDt9mORvsaqjAx5S-1SVg/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚒</span>
+                    <strong>FMOGP</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSc6CeuZIV-1c0EXIFWpWxX2qwSDa9TMi8J0I673H2_xvfYjeA/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🛠️</span>
+                    <strong>VSR M</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSf3HfP82F2Om6bb23rBeJdnOhDa16bOjVRXHDAS_0Wtgxbrnw/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🛠️</span>
+                    <strong>VTU 1 (VIA)</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdVecrUXja7EYTMccqFexNsJ2op8UDjhzVD889DQG_xLHZCDw/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🛠️</span>
+                    <strong>VTU 2</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSeTErRJarDO-FcVdIecawmBva-XAX2xolyWbDlLOqFdmLXGLg/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚑</span>
+                    <strong>VLS 1</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdebOPjUy2yD8771XaYzOo7aeDxmAzryuR22ecRT2y184BACQ/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚑</span>
+                    <strong>VLS 2</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfL7ula_m4T8RUsMjSnQ5N0PKrDzz5S7tGaJ6ddTo2HwuB_EA/viewform?ouid=105918993275116743934&usp=sharing"
+                >
+                    <span>🚑</span>
+                    <strong>VLS 3</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
+
+
+                <a
+                    class="maintenance-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSd4PTpwoy6y--ZvKibPerkZNp4RajKCW_I4WjuMwNZf-q_cDg/viewform"
+                >
+                    <span>🛸</span>
+                    <strong>V DRONE</strong>
+                    <small>Entretien</small>
+                    <b>↗</b>
+                </a>
 
             </div>
 
-        </article>
+        </div>
 
-
-        <!-- MATÉRIELS -->
-
-        <article class="inventory-card premium-card reveal">
-
-            <div class="inventory-header">
-
-                <div>
-                    <span class="inventory-code">02</span>
-                    <h3>MATÉRIELS</h3>
-                    <p>Contrôles et suivi du matériel</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-
-            </div>
-
-            <div class="inventory-content">
-
-                <div class="placeholder-card">
-                    <span>MATÉRIELS</span>
-                    <p>Accès aux formulaires de contrôle du matériel.</p>
-                    <a href="#" class="large-button">
-                        ACCÉDER <span>↗</span>
-                    </a>
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- SUIVI -->
-
-        <article class="inventory-card premium-card reveal">
-
-            <div class="inventory-header">
-
-                <div>
-                    <span class="inventory-code">03</span>
-                    <h3>SUIVI</h3>
-                    <p>Suivi général des entretiens</p>
-                </div>
-
-                <span class="inventory-plus">+</span>
-
-            </div>
-
-            <div class="inventory-content">
-
-                <div class="placeholder-card">
-                    <span>SUIVI</span>
-                    <p>Accès au suivi des opérations d'entretien.</p>
-                    <a href="#" class="large-button">
-                        ACCÉDER <span>↗</span>
-                    </a>
-                </div>
-
-            </div>
-
-        </article>
-
-    </div>
+    </article>
 
 </section>
 
@@ -1036,7 +1059,9 @@
 
     <div class="section-heading reveal">
 
-        <span class="section-kicker">03 / RESSOURCES</span>
+        <span class="section-kicker">
+            03 / RESSOURCES
+        </span>
 
         <h2>Documents</h2>
 
@@ -1047,52 +1072,157 @@
     </div>
 
 
-    <div class="quick-grid">
+    <div class="resource-grid">
 
 
-        <a href="#" class="quick-card premium-card reveal">
+        <article class="resource-card premium-card reveal" data-collapsible>
 
-            <span class="card-number">01</span>
+            <div class="resource-header">
 
-            <div>
-                <span class="card-kicker">CIS</span>
-                <h3>Documents du CIS</h3>
-                <p>Documents internes du centre.</p>
+                <div>
+                    <span class="resource-number">01</span>
+                    <h3>NOTES DE SERVICE</h3>
+                    <p>Dossier Google Drive</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
             </div>
 
-            <span class="card-arrow">↗</span>
+            <div class="resource-content">
 
-        </a>
+                <a
+                    href="https://drive.google.com/drive/folders/1mZU_QXucWcthPotO1mkU4cxS8GGF8erV?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR LE DOSSIER <span>↗</span>
+                </a>
 
-
-        <a href="#" class="quick-card premium-card reveal">
-
-            <span class="card-number">02</span>
-
-            <div>
-                <span class="card-kicker">FORMULAIRES</span>
-                <h3>Formulaires</h3>
-                <p>Accès aux différents formulaires.</p>
             </div>
 
-            <span class="card-arrow">↗</span>
-
-        </a>
+        </article>
 
 
-        <a href="#" class="quick-card premium-card reveal">
+        <article class="resource-card premium-card reveal" data-collapsible>
 
-            <span class="card-number">03</span>
+            <div class="resource-header">
 
-            <div>
-                <span class="card-kicker">INFORMATIONS</span>
-                <h3>Informations utiles</h3>
-                <p>Informations pratiques du CIS.</p>
+                <div>
+                    <span class="resource-number">02</span>
+                    <h3>PROCÉDURES OPÉRATIONNELLES</h3>
+                    <p>Dossier Google Drive</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
             </div>
 
-            <span class="card-arrow">↗</span>
+            <div class="resource-content">
 
-        </a>
+                <a
+                    href="https://drive.google.com/drive/folders/162tWotH18UoYEwiueZNTLvwbDYLzesX?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR LE DOSSIER <span>↗</span>
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+
+            <div class="resource-header">
+
+                <div>
+                    <span class="resource-number">03</span>
+                    <h3>SSUAP</h3>
+                    <p>Dossier Google Drive</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
+            </div>
+
+            <div class="resource-content">
+
+                <a
+                    href="https://drive.google.com/drive/folders/1oXW1lqGMaBO__y8poG2fD16YAqLebj5T?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR LE DOSSIER <span>↗</span>
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+
+            <div class="resource-header">
+
+                <div>
+                    <span class="resource-number">04</span>
+                    <h3>FDF</h3>
+                    <p>Dossier Google Drive</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
+            </div>
+
+            <div class="resource-content">
+
+                <a
+                    href="https://drive.google.com/drive/mobile/folders/1S62aYs2HzCjxg-smzg9RKRJuesNdlRdp?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR LE DOSSIER <span>↗</span>
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+
+            <div class="resource-header">
+
+                <div>
+                    <span class="resource-number">05</span>
+                    <h3>DRIVE</h3>
+                    <p>Référentiel formation</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
+            </div>
+
+            <div class="resource-content">
+
+                <a
+                    href="https://drive.google.com/drive/mobile/folders/1yFyqAzbyJ7C4_enN2PCHoPK3YlpPo9mR"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR LE DOSSIER <span>↗</span>
+                </a>
+
+            </div>
+
+        </article>
 
     </div>
 
@@ -1107,35 +1237,236 @@
 
     <div class="section-heading reveal">
 
-        <span class="section-kicker">04 / VIE DU CIS</span>
+        <span class="section-kicker">
+            04 / VIE DU CIS
+        </span>
 
         <h2>Amicale</h2>
 
         <p>
-            Accès aux informations et ressources de l'amicale.
+            Accès aux rubriques de l'Amicale des Sapeurs-Pompiers de Madère.
         </p>
 
     </div>
 
 
-    <div class="wide-panel premium-card reveal">
+    <div class="resource-grid amicale-grid">
 
-        <div>
 
-            <span class="section-kicker">AMICALE</span>
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">01</span>
+                    <h3>NOUVEAUTÉS</h3>
+                    <p>Actualités de l'amicale</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
 
-            <h3>Espace amicale</h3>
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/nouveautes" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
 
-            <p>
-                Retrouvez les informations, calendriers et ressources
-                de l'amicale des sapeurs-pompiers.
-            </p>
 
-        </div>
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">02</span>
+                    <h3>INSCRIPTIONS / COMMANDES</h3>
+                    <p>Sorties et commandes</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
 
-        <a href="#" class="large-button">
-            ACCÉDER <span>↗</span>
-        </a>
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/inscriptions-sorties-commandes" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">03</span>
+                    <h3>TRÉSORERIE</h3>
+                    <p>Gestion de l'amicale</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/tresorerie" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">04</span>
+                    <h3>LOCATION</h3>
+                    <p>Location de matériel</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/locations" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">05</span>
+                    <h3>DOCUMENTS CADRES</h3>
+                    <p>Documents de référence</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/documents-cadre" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">06</span>
+                    <h3>ADHÉRENTS</h3>
+                    <p>Espace adhérents</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/adherents" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">07</span>
+                    <h3>CALENDRIERS</h3>
+                    <p>Calendriers de l'amicale</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/calendriers" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">08</span>
+                    <h3>BAL</h3>
+                    <p>Bal 2026</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/bal-2026" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">09</span>
+                    <h3>CONTACT</h3>
+                    <p>Contacter l'amicale</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/contact" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">10</span>
+                    <h3>PARTENARIAT</h3>
+                    <p>Partenaires de l'amicale</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/partenariat" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">11</span>
+                    <h3>BUREAU</h3>
+                    <p>Bureau de l'amicale</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://sites.google.com/view/amicale-pompiers-madere/menu/bureau" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+            <div class="resource-header">
+                <div>
+                    <span class="resource-number">12</span>
+                    <h3>SUMUP</h3>
+                    <p>Recharger la carte du MES</p>
+                </div>
+                <span class="resource-plus">+</span>
+            </div>
+
+            <div class="resource-content">
+                <a href="https://pay.sumup.com/b2c/QN2MQ7XB?utm_campaign=pdf&utm_medium=print&utm_source=qr" target="_blank" rel="noopener noreferrer" class="large-button">
+                    ACCÉDER <span>↗</span>
+                </a>
+            </div>
+        </article>
 
     </div>
 
@@ -1150,74 +1481,200 @@
 
     <div class="section-heading reveal">
 
-        <span class="section-kicker">05 / ACCÈS RAPIDE</span>
+        <span class="section-kicker">
+            05 / ACCÈS RAPIDE
+        </span>
 
         <h2>Raccourcis</h2>
 
         <p>
-            Les accès les plus utilisés regroupés au même endroit.
+            Accès directs aux services utilisés au CIS.
         </p>
 
     </div>
 
 
-    <div class="shortcut-grid">
+    <div class="resource-grid shortcut-resource-grid">
 
 
-        <a href="#inventaires" class="shortcut-card premium-card reveal">
+        <article class="resource-card premium-card reveal" data-collapsible>
 
-            <span class="shortcut-number">01</span>
+            <div class="resource-header">
 
-            <div>
-                <span>OPÉRATIONNEL</span>
-                <strong>SSUAP</strong>
+                <div>
+                    <span class="resource-number">01</span>
+                    <h3>AGATT</h3>
+                    <p>Planning et gestion</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
             </div>
 
-            <b class="shortcut-arrow">↗</b>
+            <div class="resource-content">
 
-        </a>
+                <a
+                    href="https://agatt.sdis33.fr/public/index.php"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR AGATT <span>↗</span>
+                </a>
 
-
-        <a href="#inventaires" class="shortcut-card premium-card reveal">
-
-            <span class="shortcut-number">02</span>
-
-            <div>
-                <span>OPÉRATIONNEL</span>
-                <strong>INCENDIE</strong>
             </div>
 
-            <b class="shortcut-arrow">↗</b>
-
-        </a>
+        </article>
 
 
-        <a href="#documents" class="shortcut-card premium-card reveal">
+        <article class="resource-card premium-card reveal" data-collapsible>
 
-            <span class="shortcut-number">03</span>
+            <div class="resource-header">
 
-            <div>
-                <span>RESSOURCES</span>
-                <strong>DOCUMENTS</strong>
+                <div>
+                    <span class="resource-number">02</span>
+                    <h3>ZIMBRA</h3>
+                    <p>Messagerie</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
             </div>
 
-            <b class="shortcut-arrow">↗</b>
+            <div class="resource-content">
 
-        </a>
+                <a
+                    href="https://messagerie.sdis33.fr/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR ZIMBRA <span>↗</span>
+                </a>
 
-
-        <a href="#amicale" class="shortcut-card premium-card reveal">
-
-            <span class="shortcut-number">04</span>
-
-            <div>
-                <span>VIE DU CIS</span>
-                <strong>AMICALE</strong>
             </div>
 
-            <b class="shortcut-arrow">↗</b>
+        </article>
 
-        </a>
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+
+            <div class="resource-header">
+
+                <div>
+                    <span class="resource-number">03</span>
+                    <h3>GIPSI</h3>
+                    <p>Accès SDIS</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
+            </div>
+
+            <div class="resource-content">
+
+                <a
+                    href="https://gate.sdis33.fr/gate/cloud/?domainid=1586354925552&orgname=sdis33"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR GIPSI <span>↗</span>
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+
+            <div class="resource-header">
+
+                <div>
+                    <span class="resource-number">04</span>
+                    <h3>ENASIS</h3>
+                    <p>Plateforme de formation</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
+            </div>
+
+            <div class="resource-content">
+
+                <a
+                    href="https://enasis.fr/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR ENASIS <span>↗</span>
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+
+            <div class="resource-header">
+
+                <div>
+                    <span class="resource-number">05</span>
+                    <h3>UDSP 33</h3>
+                    <p>Union départementale</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
+            </div>
+
+            <div class="resource-content">
+
+                <a
+                    href="https://www.udsp33.fr/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR UDSP 33 <span>↗</span>
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="resource-card premium-card reveal" data-collapsible>
+
+            <div class="resource-header">
+
+                <div>
+                    <span class="resource-number">06</span>
+                    <h3>COS SDIS 33</h3>
+                    <p>Comité des œuvres sociales</p>
+                </div>
+
+                <span class="resource-plus">+</span>
+
+            </div>
+
+            <div class="resource-content">
+
+                <a
+                    href="https://www.cossdis33.fr/authentification/index?ReturnUrl=https%3A%2F%2Fwww.cossdis33.fr%2Fdossiers%2Flisterocumul"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="large-button"
+                >
+                    OUVRIR COS SDIS 33 <span>↗</span>
+                </a>
+
+            </div>
+
+        </article>
 
     </div>
 
@@ -1248,7 +1705,9 @@
 
         <span>PORTAIL INTERNE</span>
 
-        <span>© <span id="current-year"></span></span>
+        <span>
+            © <span id="current-year"></span>
+        </span>
 
     </div>
 
