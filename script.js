@@ -6,55 +6,74 @@ document.addEventListener("DOMContentLoaded", () => {
    ========================================================= */
 
 const views = document.querySelectorAll(".view");
-const navButtons = document.querySelectorAll("[data-open]");
+
+const navButtons =
+    document.querySelectorAll(".nav [data-open]");
 
 
-function openView(id) {
+function openView(id, updateUrl = true) {
 
-    if (!document.getElementById(id)) {
+    const target =
+        document.getElementById(id);
+
+    if (!target) {
         return;
     }
 
+
+    /* Masquer toutes les pages */
     views.forEach(view => {
         view.classList.remove("active");
     });
 
-    const target = document.getElementById(id);
 
+    /* Afficher la page demandée */
     target.classList.add("active");
 
 
+    /* Mise à jour du menu */
     navButtons.forEach(button => {
 
-        if (
-            button.dataset.open === id &&
-            button.closest(".nav")
-        ) {
-            button.classList.add("active");
-        } else if (button.closest(".nav")) {
-            button.classList.remove("active");
-        }
+        button.classList.toggle(
+            "active",
+            button.dataset.open === id
+        );
 
     });
 
 
-    if (history.replaceState) {
+    /* URL */
+    if (updateUrl) {
 
-        history.replaceState(
-            null,
-            "",
-            "#" + id
-        );
+        const newUrl =
+            window.location.pathname +
+            "#" +
+            id;
 
+        if (
+            window.location.hash !== "#" + id &&
+            history.replaceState
+        ) {
+            history.replaceState(
+                null,
+                "",
+                newUrl
+            );
+        }
     }
 
+
+    /* Retour en haut */
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
-
 }
 
+
+/* =========================================================
+   BOUTONS DU MENU
+   ========================================================= */
 
 navButtons.forEach(button => {
 
@@ -62,7 +81,8 @@ navButtons.forEach(button => {
 
         event.preventDefault();
 
-        const id = button.dataset.open;
+        const id =
+            button.dataset.open;
 
         if (id) {
             openView(id);
@@ -74,58 +94,61 @@ navButtons.forEach(button => {
 
 
 /* =========================================================
-   LIENS DATA-OPEN SUR LES CARTES
+   CARTES DE L'ACCUEIL
    ========================================================= */
 
-document.querySelectorAll(".home-card").forEach(card => {
+document
+    .querySelectorAll(".home-card[data-open]")
+    .forEach(card => {
 
-    card.addEventListener("click", () => {
+        card.addEventListener("click", () => {
 
-        const id = card.dataset.open;
+            const id =
+                card.dataset.open;
 
-        if (id) {
-            openView(id);
-        }
+            if (id) {
+                openView(id);
+            }
+
+        });
 
     });
-
-});
 
 
 /* =========================================================
    HASH URL
    ========================================================= */
 
-const initialHash =
-    window.location.hash.replace("#", "");
+function loadHash() {
 
-if (
-    initialHash &&
-    document.getElementById(initialHash)
-) {
+    const hash =
+        window.location.hash
+            .replace("#", "")
+            .trim();
 
-    openView(initialHash);
+    if (
+        hash &&
+        document.getElementById(hash)
+    ) {
 
-} else {
+        openView(hash, false);
 
-    openView("home");
+    } else {
+
+        openView("home", false);
+
+    }
 
 }
 
 
-window.addEventListener("hashchange", () => {
+loadHash();
 
-    const id =
-        window.location.hash.replace("#", "");
 
-    if (
-        id &&
-        document.getElementById(id)
-    ) {
-        openView(id);
-    }
-
-});
+window.addEventListener(
+    "hashchange",
+    loadHash
+);
 
 
 /* =========================================================
@@ -134,59 +157,27 @@ window.addEventListener("hashchange", () => {
 
 const inventoryDetails =
     document.querySelectorAll(
-        "#inventaires details"
+        "#inventaires .inventory-category"
     );
 
 
 inventoryDetails.forEach(detail => {
 
-    detail.addEventListener("toggle", () => {
+    detail.addEventListener(
+        "toggle",
+        () => {
 
-        if (!detail.open) {
-            return;
-        }
-
-        inventoryDetails.forEach(other => {
-
-            if (
-                other !== detail &&
-                other.open
-            ) {
-                other.open = false;
+            if (!detail.open) {
+                return;
             }
 
-        });
 
-    });
+            /*
+             * Une seule catégorie ouverte
+             * à la fois.
+             */
 
-});
-
-
-/* =========================================================
-   AUTRES DETAILS
-   ========================================================= */
-
-document.querySelectorAll("details").forEach(detail => {
-
-    detail.addEventListener("click", event => {
-
-        const summary =
-            event.target.closest("summary");
-
-        if (!summary) {
-            return;
-        }
-
-        const parent =
-            detail.parentElement;
-
-        if (!parent) {
-            return;
-        }
-
-        parent
-            .querySelectorAll(":scope > details")
-            .forEach(other => {
+            inventoryDetails.forEach(other => {
 
                 if (
                     other !== detail &&
@@ -197,40 +188,87 @@ document.querySelectorAll("details").forEach(detail => {
 
             });
 
-    });
+        }
+    );
 
 });
 
 
 /* =========================================================
-   MOUVEMENT DE LA LUMIÈRE AVEC LA SOURIS
+   TOUCHE ESCAPE
    ========================================================= */
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key !== "Escape") {
+            return;
+        }
+
+
+        document
+            .querySelectorAll("details[open]")
+            .forEach(detail => {
+
+                detail.open = false;
+
+            });
+
+    }
+);
+
+
+/* =========================================================
+   LUMIÈRE QUI SUIT LA SOURIS
+   ========================================================= */
+
+let mouseX =
+    window.innerWidth / 2;
+
+let mouseY =
+    window.innerHeight / 2;
+
 
 window.addEventListener(
     "mousemove",
     event => {
 
-        mouseX = event.clientX;
-        mouseY = event.clientY;
+        mouseX =
+            event.clientX;
+
+        mouseY =
+            event.clientY;
+
 
         const x =
-            (event.clientX / window.innerWidth) * 100;
+            (
+                event.clientX /
+                window.innerWidth
+            ) * 100;
+
 
         const y =
-            (event.clientY / window.innerHeight) * 100;
+            (
+                event.clientY /
+                window.innerHeight
+            ) * 100;
 
-        document.documentElement.style.setProperty(
-            "--mx",
-            `${x}%`
-        );
 
-        document.documentElement.style.setProperty(
-            "--my",
-            `${y}%`
-        );
+        document.documentElement
+            .style
+            .setProperty(
+                "--mx",
+                `${x}%`
+            );
+
+
+        document.documentElement
+            .style
+            .setProperty(
+                "--my",
+                `${y}%`
+            );
 
     },
     { passive: true }
@@ -238,11 +276,14 @@ window.addEventListener(
 
 
 /* =========================================================
-   FEU EN ARRIÈRE-PLAN
+   FEU — ARRIÈRE-PLAN
    ========================================================= */
 
 const canvas =
-    document.getElementById("fireCanvas");
+    document.getElementById(
+        "fireCanvas"
+    );
+
 
 if (!canvas) {
     return;
@@ -253,17 +294,25 @@ const ctx =
     canvas.getContext("2d");
 
 
+if (!ctx) {
+    return;
+}
+
+
 let width = 0;
 let height = 0;
 let dpr = 1;
 
-let particles = [];
 
 const reducedMotion =
     window.matchMedia(
         "(prefers-reduced-motion: reduce)"
     ).matches;
 
+
+/* =========================================================
+   REDIMENSIONNEMENT DU CANVAS
+   ========================================================= */
 
 function resizeCanvas() {
 
@@ -273,23 +322,27 @@ function resizeCanvas() {
             2
         );
 
+
     width =
         window.innerWidth;
 
     height =
         window.innerHeight;
 
+
     canvas.width =
-        width * dpr;
+        Math.floor(width * dpr);
 
     canvas.height =
-        height * dpr;
+        Math.floor(height * dpr);
+
 
     canvas.style.width =
-        width + "px";
+        `${width}px`;
 
     canvas.style.height =
-        height + "px";
+        `${height}px`;
+
 
     ctx.setTransform(
         dpr,
@@ -313,42 +366,51 @@ window.addEventListener(
 
 
 /* =========================================================
-   CREATION D'UNE FLAMME
+   PARTICULES
    ========================================================= */
 
-function createParticle(
+const flames = [];
+
+const flameCount =
+    reducedMotion
+        ? 25
+        : 80;
+
+
+function createFlame(
     randomStart = false
 ) {
 
-    const baseX =
-        randomStart
-            ? Math.random() * width
-            : width * (
-                .05 +
-                Math.random() * .90
-            );
-
-
     return {
 
-        x: baseX,
+        x:
+            Math.random() *
+            width,
 
         y:
             randomStart
                 ? height * (
-                    .50 +
-                    Math.random() * .50
+                    .30 +
+                    Math.random() * .70
                 )
-                : height + Math.random() * 40,
+                : height +
+                    Math.random() * 80,
 
         vx:
-            (Math.random() - .5) * .65,
+            (
+                Math.random() -
+                .5
+            ) * .7,
 
         vy:
-            -(1.1 + Math.random() * 2.8),
+            -(
+                .8 +
+                Math.random() * 2.4
+            ),
 
         size:
-            8 + Math.random() * 23,
+            7 +
+            Math.random() * 18,
 
         life:
             randomStart
@@ -356,67 +418,127 @@ function createParticle(
                 : 0,
 
         maxLife:
-            .55 +
-            Math.random() * .9,
+            .7 +
+            Math.random() * 1.2,
 
-        sway:
-            Math.random() * Math.PI * 2,
+        phase:
+            Math.random() *
+            Math.PI *
+            2,
 
-        swaySpeed:
-            .012 +
-            Math.random() * .025,
+        phaseSpeed:
+            .015 +
+            Math.random() * .035,
 
         rotation:
-            Math.random() * Math.PI * 2,
-
-        rotationSpeed:
-            (Math.random() - .5) * .025,
-
-        heat:
-            Math.random()
+            (
+                Math.random() -
+                .5
+            ) * .8
 
     };
 
 }
 
 
-const particleCount =
-    reducedMotion ? 30 : 95;
-
-
 for (
     let i = 0;
-    i < particleCount;
+    i < flameCount;
     i++
 ) {
 
-    particles.push(
-        createParticle(true)
+    flames.push(
+        createFlame(true)
     );
 
 }
 
 
 /* =========================================================
-   DESSIN D'UNE PARTICULE DE FEU
+   ÉTINCELLES
    ========================================================= */
 
-function drawParticle(p) {
+const sparks = [];
 
-    const alpha =
-        Math.sin(
+const sparkCount =
+    reducedMotion
+        ? 12
+        : 35;
+
+
+for (
+    let i = 0;
+    i < sparkCount;
+    i++
+) {
+
+    sparks.push({
+
+        x:
+            Math.random() *
+            width,
+
+        y:
+            Math.random() *
+            height,
+
+        vx:
+            (
+                Math.random() -
+                .5
+            ) * .3,
+
+        vy:
+            -(
+                .2 +
+                Math.random() * .7
+            ),
+
+        size:
+            1 +
+            Math.random() * 2,
+
+        alpha:
+            .2 +
+            Math.random() * .7
+
+    });
+
+}
+
+
+/* =========================================================
+   DESSIN D'UNE FLAMME
+   ========================================================= */
+
+function drawFlame(p) {
+
+    const progress =
+        Math.max(
+            0,
             Math.min(
-                p.life,
-                1
-            ) * Math.PI
-        ) * .42;
+                1,
+                p.life / p.maxLife
+            )
+        );
 
 
-    if (alpha <= 0) {
+    /*
+     * Apparition puis disparition douce.
+     */
+
+    const fade =
+        Math.sin(
+            progress * Math.PI
+        );
+
+
+    if (fade <= 0) {
         return;
     }
 
 
+    /* Lumière extérieure */
     const glow =
         ctx.createRadialGradient(
             p.x,
@@ -424,28 +546,28 @@ function drawParticle(p) {
             0,
             p.x,
             p.y,
-            p.size * 2.5
+            p.size * 3
         );
 
 
     glow.addColorStop(
         0,
-        `rgba(255,245,180,${alpha})`
+        `rgba(255,245,180,${.32 * fade})`
     );
 
     glow.addColorStop(
         .18,
-        `rgba(255,175,45,${alpha * .95})`
+        `rgba(255,180,50,${.25 * fade})`
     );
 
     glow.addColorStop(
-        .48,
-        `rgba(255,69,0,${alpha * .65})`
+        .45,
+        `rgba(255,65,0,${.16 * fade})`
     );
 
     glow.addColorStop(
         1,
-        `rgba(180,0,0,0)`
+        "rgba(180,0,0,0)"
     );
 
 
@@ -454,15 +576,17 @@ function drawParticle(p) {
     ctx.globalCompositeOperation =
         "screen";
 
+
     ctx.fillStyle =
         glow;
+
 
     ctx.beginPath();
 
     ctx.arc(
         p.x,
         p.y,
-        p.size * 2.5,
+        p.size * 3,
         0,
         Math.PI * 2
     );
@@ -470,44 +594,52 @@ function drawParticle(p) {
     ctx.fill();
 
 
-    /* petite flamme centrale */
+    /*
+     * Corps de la flamme.
+     */
 
     const flame =
         ctx.createRadialGradient(
             p.x,
-            p.y + p.size * .15,
+            p.y + p.size * .20,
             0,
             p.x,
             p.y,
-            p.size
+            p.size * 1.4
         );
 
 
     flame.addColorStop(
         0,
-        `rgba(255,240,150,${alpha * .9})`
+        `rgba(255,245,175,${.55 * fade})`
     );
 
     flame.addColorStop(
-        .35,
-        `rgba(255,105,15,${alpha * .75})`
+        .25,
+        `rgba(255,150,25,${.48 * fade})`
+    );
+
+    flame.addColorStop(
+        .65,
+        `rgba(255,55,0,${.27 * fade})`
     );
 
     flame.addColorStop(
         1,
-        "rgba(210,20,0,0)"
+        "rgba(150,0,0,0)"
     );
 
 
     ctx.fillStyle =
         flame;
 
+
     ctx.beginPath();
 
     ctx.ellipse(
         p.x,
         p.y,
-        p.size * .7,
+        p.size * .65,
         p.size * 1.35,
         p.rotation,
         0,
@@ -516,19 +648,21 @@ function drawParticle(p) {
 
     ctx.fill();
 
+
     ctx.restore();
 
 }
 
 
 /* =========================================================
-   ANIMATION DU FEU
+   ANIMATION PRINCIPALE
    ========================================================= */
 
-let lastTime = performance.now();
+let lastTime =
+    performance.now();
 
 
-function animateFire(now) {
+function animate(now) {
 
     const delta =
         Math.min(
@@ -536,7 +670,9 @@ function animateFire(now) {
             2
         );
 
-    lastTime = now;
+
+    lastTime =
+        now;
 
 
     ctx.clearRect(
@@ -547,21 +683,22 @@ function animateFire(now) {
     );
 
 
-    particles.forEach(p => {
+    /* ---------------------------------------------
+       FLAMMES
+       --------------------------------------------- */
+
+    flames.forEach(p => {
 
         p.life +=
             .008 * delta;
 
-        p.sway +=
-            p.swaySpeed * delta;
 
-        p.rotation +=
-            p.rotationSpeed * delta;
+        p.phase +=
+            p.phaseSpeed * delta;
 
 
         /*
-         * Le feu est légèrement attiré
-         * par la position de la souris.
+         * Attraction très légère vers la souris.
          */
 
         const dx =
@@ -572,146 +709,122 @@ function animateFire(now) {
 
 
         const distance =
-            Math.sqrt(
-                dx * dx +
-                dy * dy
+            Math.hypot(
+                dx,
+                dy
             );
 
 
-        if (distance < 420) {
+        if (distance < 500) {
 
-            const force =
-                (1 - distance / 420) *
-                .018;
+            const influence =
+                (
+                    1 -
+                    distance / 500
+                );
+
 
             p.vx +=
-                dx * force * .04;
+                dx *
+                influence *
+                .00012 *
+                delta;
+
 
             p.vy -=
-                force * .12;
+                influence *
+                .003 *
+                delta;
 
         }
 
 
         /*
-         * Mouvement naturel des flammes.
+         * Mouvement naturel.
          */
+
+        const wave =
+            Math.sin(
+                p.phase
+            ) * .8;
+
 
         p.x +=
             (
                 p.vx +
-                Math.sin(p.sway) * .65
+                wave
             ) * delta;
+
 
         p.y +=
             p.vy * delta;
 
 
         /*
-         * Quand la flamme disparaît,
-         * elle revient par le bas.
+         * Respawn.
          */
 
         if (
             p.y <
-            height * .05 ||
-            p.life >= p.maxLife
+            height * .04 ||
+            p.life >
+            p.maxLife
         ) {
 
             p.x =
-                Math.random() * width;
+                Math.random() *
+                width;
 
             p.y =
                 height +
-                Math.random() * 35;
+                Math.random() * 70;
 
             p.vx =
-                (Math.random() - .5) * .65;
+                (
+                    Math.random() -
+                    .5
+                ) * .7;
 
             p.vy =
-                -(1.1 + Math.random() * 2.8);
+                -(
+                    .8 +
+                    Math.random() * 2.4
+                );
 
             p.size =
-                8 + Math.random() * 23;
+                7 +
+                Math.random() * 18;
 
-            p.life = 0;
+            p.life =
+                0;
 
             p.maxLife =
-                .55 +
-                Math.random() * .9;
+                .7 +
+                Math.random() * 1.2;
 
         }
 
 
-        /*
-         * Repositionnement horizontal.
-         */
-
-        if (p.x < -40) {
-            p.x = width + 40;
-        }
-
-        if (p.x > width + 40) {
-            p.x = -40;
+        if (p.x < -50) {
+            p.x =
+                width + 50;
         }
 
 
-        drawParticle(p);
+        if (p.x > width + 50) {
+            p.x =
+                -50;
+        }
+
+
+        drawFlame(p);
 
     });
 
 
-    requestAnimationFrame(
-        animateFire
-    );
-
-}
-
-
-requestAnimationFrame(
-    animateFire
-);
-
-
-/* =========================================================
-   EMBERS / ÉTINCELLES
-   ========================================================= */
-
-const embers = [];
-
-
-for (
-    let i = 0;
-    i < (reducedMotion ? 10 : 28);
-    i++
-) {
-
-    embers.push({
-
-        x:
-            Math.random() * window.innerWidth,
-
-        y:
-            Math.random() * window.innerHeight,
-
-        size:
-            1 + Math.random() * 2.2,
-
-        speed:
-            .2 + Math.random() * .65,
-
-        drift:
-            (Math.random() - .5) * .5,
-
-        alpha:
-            .25 + Math.random() * .55
-
-    });
-
-}
-
-
-function animateEmbers() {
+    /* ---------------------------------------------
+       ÉTINCELLES
+       --------------------------------------------- */
 
     ctx.save();
 
@@ -719,60 +832,69 @@ function animateEmbers() {
         "screen";
 
 
-    embers.forEach(e => {
+    sparks.forEach(spark => {
 
-        e.y -= e.speed;
+        spark.y +=
+            spark.vy * delta;
 
-        e.x += e.drift;
+        spark.x +=
+            spark.vx * delta;
 
 
-        if (e.y < -10) {
+        if (spark.y < -20) {
 
-            e.y =
-                height + 10;
+            spark.y =
+                height + 20;
 
-            e.x =
-                Math.random() * width;
+            spark.x =
+                Math.random() *
+                width;
 
         }
 
 
         const distance =
             Math.hypot(
-                mouseX - e.x,
-                mouseY - e.y
+                mouseX - spark.x,
+                mouseY - spark.y
             );
 
 
-        const mouseGlow =
-            distance < 250
-                ? 1 - distance / 250
+        const mouseInfluence =
+            distance < 260
+                ? 1 - distance / 260
                 : 0;
 
 
         ctx.beginPath();
 
+
         ctx.fillStyle =
             `rgba(
                 255,
-                ${120 + mouseGlow * 100},
-                ${35 + mouseGlow * 90},
-                ${e.alpha + mouseGlow * .35}
+                ${125 + mouseInfluence * 100},
+                ${30 + mouseInfluence * 80},
+                ${spark.alpha + mouseInfluence * .25}
             )`;
 
+
         ctx.shadowBlur =
-            10;
+            12;
+
 
         ctx.shadowColor =
             "rgba(255,70,0,.8)";
 
+
         ctx.arc(
-            e.x,
-            e.y,
-            e.size + mouseGlow,
+            spark.x,
+            spark.y,
+            spark.size +
+                mouseInfluence,
             0,
             Math.PI * 2
         );
+
 
         ctx.fill();
 
@@ -781,41 +903,17 @@ function animateEmbers() {
 
     ctx.restore();
 
+
     requestAnimationFrame(
-        animateEmbers
+        animate
     );
 
 }
 
 
 requestAnimationFrame(
-    animateEmbers
-);
-
-
-/* =========================================================
-   TOUCHE ESCAPE
-   ========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            document
-                .querySelectorAll("details[open]")
-                .forEach(detail => {
-                    detail.open = false;
-                });
-
-        }
-
-    }
+    animate
 );
 ```
 
 });
-
