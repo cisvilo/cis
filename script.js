@@ -1,69 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 ```
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+/* ========================================================= */
+/* NAVIGATION */
+/* ========================================================= */
 
+const navButtons = document.querySelectorAll("[data-open]");
 const views = document.querySelectorAll(".view");
 
-const navButtons =
-    document.querySelectorAll(".nav [data-open]");
+function openView(viewId, updateHash = true) {
 
-
-function openView(id, updateUrl = true) {
-
-    const target =
-        document.getElementById(id);
+    const target = document.getElementById(viewId);
 
     if (!target) {
         return;
     }
 
-
-    /* Masquer toutes les pages */
     views.forEach(view => {
         view.classList.remove("active");
     });
 
-
-    /* Afficher la page demandée */
     target.classList.add("active");
 
-
-    /* Mise à jour du menu */
     navButtons.forEach(button => {
-
         button.classList.toggle(
             "active",
-            button.dataset.open === id
+            button.dataset.open === viewId
         );
-
     });
 
-
-    /* URL */
-    if (updateUrl) {
-
-        const newUrl =
-            window.location.pathname +
-            "#" +
-            id;
-
-        if (
-            window.location.hash !== "#" + id &&
-            history.replaceState
-        ) {
-            history.replaceState(
-                null,
-                "",
-                newUrl
-            );
-        }
+    if (updateHash) {
+        history.replaceState(
+            null,
+            "",
+            "#" + viewId
+        );
     }
 
-
-    /* Retour en haut */
     window.scrollTo({
         top: 0,
         behavior: "smooth"
@@ -71,21 +44,22 @@ function openView(id, updateUrl = true) {
 }
 
 
-/* =========================================================
-   BOUTONS DU MENU
-   ========================================================= */
-
 navButtons.forEach(button => {
 
     button.addEventListener("click", event => {
 
-        event.preventDefault();
+        /*
+         * Les liens externes possèdent data-link,
+         * mais data-open est réservé à la navigation interne.
+         */
 
-        const id =
-            button.dataset.open;
+        const viewId = button.dataset.open;
 
-        if (id) {
-            openView(id);
+        if (viewId) {
+
+            event.preventDefault();
+
+            openView(viewId);
         }
 
     });
@@ -93,206 +67,171 @@ navButtons.forEach(button => {
 });
 
 
-/* =========================================================
-   CARTES DE L'ACCUEIL
-   ========================================================= */
+/* ========================================================= */
+/* HASH AU CHARGEMENT */
+/* ========================================================= */
 
-document
-    .querySelectorAll(".home-card[data-open]")
-    .forEach(card => {
+const initialHash =
+    window.location.hash.replace("#", "");
 
-        card.addEventListener("click", () => {
+if (initialHash && document.getElementById(initialHash)) {
 
-            const id =
-                card.dataset.open;
+    openView(initialHash, false);
 
-            if (id) {
-                openView(id);
+} else {
+
+    openView("home", false);
+
+}
+
+
+window.addEventListener("hashchange", () => {
+
+    const hash =
+        window.location.hash.replace("#", "");
+
+    if (hash && document.getElementById(hash)) {
+
+        openView(hash, false);
+
+    }
+
+});
+
+
+/* ========================================================= */
+/* INVENTAIRES */
+/* ========================================================= */
+
+const inventoryDetails =
+    document.querySelectorAll(".inventory-category");
+
+
+inventoryDetails.forEach(detail => {
+
+    detail.addEventListener("toggle", () => {
+
+        if (!detail.open) {
+            return;
+        }
+
+        inventoryDetails.forEach(other => {
+
+            if (other !== detail) {
+                other.removeAttribute("open");
             }
 
         });
 
     });
 
+});
 
-/* =========================================================
-   HASH URL
-   ========================================================= */
 
-function loadHash() {
+/* ========================================================= */
+/* LIENS
+   IMPORTANT :
+   On ne remplace PAS les href existants par de faux liens.
+   Tu peux ajouter tes vraies URL ci-dessous.
+*/
+/* ========================================================= */
 
-    const hash =
-        window.location.hash
-            .replace("#", "")
-            .trim();
+const links = {
+
+    /*
+    Exemple :
+
+    vsav1_chef: "https://ton-vrai-lien.com",
+    vsav1_conducteur: "https://ton-vrai-lien.com",
+    vsav1_equipier: "https://ton-vrai-lien.com",
+
+    */
+
+};
+
+
+document.querySelectorAll("[data-link]").forEach(element => {
+
+    const key = element.dataset.link;
 
     if (
-        hash &&
-        document.getElementById(hash)
+        links[key] &&
+        typeof links[key] === "string"
     ) {
 
-        openView(hash, false);
+        element.href = links[key];
 
-    } else {
+        /*
+         * Ouvre les plateformes externes
+         * dans un nouvel onglet.
+         */
 
-        openView("home", false);
+        if (
+            links[key].startsWith("http://") ||
+            links[key].startsWith("https://")
+        ) {
+
+            element.target = "_blank";
+
+            element.rel = "noopener noreferrer";
+
+        }
 
     }
 
-}
+});
 
 
-loadHash();
+/* ========================================================= */
+/* MOUVEMENT DE LA SOURIS
+   Le fond réagit légèrement au mouvement.
+*/
+/* ========================================================= */
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+let targetMouseX = mouseX;
+let targetMouseY = mouseY;
 
 
-window.addEventListener(
-    "hashchange",
-    loadHash
-);
+window.addEventListener("mousemove", event => {
 
+    targetMouseX = event.clientX;
+    targetMouseY = event.clientY;
 
-/* =========================================================
-   INVENTAIRES — ACCORDÉONS
-   ========================================================= */
+    const percentX =
+        (event.clientX / window.innerWidth) * 100;
 
-const inventoryDetails =
-    document.querySelectorAll(
-        "#inventaires .inventory-category"
+    const percentY =
+        (event.clientY / window.innerHeight) * 100;
+
+    document.documentElement.style.setProperty(
+        "--mx",
+        percentX + "%"
     );
 
-
-inventoryDetails.forEach(detail => {
-
-    detail.addEventListener(
-        "toggle",
-        () => {
-
-            if (!detail.open) {
-                return;
-            }
-
-
-            /*
-             * Une seule catégorie ouverte
-             * à la fois.
-             */
-
-            inventoryDetails.forEach(other => {
-
-                if (
-                    other !== detail &&
-                    other.open
-                ) {
-                    other.open = false;
-                }
-
-            });
-
-        }
+    document.documentElement.style.setProperty(
+        "--my",
+        percentY + "%"
     );
 
 });
 
 
-/* =========================================================
-   TOUCHE ESCAPE
-   ========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key !== "Escape") {
-            return;
-        }
-
-
-        document
-            .querySelectorAll("details[open]")
-            .forEach(detail => {
-
-                detail.open = false;
-
-            });
-
-    }
-);
-
-
-/* =========================================================
-   LUMIÈRE QUI SUIT LA SOURIS
-   ========================================================= */
-
-let mouseX =
-    window.innerWidth / 2;
-
-let mouseY =
-    window.innerHeight / 2;
-
-
-window.addEventListener(
-    "mousemove",
-    event => {
-
-        mouseX =
-            event.clientX;
-
-        mouseY =
-            event.clientY;
-
-
-        const x =
-            (
-                event.clientX /
-                window.innerWidth
-            ) * 100;
-
-
-        const y =
-            (
-                event.clientY /
-                window.innerHeight
-            ) * 100;
-
-
-        document.documentElement
-            .style
-            .setProperty(
-                "--mx",
-                `${x}%`
-            );
-
-
-        document.documentElement
-            .style
-            .setProperty(
-                "--my",
-                `${y}%`
-            );
-
-    },
-    { passive: true }
-);
-
-
-/* =========================================================
-   FEU — ARRIÈRE-PLAN
-   ========================================================= */
+/* ========================================================= */
+/* FLAMMES PREMIUM */
+/* ========================================================= */
 
 const canvas =
-    document.getElementById(
-        "fireCanvas"
-    );
-
+    document.getElementById("fireCanvas");
 
 if (!canvas) {
     return;
 }
 
-
 const ctx =
     canvas.getContext("2d");
-
 
 if (!ctx) {
     return;
@@ -304,31 +243,23 @@ let height = 0;
 let dpr = 1;
 
 
-const reducedMotion =
-    window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    ).matches;
+const flames = [];
+const embers = [];
 
 
-/* =========================================================
-   REDIMENSIONNEMENT DU CANVAS
-   ========================================================= */
+/* ========================================================= */
+/* RESIZE */
+/* ========================================================= */
 
 function resizeCanvas() {
 
-    dpr =
-        Math.min(
-            window.devicePixelRatio || 1,
-            2
-        );
+    dpr = Math.min(
+        window.devicePixelRatio || 1,
+        2
+    );
 
-
-    width =
-        window.innerWidth;
-
-    height =
-        window.innerHeight;
-
+    width = window.innerWidth;
+    height = window.innerHeight;
 
     canvas.width =
         Math.floor(width * dpr);
@@ -336,13 +267,11 @@ function resizeCanvas() {
     canvas.height =
         Math.floor(height * dpr);
 
-
     canvas.style.width =
-        `${width}px`;
+        width + "px";
 
     canvas.style.height =
-        `${height}px`;
-
+        height + "px";
 
     ctx.setTransform(
         dpr,
@@ -358,321 +287,388 @@ function resizeCanvas() {
 
 resizeCanvas();
 
-
 window.addEventListener(
     "resize",
     resizeCanvas
 );
 
 
-/* =========================================================
-   PARTICULES
-   ========================================================= */
+/* ========================================================= */
+/* PARTICULES FLAMMES */
+/* ========================================================= */
 
-const flames = [];
-
-const flameCount =
-    reducedMotion
-        ? 25
-        : 80;
-
-
-function createFlame(
-    randomStart = false
-) {
+function createFlame() {
 
     return {
 
         x:
-            Math.random() *
-            width,
+            Math.random() * width,
 
         y:
-            randomStart
-                ? height * (
-                    .30 +
-                    Math.random() * .70
-                )
-                : height +
-                    Math.random() * 80,
-
-        vx:
-            (
-                Math.random() -
-                .5
-            ) * .7,
-
-        vy:
-            -(
-                .8 +
-                Math.random() * 2.4
-            ),
+            height +
+            Math.random() * 80,
 
         size:
-            7 +
-            Math.random() * 18,
+            18 +
+            Math.random() * 55,
+
+        speed:
+            .35 +
+            Math.random() * 1.15,
 
         life:
-            randomStart
-                ? Math.random()
-                : 0,
+            Math.random(),
 
-        maxLife:
-            .7 +
-            Math.random() * 1.2,
+        drift:
+            (Math.random() - .5) * .55,
 
         phase:
-            Math.random() *
-            Math.PI *
-            2,
+            Math.random() * Math.PI * 2,
 
-        phaseSpeed:
-            .015 +
-            Math.random() * .035,
-
-        rotation:
-            (
-                Math.random() -
-                .5
-            ) * .8
+        opacity:
+            .10 +
+            Math.random() * .18
 
     };
 
 }
 
 
-for (
-    let i = 0;
-    i < flameCount;
-    i++
-) {
+function createEmber() {
 
-    flames.push(
-        createFlame(true)
-    );
-
-}
-
-
-/* =========================================================
-   ÉTINCELLES
-   ========================================================= */
-
-const sparks = [];
-
-const sparkCount =
-    reducedMotion
-        ? 12
-        : 35;
-
-
-for (
-    let i = 0;
-    i < sparkCount;
-    i++
-) {
-
-    sparks.push({
+    return {
 
         x:
-            Math.random() *
-            width,
+            Math.random() * width,
 
         y:
-            Math.random() *
-            height,
-
-        vx:
-            (
-                Math.random() -
-                .5
-            ) * .3,
-
-        vy:
-            -(
-                .2 +
-                Math.random() * .7
-            ),
+            height +
+            Math.random() * 100,
 
         size:
-            1 +
-            Math.random() * 2,
+            .7 +
+            Math.random() * 2.2,
 
-        alpha:
-            .2 +
-            Math.random() * .7
+        speed:
+            .35 +
+            Math.random() * 1.3,
 
-    });
+        drift:
+            (Math.random() - .5) * .45,
+
+        opacity:
+            .25 +
+            Math.random() * .55,
+
+        phase:
+            Math.random() * Math.PI * 2
+
+    };
 
 }
 
 
-/* =========================================================
-   DESSIN D'UNE FLAMME
-   ========================================================= */
+/*
+ * Beaucoup de petites flammes réparties
+ * sur toute la largeur.
+ */
 
-function drawFlame(p) {
-
-    const progress =
+const flameCount =
+    Math.min(
+        125,
         Math.max(
-            0,
-            Math.min(
-                1,
-                p.life / p.maxLife
-            )
-        );
+            70,
+            Math.floor(width / 12)
+        )
+    );
 
 
-    /*
-     * Apparition puis disparition douce.
-     */
+for (let i = 0; i < flameCount; i++) {
 
-    const fade =
+    const flame = createFlame();
+
+    flame.y =
+        height -
+        Math.random() * height * .20;
+
+    flames.push(flame);
+
+}
+
+
+const emberCount =
+    Math.min(
+        90,
+        Math.max(
+            45,
+            Math.floor(width / 18)
+        )
+    );
+
+
+for (let i = 0; i < emberCount; i++) {
+
+    const ember = createEmber();
+
+    ember.y =
+        Math.random() * height;
+
+    embers.push(ember);
+
+}
+
+
+/* ========================================================= */
+/* DESSIN D'UNE FLAMME */
+/* ========================================================= */
+
+function drawFlame(flame, time) {
+
+    const mouseInfluence =
+        (mouseX / width - .5) * 0.9;
+
+    const wave =
         Math.sin(
-            progress * Math.PI
-        );
+            time * .0015 +
+            flame.phase
+        ) * 12;
 
 
-    if (fade <= 0) {
-        return;
+    flame.x +=
+        flame.drift +
+        mouseInfluence * .20;
+
+
+    flame.y -=
+        flame.speed;
+
+
+    flame.life += .006;
+
+
+    if (
+        flame.y <
+        height * .15 ||
+        flame.life > 1.8
+    ) {
+
+        flame.x =
+            Math.random() * width;
+
+        flame.y =
+            height +
+            Math.random() * 50;
+
+        flame.life = 0;
+
     }
 
 
-    /* Lumière extérieure */
-    const glow =
+    const pulse =
+        1 +
+        Math.sin(
+            time * .002 +
+            flame.phase
+        ) * .18;
+
+
+    const size =
+        flame.size * pulse;
+
+
+    const x =
+        flame.x + wave;
+
+
+    const y =
+        flame.y;
+
+
+    const gradient =
         ctx.createRadialGradient(
-            p.x,
-            p.y,
+            x,
+            y,
             0,
-            p.x,
-            p.y,
-            p.size * 3
+            x,
+            y,
+            size * 2.8
         );
 
 
-    glow.addColorStop(
+    gradient.addColorStop(
         0,
-        `rgba(255,245,180,${.32 * fade})`
+        `rgba(255,210,100,${flame.opacity})`
     );
 
-    glow.addColorStop(
-        .18,
-        `rgba(255,180,50,${.25 * fade})`
+    gradient.addColorStop(
+        .22,
+        `rgba(255,100,20,${flame.opacity * .72})`
     );
 
-    glow.addColorStop(
-        .45,
-        `rgba(255,65,0,${.16 * fade})`
+    gradient.addColorStop(
+        .55,
+        `rgba(225,30,20,${flame.opacity * .35})`
     );
 
-    glow.addColorStop(
+    gradient.addColorStop(
         1,
-        "rgba(180,0,0,0)"
+        "rgba(180,20,10,0)"
     );
 
 
-    ctx.save();
+    ctx.fillStyle = gradient;
 
-    ctx.globalCompositeOperation =
-        "screen";
+    ctx.beginPath();
+
+    ctx.ellipse(
+        x,
+        y,
+        size,
+        size * 2.2,
+        0,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
 
 
-    ctx.fillStyle =
-        glow;
+/* ========================================================= */
+/* DESSIN DES BRAISES */
+/* ========================================================= */
+
+function drawEmber(ember, time) {
+
+    ember.y -= ember.speed;
+
+    ember.x +=
+        ember.drift +
+        Math.sin(
+            time * .002 +
+            ember.phase
+        ) * .12;
+
+
+    if (ember.y < -10) {
+
+        ember.y =
+            height +
+            Math.random() * 50;
+
+        ember.x =
+            Math.random() * width;
+
+    }
+
+
+    const alpha =
+        ember.opacity *
+        (
+            .55 +
+            .45 *
+            Math.sin(
+                time * .004 +
+                ember.phase
+            )
+        );
 
 
     ctx.beginPath();
 
     ctx.arc(
-        p.x,
-        p.y,
-        p.size * 3,
+        ember.x,
+        ember.y,
+        ember.size,
         0,
         Math.PI * 2
     );
-
-    ctx.fill();
-
-
-    /*
-     * Corps de la flamme.
-     */
-
-    const flame =
-        ctx.createRadialGradient(
-            p.x,
-            p.y + p.size * .20,
-            0,
-            p.x,
-            p.y,
-            p.size * 1.4
-        );
-
-
-    flame.addColorStop(
-        0,
-        `rgba(255,245,175,${.55 * fade})`
-    );
-
-    flame.addColorStop(
-        .25,
-        `rgba(255,150,25,${.48 * fade})`
-    );
-
-    flame.addColorStop(
-        .65,
-        `rgba(255,55,0,${.27 * fade})`
-    );
-
-    flame.addColorStop(
-        1,
-        "rgba(150,0,0,0)"
-    );
-
 
     ctx.fillStyle =
-        flame;
+        `rgba(255,130,45,${alpha})`;
 
+    ctx.shadowBlur = 10;
 
-    ctx.beginPath();
-
-    ctx.ellipse(
-        p.x,
-        p.y,
-        p.size * .65,
-        p.size * 1.35,
-        p.rotation,
-        0,
-        Math.PI * 2
-    );
+    ctx.shadowColor =
+        "rgba(255,70,20,.7)";
 
     ctx.fill();
 
-
-    ctx.restore();
+    ctx.shadowBlur = 0;
 
 }
 
 
-/* =========================================================
-   ANIMATION PRINCIPALE
-   ========================================================= */
+/* ========================================================= */
+/* HALO DE CHALEUR EN BAS */
+/* ========================================================= */
 
-let lastTime =
-    performance.now();
+function drawHeat(time) {
+
+    const centerX =
+        width / 2 +
+        (mouseX - width / 2) * .04;
 
 
-function animate(now) {
-
-    const delta =
-        Math.min(
-            (now - lastTime) / 16.67,
-            2
+    const gradient =
+        ctx.createRadialGradient(
+            centerX,
+            height + 50,
+            0,
+            centerX,
+            height + 50,
+            Math.min(width * .75, 900)
         );
 
 
-    lastTime =
-        now;
+    gradient.addColorStop(
+        0,
+        "rgba(255,70,15,.12)"
+    );
+
+    gradient.addColorStop(
+        .28,
+        "rgba(225,30,15,.055)"
+    );
+
+    gradient.addColorStop(
+        .65,
+        "rgba(100,20,10,.018)"
+    );
+
+    gradient.addColorStop(
+        1,
+        "rgba(0,0,0,0)"
+    );
+
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+}
+
+
+/* ========================================================= */
+/* BOUCLE UNIQUE
+   IMPORTANT :
+   une seule animation pour éviter le scintillement.
+*/
+/* ========================================================= */
+
+function animate(time) {
+
+    mouseX +=
+        (targetMouseX - mouseX) * .035;
+
+    mouseY +=
+        (targetMouseY - mouseY) * .035;
 
 
     ctx.clearRect(
@@ -683,237 +679,60 @@ function animate(now) {
     );
 
 
-    /* ---------------------------------------------
-       FLAMMES
-       --------------------------------------------- */
+    drawHeat(time);
 
-    flames.forEach(p => {
 
-        p.life +=
-            .008 * delta;
+    flames.forEach(flame => {
 
-
-        p.phase +=
-            p.phaseSpeed * delta;
-
-
-        /*
-         * Attraction très légère vers la souris.
-         */
-
-        const dx =
-            mouseX - p.x;
-
-        const dy =
-            mouseY - p.y;
-
-
-        const distance =
-            Math.hypot(
-                dx,
-                dy
-            );
-
-
-        if (distance < 500) {
-
-            const influence =
-                (
-                    1 -
-                    distance / 500
-                );
-
-
-            p.vx +=
-                dx *
-                influence *
-                .00012 *
-                delta;
-
-
-            p.vy -=
-                influence *
-                .003 *
-                delta;
-
-        }
-
-
-        /*
-         * Mouvement naturel.
-         */
-
-        const wave =
-            Math.sin(
-                p.phase
-            ) * .8;
-
-
-        p.x +=
-            (
-                p.vx +
-                wave
-            ) * delta;
-
-
-        p.y +=
-            p.vy * delta;
-
-
-        /*
-         * Respawn.
-         */
-
-        if (
-            p.y <
-            height * .04 ||
-            p.life >
-            p.maxLife
-        ) {
-
-            p.x =
-                Math.random() *
-                width;
-
-            p.y =
-                height +
-                Math.random() * 70;
-
-            p.vx =
-                (
-                    Math.random() -
-                    .5
-                ) * .7;
-
-            p.vy =
-                -(
-                    .8 +
-                    Math.random() * 2.4
-                );
-
-            p.size =
-                7 +
-                Math.random() * 18;
-
-            p.life =
-                0;
-
-            p.maxLife =
-                .7 +
-                Math.random() * 1.2;
-
-        }
-
-
-        if (p.x < -50) {
-            p.x =
-                width + 50;
-        }
-
-
-        if (p.x > width + 50) {
-            p.x =
-                -50;
-        }
-
-
-        drawFlame(p);
-
-    });
-
-
-    /* ---------------------------------------------
-       ÉTINCELLES
-       --------------------------------------------- */
-
-    ctx.save();
-
-    ctx.globalCompositeOperation =
-        "screen";
-
-
-    sparks.forEach(spark => {
-
-        spark.y +=
-            spark.vy * delta;
-
-        spark.x +=
-            spark.vx * delta;
-
-
-        if (spark.y < -20) {
-
-            spark.y =
-                height + 20;
-
-            spark.x =
-                Math.random() *
-                width;
-
-        }
-
-
-        const distance =
-            Math.hypot(
-                mouseX - spark.x,
-                mouseY - spark.y
-            );
-
-
-        const mouseInfluence =
-            distance < 260
-                ? 1 - distance / 260
-                : 0;
-
-
-        ctx.beginPath();
-
-
-        ctx.fillStyle =
-            `rgba(
-                255,
-                ${125 + mouseInfluence * 100},
-                ${30 + mouseInfluence * 80},
-                ${spark.alpha + mouseInfluence * .25}
-            )`;
-
-
-        ctx.shadowBlur =
-            12;
-
-
-        ctx.shadowColor =
-            "rgba(255,70,0,.8)";
-
-
-        ctx.arc(
-            spark.x,
-            spark.y,
-            spark.size +
-                mouseInfluence,
-            0,
-            Math.PI * 2
+        drawFlame(
+            flame,
+            time
         );
 
+    });
 
-        ctx.fill();
+
+    embers.forEach(ember => {
+
+        drawEmber(
+            ember,
+            time
+        );
 
     });
 
 
-    ctx.restore();
-
-
-    requestAnimationFrame(
-        animate
-    );
+    requestAnimationFrame(animate);
 
 }
 
 
-requestAnimationFrame(
-    animate
+requestAnimationFrame(animate);
+
+
+/* ========================================================= */
+/* ESCAPE
+   Ferme les catégories ouvertes.
+*/
+/* ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key !== "Escape") {
+            return;
+        }
+
+        inventoryDetails.forEach(
+            detail => {
+                detail.removeAttribute("open");
+            }
+        );
+
+    }
 );
 ```
 
 });
+
