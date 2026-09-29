@@ -1,7 +1,9 @@
+
 document.addEventListener("DOMContentLoaded", () => {
 
+
     /* =====================================================
-       ANNÉE FOOTER
+       ANNÉE
     ====================================================== */
 
     const yearElement =
@@ -11,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         yearElement.textContent =
             new Date().getFullYear();
     }
-
 
 
     /* =====================================================
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.innerWidth <= 800;
 
         const flameCount =
-            isMobile ? 24 : 38;
+            isMobile ? 20 : 34;
 
         for (let i = 0; i < flameCount; i++) {
 
@@ -37,22 +38,22 @@ document.addEventListener("DOMContentLoaded", () => {
             flame.className = "flame";
 
             const size =
-                Math.random() * 42 + 12;
+                Math.random() * 34 + 10;
 
             const left =
                 Math.random() * 100;
 
             const duration =
-                Math.random() * 10 + 9;
+                Math.random() * 11 + 10;
 
             const delay =
-                Math.random() * -18;
+                Math.random() * -20;
 
             const drift =
-                (Math.random() * 180 - 90) + "px";
+                (Math.random() * 160 - 80) + "px";
 
             const opacity =
-                Math.random() * .25 + .18;
+                Math.random() * .20 + .12;
 
             flame.style.width =
                 `${size}px`;
@@ -82,9 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
-       REVEAL DES ÉLÉMENTS
+       REVEAL
     ====================================================== */
 
     const revealElements =
@@ -110,20 +110,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             },
             {
-                threshold: 0.10
+                threshold:.08
             }
         );
 
     revealElements.forEach(element => {
-
         revealObserver.observe(element);
-
     });
 
 
-
     /* =====================================================
-       NAVIGATION ACTIVE
+       NAVIGATION DESKTOP ACTIVE
     ====================================================== */
 
     const sections =
@@ -142,28 +139,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 entries.forEach(entry => {
 
-                    if (entry.isIntersecting) {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
 
-                        const id =
-                            entry.target.id;
+                    const id =
+                        entry.target.id;
 
-                        navLinks.forEach(link => {
+                    navLinks.forEach(link => {
 
-                            link.classList.remove(
+                        link.classList.remove(
+                            "active"
+                        );
+
+                        if (
+                            link.getAttribute("href") ===
+                            `#${id}`
+                        ) {
+                            link.classList.add(
                                 "active"
                             );
+                        }
 
-                            if (
-                                link.getAttribute("href") ===
-                                `#${id}`
-                            ) {
+                    });
 
-                                link.classList.add(
-                                    "active"
-                                );
-                            }
-                        });
-                    }
                 });
 
             },
@@ -174,16 +173,154 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     sections.forEach(section => {
-
         sectionObserver.observe(section);
+    });
+
+
+    /* =====================================================
+       MENU MOBILE
+    ====================================================== */
+
+    const mobileToggle =
+        document.getElementById(
+            "mobile-menu-toggle"
+        );
+
+    const mobileMenu =
+        document.getElementById(
+            "mobile-menu"
+        );
+
+    const mobileOverlay =
+        document.getElementById(
+            "mobile-menu-overlay"
+        );
+
+    const mobileClose =
+        document.getElementById(
+            "mobile-menu-close"
+        );
+
+    const mobileLinks =
+        document.querySelectorAll(
+            ".mobile-nav-link"
+        );
+
+
+    function openMobileMenu() {
+
+        if (!mobileMenu) {
+            return;
+        }
+
+        mobileMenu.classList.add("open");
+
+        mobileOverlay?.classList.add("open");
+
+        mobileToggle?.classList.add("active");
+
+        mobileToggle?.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+        mobileMenu.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "menu-open"
+        );
+    }
+
+
+    function closeMobileMenu() {
+
+        if (!mobileMenu) {
+            return;
+        }
+
+        mobileMenu.classList.remove("open");
+
+        mobileOverlay?.classList.remove("open");
+
+        mobileToggle?.classList.remove("active");
+
+        mobileToggle?.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        mobileMenu.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.classList.remove(
+            "menu-open"
+        );
+    }
+
+
+    mobileToggle?.addEventListener(
+        "click",
+        () => {
+
+            const isOpen =
+                mobileMenu?.classList.contains(
+                    "open"
+                );
+
+            if (isOpen) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+
+        }
+    );
+
+
+    mobileClose?.addEventListener(
+        "click",
+        closeMobileMenu
+    );
+
+
+    mobileOverlay?.addEventListener(
+        "click",
+        closeMobileMenu
+    );
+
+
+    mobileLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+                closeMobileMenu();
+            }
+        );
 
     });
 
 
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+                closeMobileMenu();
+            }
+
+        }
+    );
+
 
     /* =====================================================
        LIENS PLACEHOLDERS
-       UNIQUEMENT POUR href="#"
+       UNIQUEMENT href="#"
     ====================================================== */
 
     const placeholderLinks =
@@ -201,6 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let toastTimer;
 
+
     placeholderLinks.forEach(link => {
 
         link.addEventListener(
@@ -212,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (toastMessage) {
 
                     toastMessage.textContent =
-                        "Lien à connecter à votre ressource.";
+                        "Cette ressource doit encore être connectée.";
                 }
 
                 if (toast) {
@@ -232,13 +370,13 @@ document.addEventListener("DOMContentLoaded", () => {
                                 "show"
                             );
 
-                        }, 3000);
+                        }, 2600);
                 }
+
             }
         );
 
     });
-
 
 
     /* =====================================================
@@ -249,6 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(
             'a[href^="#"]:not([href="#"])'
         );
+
 
     internalLinks.forEach(link => {
 
@@ -281,24 +420,24 @@ document.addEventListener("DOMContentLoaded", () => {
                         : 0;
 
                 const position =
-                    target.getBoundingClientRect()
-                        .top +
+                    target.getBoundingClientRect().top +
                     window.scrollY -
-                    headerHeight;
+                    headerHeight -
+                    10;
 
                 window.scrollTo({
-                    top: position,
-                    behavior: "smooth"
+                    top:position,
+                    behavior:"smooth"
                 });
+
             }
         );
 
     });
 
 
-
     /* =====================================================
-       TILT DES CARTES — DESKTOP
+       TILT DES CARTES — DESKTOP UNIQUEMENT
     ====================================================== */
 
     const premiumCards =
@@ -308,8 +447,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const canHover =
         window.matchMedia(
-            "(hover: hover)"
+            "(hover:hover)"
         ).matches;
+
 
     if (canHover) {
 
@@ -331,24 +471,28 @@ document.addEventListener("DOMContentLoaded", () => {
                         rect.top;
 
                     const rotateY =
-                        ((x / rect.width) - .5) * 3;
+                        ((x / rect.width) - .5) * 2;
 
                     const rotateX =
-                        ((y / rect.height) - .5) * -3;
+                        ((y / rect.height) - .5) * -2;
 
                     card.style.transform =
-                        `perspective(900px)
+                        `perspective(1000px)
                          rotateX(${rotateX}deg)
                          rotateY(${rotateY}deg)
                          translateY(-5px)`;
+
                 }
             );
+
 
             card.addEventListener(
                 "mouseleave",
                 () => {
 
-                    card.style.transform = "";
+                    card.style.transform =
+                        "";
+
                 }
             );
 
@@ -357,26 +501,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
-       ACCORDÉON / PANELS
-    ====================================================== */
-
-    const inventoryHeaders =
-        document.querySelectorAll(
-            ".inventory-header"
-        );
-
-    inventoryHeaders.forEach(header => {
-
-        header.style.cursor =
-            "default";
-    });
-
-
-
-    /* =====================================================
-       EMPÊCHE LE TILT SUR LES BOUTONS
+       BOUTONS GOOGLE FORMS
     ====================================================== */
 
     const inventoryButtons =
@@ -398,31 +524,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-
     /* =====================================================
-       RESIZE
+       FERMETURE MENU SI ON PASSE EN DESKTOP
     ====================================================== */
-
-    let resizeTimer;
 
     window.addEventListener(
         "resize",
         () => {
 
-            clearTimeout(resizeTimer);
+            if (
+                window.innerWidth > 800
+            ) {
+                closeMobileMenu();
+            }
 
-            resizeTimer =
-                setTimeout(() => {
-
-                    document.body.classList.remove(
-                        "is-resizing"
-                    );
-
-                }, 250);
-
-            document.body.classList.add(
-                "is-resizing"
-            );
         }
     );
 
