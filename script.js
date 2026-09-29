@@ -4,10 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
        ANNÉE
     ===================================================== */
 
-    const yearElement = document.getElementById("current-year");
+    const yearElement =
+        document.getElementById("current-year");
 
     if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
+        yearElement.textContent =
+            new Date().getFullYear();
     }
 
 
@@ -56,7 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
             "false"
         );
 
-        document.body.classList.add("menu-open");
+        document.body.classList.add(
+            "menu-open"
+        );
     }
 
 
@@ -72,7 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (mobileToggle) {
 
-            mobileToggle.classList.remove("active");
+            mobileToggle.classList.remove(
+                "active"
+            );
 
             mobileToggle.setAttribute(
                 "aria-expanded",
@@ -85,11 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
             "true"
         );
 
-        document.body.classList.remove("menu-open");
+        document.body.classList.remove(
+            "menu-open"
+        );
     }
 
 
     if (mobileToggle) {
+
         mobileToggle.addEventListener(
             "click",
             openMobileMenu
@@ -98,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (mobileClose) {
+
         mobileClose.addEventListener(
             "click",
             closeMobileMenu
@@ -106,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (mobileOverlay) {
+
         mobileOverlay.addEventListener(
             "click",
             closeMobileMenu
@@ -138,92 +149,90 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       NAVIGATION ENTRE LES RUBRIQUES
-
-       Une seule rubrique est affichée à la fois.
+       NAVIGATION DES RUBRIQUES
+       Une seule rubrique visible.
        Aucun smooth scroll.
     ===================================================== */
 
-    const views = document.querySelectorAll(".page-view");
+    const views =
+        document.querySelectorAll(
+            ".page-view"
+        );
 
     const mainNavLinks =
-        document.querySelectorAll(".main-nav a");
-
-    const allNavigationLinks =
         document.querySelectorAll(
-            '.main-nav a[href^="#"], .mobile-nav-link[href^="#"], .quick-card[href^="#"]'
+            ".main-nav a"
         );
 
 
-    function showView(targetId) {
+    function showView(targetId, updateHash = true) {
 
         if (!targetId) return;
 
         const cleanId =
             targetId.replace("#", "");
 
-        const target =
-            document.getElementById(cleanId);
 
-        if (!target) return;
-
-
-        /*
-         * ACCUEIL
-         */
+        /* ACCUEIL */
 
         if (cleanId === "accueil") {
 
+            document.body.classList.remove(
+                "category-view"
+            );
+
+            document.body.classList.add(
+                "home-view"
+            );
+
             views.forEach(view => {
-                view.classList.remove("active");
+                view.classList.remove(
+                    "active"
+                );
             });
 
-            const hero =
-                document.getElementById("accueil");
+        }
 
-            if (hero) {
-                hero.classList.add("active");
-            }
 
-            const accueilContent =
-                document.querySelector(
-                    '[data-view="accueil-content"]'
+        /* AUTRES RUBRIQUES */
+
+        else {
+
+            const target =
+                document.getElementById(
+                    cleanId
                 );
 
-            if (accueilContent) {
-                accueilContent.classList.add("active");
-            }
+            if (!target) return;
 
-        } else {
+            document.body.classList.remove(
+                "home-view"
+            );
 
-            /*
-             * Autres rubriques
-             */
+            document.body.classList.add(
+                "category-view"
+            );
 
             views.forEach(view => {
 
-                if (
-                    view.id === cleanId ||
-                    view.dataset.view === cleanId
-                ) {
-                    view.classList.add("active");
-                } else {
-                    view.classList.remove("active");
-                }
+                view.classList.toggle(
+                    "active",
+                    view.id === cleanId
+                );
 
             });
 
         }
 
 
-        /*
-         * Menu actif
-         */
+        /* MENU ACTIF */
 
         mainNavLinks.forEach(link => {
 
             const href =
-                link.getAttribute("href");
+                link.getAttribute(
+                    "href"
+                );
 
             link.classList.toggle(
                 "active",
@@ -233,74 +242,116 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-        /*
-         * Retour immédiat en haut.
-         * Pas de smooth scroll.
-         */
+        /* HASH */
 
-        window.scrollTo(0, 0);
+        if (updateHash) {
+
+            history.pushState(
+                null,
+                "",
+                `#${cleanId}`
+            );
+        }
+
+
+        /* RETOUR EN HAUT IMMÉDIAT */
+
+        window.scrollTo(
+            0,
+            0
+        );
+
     }
 
 
-    allNavigationLinks.forEach(link => {
+    /* NAVIGATION PRINCIPALE */
 
-        link.addEventListener(
-            "click",
-            event => {
+    document
+        .querySelectorAll(
+            '.main-nav a[href^="#"], .mobile-nav-link[href^="#"], .quick-card[href^="#"]'
+        )
+        .forEach(link => {
 
-                const href =
-                    link.getAttribute("href");
+            link.addEventListener(
+                "click",
+                event => {
 
-                if (
-                    !href ||
-                    !href.startsWith("#")
-                ) {
-                    return;
+                    const href =
+                        link.getAttribute(
+                            "href"
+                        );
+
+                    if (
+                        !href ||
+                        !href.startsWith("#")
+                    ) {
+                        return;
+                    }
+
+                    const targetId =
+                        href.substring(1);
+
+                    if (!targetId) {
+                        return;
+                    }
+
+                    const target =
+                        document.getElementById(
+                            targetId
+                        );
+
+                    if (!target) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    showView(
+                        targetId
+                    );
+
                 }
+            );
 
-                const targetId =
-                    href.substring(1);
-
-                if (!targetId) {
-                    return;
-                }
-
-                const target =
-                    document.getElementById(targetId);
-
-                /*
-                 * Les liens réels comme les Google Forms
-                 * ne passent jamais ici car ils ne commencent
-                 * pas par #.
-                 */
-
-                if (!target) {
-                    return;
-                }
-
-                event.preventDefault();
-
-                showView(targetId);
-
-            }
-        );
-
-    });
+        });
 
 
-    /*
-     * État initial
-     */
+    /* BOUTON RETOUR NAVIGATEUR */
 
-    showView(
+    window.addEventListener(
+        "popstate",
+        () => {
+
+            const hash =
+                window.location.hash
+                    ? window.location.hash.substring(1)
+                    : "accueil";
+
+            showView(
+                hash,
+                false
+            );
+
+        }
+    );
+
+
+    /* ÉTAT INITIAL */
+
+    const initialHash =
         window.location.hash
             ? window.location.hash.substring(1)
-            : "accueil"
+            : "accueil";
+
+    showView(
+        initialHash,
+        false
     );
 
 
     /* =====================================================
        CARTES DÉPLIABLES
+       UNIQUEMENT INVENTAIRES + ENTRETIENS
     ===================================================== */
 
     const collapsibleCards =
@@ -314,8 +365,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!card) return;
 
         const isOpen =
-            card.classList.contains("open");
-
+            card.classList.contains(
+                "open"
+            );
 
         card.classList.toggle(
             "open",
@@ -325,20 +377,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const plus =
             card.querySelector(
-                ".inventory-plus, .resource-plus"
+                ".inventory-plus"
             );
 
 
         if (plus) {
 
             plus.textContent =
-                isOpen ? "+" : "−";
+                isOpen
+                    ? "+"
+                    : "−";
         }
 
 
         const header =
             card.querySelector(
-                ".inventory-header, .resource-header"
+                ".inventory-header"
             );
 
 
@@ -359,23 +413,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const header =
             card.querySelector(
-                ".inventory-header, .resource-header"
+                ".inventory-header"
             );
-
 
         if (!header) return;
 
 
-        /*
-         * État initial fermé
-         */
+        /* État initial fermé */
 
-        card.classList.remove("open");
+        card.classList.remove(
+            "open"
+        );
 
 
         const plus =
             header.querySelector(
-                ".inventory-plus, .resource-plus"
+                ".inventory-plus"
             );
 
 
@@ -384,9 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Clic
-         */
+        /* CLIC */
 
         header.addEventListener(
             "click",
@@ -400,13 +451,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 toggleCard(card);
+
             }
         );
 
 
-        /*
-         * Accessibilité clavier
-         */
+        /* CLAVIER */
 
         header.setAttribute(
             "tabindex",
@@ -445,9 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       FLAMMES
-
-       Flammes très discrètes derrière les cartes.
+       FLAMMES PREMIUM
     ===================================================== */
 
     const flamesContainer =
@@ -458,7 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (flamesContainer) {
 
-        const flameCount = 24;
+        const flameCount = 34;
 
 
         for (
@@ -468,35 +516,58 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
 
             const flame =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
 
+
+            /*
+             * Répartition sur toute la hauteur
+             */
 
             flame.style.left =
                 `${Math.random() * 100}%`;
 
-
-            flame.style.bottom =
-                `${10 + Math.random() * 55}%`;
-
-
-            flame.style.animationDelay =
-                `${Math.random() * 4}s`;
+            flame.style.top =
+                `${8 + Math.random() * 82}%`;
 
 
-            flame.style.animationDuration =
-                `${4 + Math.random() * 3}s`;
-
+            /*
+             * Taille
+             */
 
             flame.style.width =
                 `${8 + Math.random() * 12}px`;
 
-
             flame.style.height =
-                `${25 + Math.random() * 50}px`;
+                `${28 + Math.random() * 52}px`;
 
+
+            /*
+             * Animation
+             */
+
+            flame.style.animationDelay =
+                `${Math.random() * 5}s`;
+
+            flame.style.animationDuration =
+                `${3.8 + Math.random() * 3.2}s`;
+
+
+            /*
+             * Opacité
+             */
 
             flame.style.opacity =
-                `${0.15 + Math.random() * 0.25}`;
+                `${0.22 + Math.random() * 0.32}`;
+
+
+            /*
+             * Légère variation
+             */
+
+            flame.style.transform =
+                `rotate(${(-8 + Math.random() * 16).toFixed(1)}deg)`;
 
 
             flamesContainer.appendChild(
@@ -509,17 +580,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       LIENS #
-
-       Les cartes placeholder affichent le toast.
+       LIENS PLACEHOLDER #
     ===================================================== */
 
     const toast =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
 
 
     document
-        .querySelectorAll('a[href="#"]')
+        .querySelectorAll(
+            'a[href="#"]'
+        )
         .forEach(link => {
 
             link.addEventListener(
@@ -528,14 +601,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     event.preventDefault();
 
+                    if (!toast) return;
 
-                    if (toast) {
-
-                        toast.classList.add(
-                            "show"
-                        );
+                    toast.classList.add(
+                        "show"
+                    );
 
 
+                    clearTimeout(
+                        toast._timer
+                    );
+
+
+                    toast._timer =
                         setTimeout(
                             () => {
 
@@ -547,8 +625,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             2500
                         );
 
-                    }
-
                 }
             );
 
@@ -556,8 +632,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       EMPÊCHE L'OUVERTURE D'UNE CARTE PARENT
-       QUAND ON CLIQUE SUR UN VRAI LIEN
+       EMPÊCHE LES CLICS SUR LES LIENS
+       DE REMONTER VERS LA CARTE
     ===================================================== */
 
     document
