@@ -2303,3 +2303,398 @@ img {
     }
 
 }
+/* =========================================================
+   ORGANISATION DU PORTAIL — AJOUTS
+   Ne remplace pas le design existant
+========================================================= */
+
+
+/* =========================================================
+   ACCÈS RAPIDE — 5 CARTES
+========================================================= */
+
+.quick-grid-five {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.quick-grid-five .quick-card:nth-child(4),
+.quick-grid-five .quick-card:nth-child(5) {
+    min-height: 175px;
+}
+
+
+/* =========================================================
+   CARTES RESSOURCES
+   Documents / Amicale / Raccourcis
+========================================================= */
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+
+.resource-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13,34,48,.92),
+            rgba(5,13,19,.94)
+        );
+    box-shadow: var(--shadow);
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        background var(--transition);
+}
+
+
+.resource-card:hover {
+    border-color: rgba(237,82,98,.28);
+}
+
+
+.resource-header {
+    min-height: 125px;
+    padding: 24px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+.resource-header > div:first-child {
+    min-width: 0;
+}
+
+
+.resource-number {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    letter-spacing: .18em;
+    color: var(--red-light);
+}
+
+
+.resource-header h3 {
+    margin: 0;
+    font-family: "Oswald", sans-serif;
+    font-size: clamp(20px, 2vw, 27px);
+    letter-spacing: .04em;
+    color: var(--white);
+    line-height: 1.1;
+}
+
+
+.resource-header p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+
+.resource-plus {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 50%;
+    background: rgba(255,255,255,.035);
+    color: var(--white);
+    font-size: 25px;
+    line-height: 1;
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        border-color var(--transition);
+}
+
+
+.resource-card.open .resource-plus {
+    transform: rotate(180deg);
+    background: rgba(184,32,50,.18);
+    border-color: rgba(237,82,98,.30);
+}
+
+
+.resource-card.open .resource-plus::after {
+    content: "";
+}
+
+
+.resource-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .42s ease;
+}
+
+
+.resource-content::before {
+    content: "";
+}
+
+
+.resource-card.open .resource-content {
+    grid-template-rows: 1fr;
+}
+
+
+.resource-content > * {
+    min-height: 0;
+}
+
+
+.resource-content {
+    padding-left: 26px;
+    padding-right: 26px;
+}
+
+
+.resource-card:not(.open) .resource-content {
+    padding-bottom: 0;
+}
+
+
+.resource-card.open .resource-content {
+    padding-bottom: 26px;
+}
+
+
+/* =========================================================
+   BOUTON RESSOURCE
+========================================================= */
+
+.resource-content .large-button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   AMICALE
+========================================================= */
+
+.amicale-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+
+/* =========================================================
+   RACCOURCIS
+========================================================= */
+
+.shortcut-resource-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+
+/* =========================================================
+   ENTRETIENS
+========================================================= */
+
+.entretien-card {
+    width: 100%;
+}
+
+
+.maintenance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+
+.maintenance-card {
+    position: relative;
+    min-height: 105px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    background: rgba(255,255,255,.025);
+    color: var(--white);
+    text-decoration: none;
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        border-color var(--transition);
+}
+
+
+.maintenance-card:hover {
+    transform: translateY(-3px);
+    background: rgba(184,32,50,.10);
+    border-color: rgba(237,82,98,.25);
+}
+
+
+.maintenance-card > span {
+    font-size: 18px;
+}
+
+
+.maintenance-card strong {
+    font-size: 15px;
+    letter-spacing: .03em;
+}
+
+
+.maintenance-card small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+.maintenance-card b {
+    position: absolute;
+    right: 15px;
+    bottom: 13px;
+    color: var(--red-light);
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   ACCESSIBILITÉ / TOUCH
+========================================================= */
+
+.resource-header,
+.inventory-header {
+    touch-action: manipulation;
+}
+
+
+.resource-header *,
+.inventory-header * {
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TABLETTE
+========================================================= */
+
+@media (max-width: 950px) {
+
+    .quick-grid-five {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .resource-grid,
+    .amicale-grid,
+    .shortcut-resource-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .maintenance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .quick-grid-five {
+        grid-template-columns: 1fr;
+    }
+
+    .resource-grid,
+    .amicale-grid,
+    .shortcut-resource-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .maintenance-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .resource-header {
+        min-height: 105px;
+        padding: 20px;
+    }
+
+
+    .resource-header h3 {
+        font-size: 20px;
+    }
+
+
+    .resource-header p {
+        font-size: 12px;
+    }
+
+
+    .resource-plus {
+        width: 42px;
+        height: 42px;
+        font-size: 22px;
+    }
+
+
+    .resource-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    .resource-card.open .resource-content {
+        padding-bottom: 20px;
+    }
+
+
+    .maintenance-card {
+        min-height: 88px;
+    }
+
+}
+
+
+/* =========================================================
+   PETITS ÉCRANS
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .quick-grid-five .quick-card {
+        min-height: 145px;
+    }
+
+
+    .resource-header {
+        gap: 12px;
+    }
+
+
+    .resource-header h3 {
+        font-size: 18px;
+    }
+
+
+    .resource-number {
+        font-size: 10px;
+    }
+
+}
