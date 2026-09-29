@@ -1,342 +1,821 @@
-
-/* =========================================================
-   CIS VILLENAVE — SCRIPT PRINCIPAL
-   Navigation + liens + effets visuels
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =======================================================
-     1. NAVIGATION ENTRE LES SECTIONS
-  ======================================================= */
+```
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
 
-  const views = document.querySelectorAll(".view");
-  const navButtons = document.querySelectorAll(".nav button[data-open]");
-  const openButtons = document.querySelectorAll("[data-open]");
+const views = document.querySelectorAll(".view");
+const navButtons = document.querySelectorAll("[data-open]");
 
-  function openView(id) {
 
-    if (!id) return;
+function openView(id) {
+
+    if (!document.getElementById(id)) {
+        return;
+    }
+
+    views.forEach(view => {
+        view.classList.remove("active");
+    });
 
     const target = document.getElementById(id);
 
-    if (!target) {
-      console.warn("Section introuvable :", id);
-      return;
-    }
-
-    /* Masquer toutes les sections */
-    views.forEach(view => {
-      view.classList.remove("active");
-    });
-
-    /* Afficher la section demandée */
     target.classList.add("active");
 
-    /* Mettre à jour le menu */
+
     navButtons.forEach(button => {
-      button.classList.toggle(
-        "active",
-        button.dataset.open === id
-      );
+
+        if (
+            button.dataset.open === id &&
+            button.closest(".nav")
+        ) {
+            button.classList.add("active");
+        } else if (button.closest(".nav")) {
+            button.classList.remove("active");
+        }
+
     });
 
-    /* Mettre à jour l'URL */
-    history.replaceState(null, "", "#" + id);
 
-    /* Revenir en haut */
+    if (history.replaceState) {
+
+        history.replaceState(
+            null,
+            "",
+            "#" + id
+        );
+
+    }
+
     window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+        top: 0,
+        behavior: "smooth"
     });
-  }
+
+}
 
 
-  /* =======================================================
-     2. BOUTONS data-open
-  ======================================================= */
-
-  openButtons.forEach(button => {
+navButtons.forEach(button => {
 
     button.addEventListener("click", event => {
 
-      const id = button.dataset.open;
+        event.preventDefault();
 
-      if (!id) return;
+        const id = button.dataset.open;
 
-      event.preventDefault();
+        if (id) {
+            openView(id);
+        }
 
-      openView(id);
     });
 
-  });
+});
 
 
-  /* =======================================================
-     3. OUVERTURE DIRECTE AVEC #URL
-     
-     Exemple :
-     site.com/cis.html#inventaires
-  ======================================================= */
+/* =========================================================
+   LIENS DATA-OPEN SUR LES CARTES
+   ========================================================= */
 
-  function openFromHash() {
+document.querySelectorAll(".home-card").forEach(card => {
 
-    const hash = window.location.hash.replace("#", "");
+    card.addEventListener("click", () => {
 
-    if (hash && document.getElementById(hash)) {
-      openView(hash);
-    } else {
-      openView("home");
+        const id = card.dataset.open;
+
+        if (id) {
+            openView(id);
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   HASH URL
+   ========================================================= */
+
+const initialHash =
+    window.location.hash.replace("#", "");
+
+if (
+    initialHash &&
+    document.getElementById(initialHash)
+) {
+
+    openView(initialHash);
+
+} else {
+
+    openView("home");
+
+}
+
+
+window.addEventListener("hashchange", () => {
+
+    const id =
+        window.location.hash.replace("#", "");
+
+    if (
+        id &&
+        document.getElementById(id)
+    ) {
+        openView(id);
     }
 
-  }
-
-  openFromHash();
+});
 
 
-  /* =======================================================
-     4. GESTION DU BOUTON RETOUR / HASH
-  ======================================================= */
+/* =========================================================
+   INVENTAIRES — ACCORDÉONS
+   ========================================================= */
 
-  window.addEventListener("hashchange", () => {
-
-    const hash = window.location.hash.replace("#", "");
-
-    if (hash && document.getElementById(hash)) {
-      openView(hash);
-    }
-
-  });
-
-
-  /* =======================================================
-     5. LIENS EXTERNES
-     
-     Tous les éléments ayant :
-     data-link="nom"
-     
-     peuvent être associés à une URL ici.
-  ======================================================= */
-
-  const links = {
-
-    /* ================= INVENTAIRES ================= */
-
-    vsav1_chef: "https://example.com",
-    vsav1_conducteur: "https://example.com",
-    vsav1_equipier: "https://example.com",
-
-    vsav2_chef: "https://example.com",
-    vsav2_conducteur: "https://example.com",
-    vsav2_equipier: "https://example.com",
-
-    vsav3_chef: "https://example.com",
-    vsav3_conducteur: "https://example.com",
-    vsav3_equipier: "https://example.com",
-
-    fourgon: "https://example.com",
-    echelle: "https://example.com",
-    mousse: "https://example.com",
-
-    div1: "https://example.com",
-
-    fdf1: "https://example.com",
-
-    specialite1: "https://example.com",
-
-    standard1: "https://example.com",
-
-    casernement1: "https://example.com",
-
-
-    /* ================= ENTRETIENS ================= */
-
-    entretien_vsav: "https://example.com",
-    entretien_incendie: "https://example.com",
-    entretien_div: "https://example.com",
-
-
-    /* ================= DOCUMENTS ================= */
-
-    notes_service: "https://example.com",
-    procedures: "https://example.com",
-    documents_ssuap: "https://example.com",
-    auto_protection_mensuel: "https://example.com",
-    auto_protection_hebdo: "https://example.com",
-
-
-    /* ================= AMICALE ================= */
-
-    amicale_services: "https://example.com",
-
-    amicale_enjoy2: "https://example.com",
-    amicale_ubb2: "https://example.com",
-    regles_ubb: "https://example.com",
-    amicale_padel2: "https://example.com",
-    amicale_speedpark2: "https://example.com",
-
-    sumup: "https://example.com",
-    remboursement: "https://example.com",
-    prestations: "https://example.com",
-
-    location_materiel: "https://example.com",
-    location_jolt: "https://example.com",
-    location_salles: "https://example.com",
-
-    statuts: "https://example.com",
-    reglement_interieur: "https://example.com",
-    regles_amicale: "https://example.com",
-    tableau_prestations: "https://example.com",
-    doc_partenaires: "https://example.com",
-
-    adhesion: "https://example.com",
-    compobureau: "https://example.com",
-
-    mymaps: "https://example.com",
-    reglement_cal: "https://example.com",
-    fiche_retour: "https://example.com",
-    fiche_taches: "https://example.com",
-    fiche_sumup: "https://example.com",
-
-    doc_partenaires2: "https://example.com",
-    form_partenariat: "https://example.com",
-
-    ref_formation2: "https://example.com",
-
-    sumup_mess: "https://example.com",
-
-
-    /* ================= RACCOURCIS ================= */
-
-    agatt: "https://example.com",
-    zimbra: "https://example.com",
-    gipsi: "https://example.com",
-    enasis: "https://example.com",
-    udsp: "https://example.com",
-    cos: "https://example.com"
-
-  };
-
-
-  /* =======================================================
-     6. APPLIQUER AUTOMATIQUEMENT LES URL
-  ======================================================= */
-
-  document.querySelectorAll("[data-link]").forEach(element => {
-
-    const key = element.dataset.link;
-
-    if (!key) return;
-
-    const url = links[key];
-
-    if (!url) {
-
-      console.warn(
-        "Aucune URL définie pour :",
-        key
-      );
-
-      return;
-    }
-
-    element.href = url;
-
-    /* Sécurité pour les nouveaux onglets */
-    if (element.target === "_blank") {
-      element.rel = "noopener noreferrer";
-    }
-
-  });
-
-
-  /* =======================================================
-     7. EFFET SOURIS SUR LE SITE
-     
-     Ton CSS utilise :
-     --mx
-     --my
-  ======================================================= */
-
-  let mouseX = 50;
-  let mouseY = 30;
-
-  document.addEventListener("mousemove", event => {
-
-    mouseX = (event.clientX / window.innerWidth) * 100;
-    mouseY = (event.clientY / window.innerHeight) * 100;
-
-    document.documentElement.style.setProperty(
-      "--mx",
-      `${mouseX}%`
+const inventoryDetails =
+    document.querySelectorAll(
+        "#inventaires details"
     );
 
-    document.documentElement.style.setProperty(
-      "--my",
-      `${mouseY}%`
-    );
 
-  });
-
-
-  /* =======================================================
-     8. ACCESSIBILITÉ
-     
-     Permet d'utiliser les boutons avec le clavier.
-  ======================================================= */
-
-  document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
-
-      const openDetails = document.querySelectorAll(
-        "details[open]"
-      );
-
-      openDetails.forEach(detail => {
-        detail.removeAttribute("open");
-      });
-
-    }
-
-  });
-
-
-  /* =======================================================
-     9. ANIMATION DES DETAILS
-  ======================================================= */
-
-  document.querySelectorAll("details").forEach(detail => {
+inventoryDetails.forEach(detail => {
 
     detail.addEventListener("toggle", () => {
 
-      if (!detail.open) return;
-
-      /* Fermer les autres catégories du même groupe */
-
-      const parent = detail.parentElement;
-
-      if (!parent) return;
-
-      parent.querySelectorAll("details[open]").forEach(other => {
-
-        if (other !== detail) {
-          other.removeAttribute("open");
+        if (!detail.open) {
+            return;
         }
 
-      });
+        inventoryDetails.forEach(other => {
+
+            if (
+                other !== detail &&
+                other.open
+            ) {
+                other.open = false;
+            }
+
+        });
 
     });
 
-  });
+});
 
 
-  /* =======================================================
-     10. LOG POUR VÉRIFIER QUE LE SCRIPT FONCTIONNE
-  ======================================================= */
+/* =========================================================
+   AUTRES DETAILS
+   ========================================================= */
 
-  console.log(
-    "🔥 CIS VILLENAVE — script.js chargé avec succès."
-  );
+document.querySelectorAll("details").forEach(detail => {
+
+    detail.addEventListener("click", event => {
+
+        const summary =
+            event.target.closest("summary");
+
+        if (!summary) {
+            return;
+        }
+
+        const parent =
+            detail.parentElement;
+
+        if (!parent) {
+            return;
+        }
+
+        parent
+            .querySelectorAll(":scope > details")
+            .forEach(other => {
+
+                if (
+                    other !== detail &&
+                    other.open
+                ) {
+                    other.open = false;
+                }
+
+            });
+
+    });
 
 });
+
+
+/* =========================================================
+   MOUVEMENT DE LA LUMIÈRE AVEC LA SOURIS
+   ========================================================= */
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+window.addEventListener(
+    "mousemove",
+    event => {
+
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        const x =
+            (event.clientX / window.innerWidth) * 100;
+
+        const y =
+            (event.clientY / window.innerHeight) * 100;
+
+        document.documentElement.style.setProperty(
+            "--mx",
+            `${x}%`
+        );
+
+        document.documentElement.style.setProperty(
+            "--my",
+            `${y}%`
+        );
+
+    },
+    { passive: true }
+);
+
+
+/* =========================================================
+   FEU EN ARRIÈRE-PLAN
+   ========================================================= */
+
+const canvas =
+    document.getElementById("fireCanvas");
+
+if (!canvas) {
+    return;
+}
+
+
+const ctx =
+    canvas.getContext("2d");
+
+
+let width = 0;
+let height = 0;
+let dpr = 1;
+
+let particles = [];
+
+const reducedMotion =
+    window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+
+function resizeCanvas() {
+
+    dpr =
+        Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
+    width =
+        window.innerWidth;
+
+    height =
+        window.innerHeight;
+
+    canvas.width =
+        width * dpr;
+
+    canvas.height =
+        height * dpr;
+
+    canvas.style.width =
+        width + "px";
+
+    canvas.style.height =
+        height + "px";
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* =========================================================
+   CREATION D'UNE FLAMME
+   ========================================================= */
+
+function createParticle(
+    randomStart = false
+) {
+
+    const baseX =
+        randomStart
+            ? Math.random() * width
+            : width * (
+                .05 +
+                Math.random() * .90
+            );
+
+
+    return {
+
+        x: baseX,
+
+        y:
+            randomStart
+                ? height * (
+                    .50 +
+                    Math.random() * .50
+                )
+                : height + Math.random() * 40,
+
+        vx:
+            (Math.random() - .5) * .65,
+
+        vy:
+            -(1.1 + Math.random() * 2.8),
+
+        size:
+            8 + Math.random() * 23,
+
+        life:
+            randomStart
+                ? Math.random()
+                : 0,
+
+        maxLife:
+            .55 +
+            Math.random() * .9,
+
+        sway:
+            Math.random() * Math.PI * 2,
+
+        swaySpeed:
+            .012 +
+            Math.random() * .025,
+
+        rotation:
+            Math.random() * Math.PI * 2,
+
+        rotationSpeed:
+            (Math.random() - .5) * .025,
+
+        heat:
+            Math.random()
+
+    };
+
+}
+
+
+const particleCount =
+    reducedMotion ? 30 : 95;
+
+
+for (
+    let i = 0;
+    i < particleCount;
+    i++
+) {
+
+    particles.push(
+        createParticle(true)
+    );
+
+}
+
+
+/* =========================================================
+   DESSIN D'UNE PARTICULE DE FEU
+   ========================================================= */
+
+function drawParticle(p) {
+
+    const alpha =
+        Math.sin(
+            Math.min(
+                p.life,
+                1
+            ) * Math.PI
+        ) * .42;
+
+
+    if (alpha <= 0) {
+        return;
+    }
+
+
+    const glow =
+        ctx.createRadialGradient(
+            p.x,
+            p.y,
+            0,
+            p.x,
+            p.y,
+            p.size * 2.5
+        );
+
+
+    glow.addColorStop(
+        0,
+        `rgba(255,245,180,${alpha})`
+    );
+
+    glow.addColorStop(
+        .18,
+        `rgba(255,175,45,${alpha * .95})`
+    );
+
+    glow.addColorStop(
+        .48,
+        `rgba(255,69,0,${alpha * .65})`
+    );
+
+    glow.addColorStop(
+        1,
+        `rgba(180,0,0,0)`
+    );
+
+
+    ctx.save();
+
+    ctx.globalCompositeOperation =
+        "screen";
+
+    ctx.fillStyle =
+        glow;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        p.x,
+        p.y,
+        p.size * 2.5,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* petite flamme centrale */
+
+    const flame =
+        ctx.createRadialGradient(
+            p.x,
+            p.y + p.size * .15,
+            0,
+            p.x,
+            p.y,
+            p.size
+        );
+
+
+    flame.addColorStop(
+        0,
+        `rgba(255,240,150,${alpha * .9})`
+    );
+
+    flame.addColorStop(
+        .35,
+        `rgba(255,105,15,${alpha * .75})`
+    );
+
+    flame.addColorStop(
+        1,
+        "rgba(210,20,0,0)"
+    );
+
+
+    ctx.fillStyle =
+        flame;
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        p.x,
+        p.y,
+        p.size * .7,
+        p.size * 1.35,
+        p.rotation,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+    ctx.restore();
+
+}
+
+
+/* =========================================================
+   ANIMATION DU FEU
+   ========================================================= */
+
+let lastTime = performance.now();
+
+
+function animateFire(now) {
+
+    const delta =
+        Math.min(
+            (now - lastTime) / 16.67,
+            2
+        );
+
+    lastTime = now;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    particles.forEach(p => {
+
+        p.life +=
+            .008 * delta;
+
+        p.sway +=
+            p.swaySpeed * delta;
+
+        p.rotation +=
+            p.rotationSpeed * delta;
+
+
+        /*
+         * Le feu est légèrement attiré
+         * par la position de la souris.
+         */
+
+        const dx =
+            mouseX - p.x;
+
+        const dy =
+            mouseY - p.y;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        if (distance < 420) {
+
+            const force =
+                (1 - distance / 420) *
+                .018;
+
+            p.vx +=
+                dx * force * .04;
+
+            p.vy -=
+                force * .12;
+
+        }
+
+
+        /*
+         * Mouvement naturel des flammes.
+         */
+
+        p.x +=
+            (
+                p.vx +
+                Math.sin(p.sway) * .65
+            ) * delta;
+
+        p.y +=
+            p.vy * delta;
+
+
+        /*
+         * Quand la flamme disparaît,
+         * elle revient par le bas.
+         */
+
+        if (
+            p.y <
+            height * .05 ||
+            p.life >= p.maxLife
+        ) {
+
+            p.x =
+                Math.random() * width;
+
+            p.y =
+                height +
+                Math.random() * 35;
+
+            p.vx =
+                (Math.random() - .5) * .65;
+
+            p.vy =
+                -(1.1 + Math.random() * 2.8);
+
+            p.size =
+                8 + Math.random() * 23;
+
+            p.life = 0;
+
+            p.maxLife =
+                .55 +
+                Math.random() * .9;
+
+        }
+
+
+        /*
+         * Repositionnement horizontal.
+         */
+
+        if (p.x < -40) {
+            p.x = width + 40;
+        }
+
+        if (p.x > width + 40) {
+            p.x = -40;
+        }
+
+
+        drawParticle(p);
+
+    });
+
+
+    requestAnimationFrame(
+        animateFire
+    );
+
+}
+
+
+requestAnimationFrame(
+    animateFire
+);
+
+
+/* =========================================================
+   EMBERS / ÉTINCELLES
+   ========================================================= */
+
+const embers = [];
+
+
+for (
+    let i = 0;
+    i < (reducedMotion ? 10 : 28);
+    i++
+) {
+
+    embers.push({
+
+        x:
+            Math.random() * window.innerWidth,
+
+        y:
+            Math.random() * window.innerHeight,
+
+        size:
+            1 + Math.random() * 2.2,
+
+        speed:
+            .2 + Math.random() * .65,
+
+        drift:
+            (Math.random() - .5) * .5,
+
+        alpha:
+            .25 + Math.random() * .55
+
+    });
+
+}
+
+
+function animateEmbers() {
+
+    ctx.save();
+
+    ctx.globalCompositeOperation =
+        "screen";
+
+
+    embers.forEach(e => {
+
+        e.y -= e.speed;
+
+        e.x += e.drift;
+
+
+        if (e.y < -10) {
+
+            e.y =
+                height + 10;
+
+            e.x =
+                Math.random() * width;
+
+        }
+
+
+        const distance =
+            Math.hypot(
+                mouseX - e.x,
+                mouseY - e.y
+            );
+
+
+        const mouseGlow =
+            distance < 250
+                ? 1 - distance / 250
+                : 0;
+
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            `rgba(
+                255,
+                ${120 + mouseGlow * 100},
+                ${35 + mouseGlow * 90},
+                ${e.alpha + mouseGlow * .35}
+            )`;
+
+        ctx.shadowBlur =
+            10;
+
+        ctx.shadowColor =
+            "rgba(255,70,0,.8)";
+
+        ctx.arc(
+            e.x,
+            e.y,
+            e.size + mouseGlow,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    });
+
+
+    ctx.restore();
+
+    requestAnimationFrame(
+        animateEmbers
+    );
+
+}
+
+
+requestAnimationFrame(
+    animateEmbers
+);
+
+
+/* =========================================================
+   TOUCHE ESCAPE
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            document
+                .querySelectorAll("details[open]")
+                .forEach(detail => {
+                    detail.open = false;
+                });
+
+        }
+
+    }
+);
+```
+
+});
+
