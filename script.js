@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (mobileToggle) {
-
         mobileToggle.addEventListener(
             "click",
             openMobileMenu
@@ -107,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (mobileClose) {
-
         mobileClose.addEventListener(
             "click",
             closeMobileMenu
@@ -116,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (mobileOverlay) {
-
         mobileOverlay.addEventListener(
             "click",
             closeMobileMenu
@@ -128,9 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         link.addEventListener(
             "click",
-            () => {
-                closeMobileMenu();
-            }
+            closeMobileMenu
         );
 
     });
@@ -149,20 +144,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       NAVIGATION DES RUBRIQUES
+       NAVIGATION
        Une seule rubrique visible.
-       Aucun smooth scroll.
+       Pas de smooth scroll.
     ===================================================== */
 
     const views =
-        document.querySelectorAll(
-            ".page-view"
-        );
+        document.querySelectorAll(".page-view");
 
     const mainNavLinks =
-        document.querySelectorAll(
-            ".main-nav a"
-        );
+        document.querySelectorAll(".main-nav a");
 
 
     function showView(targetId, updateHash = true) {
@@ -172,8 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const cleanId =
             targetId.replace("#", "");
 
-
-        /* ACCUEIL */
 
         if (cleanId === "accueil") {
 
@@ -186,22 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             views.forEach(view => {
-                view.classList.remove(
-                    "active"
-                );
+                view.classList.remove("active");
             });
 
-        }
-
-
-        /* AUTRES RUBRIQUES */
-
-        else {
+        } else {
 
             const target =
-                document.getElementById(
-                    cleanId
-                );
+                document.getElementById(cleanId);
 
             if (!target) return;
 
@@ -225,14 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* MENU ACTIF */
-
         mainNavLinks.forEach(link => {
 
             const href =
-                link.getAttribute(
-                    "href"
-                );
+                link.getAttribute("href");
 
             link.classList.toggle(
                 "active",
@@ -242,8 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-        /* HASH */
-
         if (updateHash) {
 
             history.pushState(
@@ -251,20 +225,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 "",
                 `#${cleanId}`
             );
+
         }
 
 
-        /* RETOUR EN HAUT IMMÉDIAT */
-
-        window.scrollTo(
-            0,
-            0
-        );
-
+        window.scrollTo(0, 0);
     }
 
-
-    /* NAVIGATION PRINCIPALE */
 
     document
         .querySelectorAll(
@@ -277,9 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 event => {
 
                     const href =
-                        link.getAttribute(
-                            "href"
-                        );
+                        link.getAttribute("href");
 
                     if (
                         !href ||
@@ -291,32 +256,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     const targetId =
                         href.substring(1);
 
-                    if (!targetId) {
-                        return;
-                    }
-
                     const target =
                         document.getElementById(
                             targetId
                         );
 
-                    if (!target) {
-                        return;
-                    }
+                    if (!target) return;
 
                     event.preventDefault();
 
-                    showView(
-                        targetId
-                    );
+                    showView(targetId);
 
                 }
             );
 
         });
 
-
-    /* BOUTON RETOUR NAVIGATEUR */
 
     window.addEventListener(
         "popstate",
@@ -327,26 +282,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     ? window.location.hash.substring(1)
                     : "accueil";
 
-            showView(
-                hash,
-                false
-            );
+            showView(hash, false);
 
         }
     );
 
-
-    /* ÉTAT INITIAL */
 
     const initialHash =
         window.location.hash
             ? window.location.hash.substring(1)
             : "accueil";
 
-    showView(
-        initialHash,
-        false
-    );
+    showView(initialHash, false);
 
 
     /* =====================================================
@@ -365,9 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!card) return;
 
         const isOpen =
-            card.classList.contains(
-                "open"
-            );
+            card.classList.contains("open");
 
         card.classList.toggle(
             "open",
@@ -376,34 +321,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const plus =
-            card.querySelector(
-                ".inventory-plus"
-            );
+            card.querySelector(".inventory-plus");
 
 
         if (plus) {
 
             plus.textContent =
-                isOpen
-                    ? "+"
-                    : "−";
+                isOpen ? "+" : "−";
+
         }
 
 
         const header =
-            card.querySelector(
-                ".inventory-header"
-            );
+            card.querySelector(".inventory-header");
 
 
         if (header) {
 
             header.setAttribute(
                 "aria-expanded",
-                isOpen
-                    ? "false"
-                    : "true"
+                isOpen ? "false" : "true"
             );
+
         }
 
     }
@@ -412,32 +351,22 @@ document.addEventListener("DOMContentLoaded", () => {
     collapsibleCards.forEach(card => {
 
         const header =
-            card.querySelector(
-                ".inventory-header"
-            );
+            card.querySelector(".inventory-header");
 
         if (!header) return;
 
 
-        /* État initial fermé */
-
-        card.classList.remove(
-            "open"
-        );
+        card.classList.remove("open");
 
 
         const plus =
-            header.querySelector(
-                ".inventory-plus"
-            );
+            header.querySelector(".inventory-plus");
 
 
         if (plus) {
             plus.textContent = "+";
         }
 
-
-        /* CLIC */
 
         header.addEventListener(
             "click",
@@ -456,24 +385,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* CLAVIER */
-
-        header.setAttribute(
-            "tabindex",
-            "0"
-        );
-
-        header.setAttribute(
-            "role",
-            "button"
-        );
-
-        header.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-
         header.addEventListener(
             "keydown",
             event => {
@@ -486,6 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     event.preventDefault();
 
                     toggleCard(card);
+
                 }
 
             }
@@ -495,104 +407,107 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       FLAMMES PREMIUM
+       FLAMMES
+       ACCUEIL + RUBRIQUES
     ===================================================== */
 
-    const flamesContainer =
-        document.querySelector(
-            ".portal-stage .flames"
+    const flameContainers =
+        document.querySelectorAll(
+            ".home-stage .flames, .portal-stage .flames"
         );
 
 
-    if (flamesContainer) {
+    function createFlames(container) {
+
+        if (!container) return;
+
+        container.innerHTML = "";
+
 
         const flameCount = 34;
 
 
-        for (
-            let i = 0;
-            i < flameCount;
-            i++
-        ) {
+        for (let i = 0; i < flameCount; i++) {
 
             const flame =
-                document.createElement(
-                    "span"
-                );
+                document.createElement("span");
 
 
-            /*
-             * Répartition sur toute la hauteur
-             */
+            const left =
+                ((i * 29) % 101);
+
+
+            const top =
+                8 + ((i * 17) % 78);
+
+
+            const width =
+                8 + ((i * 7) % 10);
+
+
+            const height =
+                32 + ((i * 13) % 42);
+
+
+            const duration =
+                4.4 + ((i * 0.37) % 2.8);
+
+
+            const delay =
+                -((i * 0.41) % 5);
+
+
+            const opacity =
+                0.28 + ((i * 0.021) % 0.28);
+
 
             flame.style.left =
-                `${Math.random() * 100}%`;
+                `${left}%`;
 
             flame.style.top =
-                `${8 + Math.random() * 82}%`;
-
-
-            /*
-             * Taille
-             */
+                `${top}%`;
 
             flame.style.width =
-                `${8 + Math.random() * 12}px`;
+                `${width}px`;
 
             flame.style.height =
-                `${28 + Math.random() * 52}px`;
-
-
-            /*
-             * Animation
-             */
-
-            flame.style.animationDelay =
-                `${Math.random() * 5}s`;
-
-            flame.style.animationDuration =
-                `${3.8 + Math.random() * 3.2}s`;
-
-
-            /*
-             * Opacité
-             */
+                `${height}px`;
 
             flame.style.opacity =
-                `${0.22 + Math.random() * 0.32}`;
+                opacity.toFixed(2);
 
-
-            /*
-             * Légère variation
-             */
-
-            flame.style.transform =
-                `rotate(${(-8 + Math.random() * 16).toFixed(1)}deg)`;
-
-
-            flamesContainer.appendChild(
-                flame
+            flame.style.setProperty(
+                "--flame-duration",
+                `${duration.toFixed(2)}s`
             );
+
+            flame.style.animationDelay =
+                `${delay.toFixed(2)}s`;
+
+
+            container.appendChild(flame);
 
         }
 
     }
 
 
+    flameContainers.forEach(
+        createFlames
+    );
+
+
     /* =====================================================
-       LIENS PLACEHOLDER #
+       LIENS PLACEHOLDER
+       Seulement si un vrai # reste éventuellement.
     ===================================================== */
 
     const toast =
-        document.getElementById(
-            "toast"
-        );
+        document.getElementById("toast");
 
 
     document
-        .querySelectorAll(
-            'a[href="#"]'
-        )
+        .querySelectorAll('a[href="#"]')
         .forEach(link => {
 
             link.addEventListener(
@@ -603,9 +518,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if (!toast) return;
 
-                    toast.classList.add(
-                        "show"
-                    );
+                    toast.classList.add("show");
 
 
                     clearTimeout(
@@ -632,13 +545,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       EMPÊCHE LES CLICS SUR LES LIENS
-       DE REMONTER VERS LA CARTE
+       LIENS EXTERNES
+       Empêche l'ouverture de la carte
+       dépliable par propagation.
     ===================================================== */
 
     document
         .querySelectorAll(
-            ".inventory-button, .maintenance-card, .large-button"
+            ".vehicle-card, .maintenance-card, .large-button"
         )
         .forEach(link => {
 
