@@ -1,483 +1,249 @@
+/* =========================================================
+   CIS VILLENAVE — NAVIGATION
+========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-const views = [...document.querySelectorAll(".view")];
-const navButtons = [...document.querySelectorAll(".nav-btn")];
-const openButtons = [...document.querySelectorAll("[data-open]")];
-const inventoryCategories = [...document.querySelectorAll(".inventory-category")];
+    const navButtons = document.querySelectorAll("[data-open]");
+    const sections = document.querySelectorAll("main .page-section");
 
-/* =========================================================
-   NAVIGATION PRINCIPALE
-========================================================= */
-
-function openView(viewId, updateUrl = true) {
-
-    const target = document.getElementById(viewId);
-
-    if (!target) {
-        console.warn("Section introuvable :", viewId);
-        return;
-    }
-
-    views.forEach(view => {
-        view.classList.remove("active");
-    });
-
-    target.classList.add("active");
-
+    /*
+     * Les boutons qui possèdent data-open ouvrent
+     * directement la section correspondante.
+     */
     navButtons.forEach(button => {
-        button.classList.toggle(
-            "active",
-            button.dataset.open === viewId
-        );
-    });
 
-    if (updateUrl) {
-        history.pushState(
-            null,
-            "",
-            "#" + viewId
-        );
-    }
+        button.addEventListener("click", event => {
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-/* =========================================================
-   BOUTONS DATA-OPEN
-========================================================= */
-
-openButtons.forEach(button => {
-
-    button.addEventListener("click", event => {
-
-        event.preventDefault();
-
-        const viewId = button.dataset.open;
-
-        if (viewId) {
-            openView(viewId);
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   LIENS EXTERNES
-========================================================= */
-
-const links = {
-
-    /* ================= INVENTAIRES ================= */
-
-    vsav1_chef:
-        "https://docs.google.com/forms/d/e/1FAIpQLSfL36QKhU4DK_iWfPn4x19gmU9dLKnTLWVugFOpg3ryMzXapg/viewform?ouid=105918993275116743934&usp=sharing",
-
-    vsav1_conducteur: "#",
-    vsav1_equipier: "#",
-
-    vsav2_chef: "#",
-    vsav2_conducteur: "#",
-    vsav2_equipier: "#",
-
-    vsav3_chef: "#",
-    vsav3_conducteur: "#",
-    vsav3_equipier: "#",
-
-    asu_pdg: "#",
-    asu_utilisation: "#",
-
-    fpt01: "#",
-    fptgp02: "#",
-    ech: "#",
-    fmogp: "#",
-    vl_cdgg: "#",
-
-    vtu1_via: "#",
-    vtu2: "#",
-    vsrm: "#",
-
-    ccf1: "#",
-    ccf2: "#",
-    vlhr: "#",
-    amsec: "#",
-
-    eld: "#",
-    drone: "#",
-
-    stas: "#",
-    sac_ps_stas: "#",
-
-    reserve_inc: "#",
-    pharmacie_asu: "#",
-
-    resultats_inventaires: "#",
-
-    /* ================= ENTRETIENS ================= */
-
-    entretien_vsav: "#",
-    entretien_incendie: "#",
-    entretien_div: "#",
-
-    /* ================= DOCUMENTS ================= */
-
-    notes_service:
-        "https://drive.google.com/drive/folders/1mZU_QXucWcthPotO1mkU4cxS8GGF8erV?usp=sharing",
-
-    procedures: "#",
-    documents_ssuap: "#",
-    fdf_documents: "#",
-    drive: "#"
-
-};
-
-
-document.querySelectorAll("[data-link]").forEach(link => {
-
-    link.addEventListener("click", event => {
-
-        const key = link.dataset.link;
-        const url = links[key];
-
-        if (!url || url === "#") {
             event.preventDefault();
 
-            console.log(
-                "Lien à renseigner :",
-                key
-            );
+            const targetName = button.dataset.open;
 
-            return;
-        }
+            if (!targetName) return;
 
-        link.href = url;
+            openSection(targetName);
+
+        });
 
     });
 
-});
 
+    /*
+     * Ouvre une section
+     */
+    function openSection(name) {
 
-/* =========================================================
-   HASH / RETOUR NAVIGATION
-========================================================= */
+        let target;
 
-function loadHash() {
-
-    const hash = window.location.hash.replace("#", "");
-
-    if (hash && document.getElementById(hash)) {
-        openView(hash, false);
-    } else {
-        openView("home", false);
-    }
-
-}
-
-window.addEventListener("popstate", loadHash);
-window.addEventListener("hashchange", loadHash);
-
-loadHash();
-
-
-/* =========================================================
-   ACCORDEON INVENTAIRES
-========================================================= */
-
-inventoryCategories.forEach(category => {
-
-    category.addEventListener("toggle", () => {
-
-        if (!category.open) {
-            return;
+        if (name === "home") {
+            target = document.getElementById("home");
+        } else {
+            target = document.getElementById(name);
         }
 
-        inventoryCategories.forEach(other => {
+        if (!target) return;
 
-            if (other !== category) {
-                other.open = false;
+        /*
+         * Pour l'accueil, on remonte tout en haut.
+         */
+        if (name === "home") {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        } else {
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+        updateActiveNavigation(name);
+    }
+
+
+    /*
+     * Menu actif
+     */
+    function updateActiveNavigation(name) {
+
+        document.querySelectorAll(".nav-item").forEach(item => {
+
+            item.classList.toggle(
+                "active",
+                item.dataset.open === name
+            );
+
+        });
+
+    }
+
+
+    /*
+     * Détection automatique de la section visible
+     */
+    const observer = new IntersectionObserver(
+        entries => {
+
+            const visibleSections = entries
+                .filter(entry => entry.isIntersecting)
+                .sort(
+                    (a, b) =>
+                        b.intersectionRatio -
+                        a.intersectionRatio
+                );
+
+            if (!visibleSections.length) return;
+
+            const section = visibleSections[0].target;
+
+            if (section.id) {
+
+                updateActiveNavigation(section.id);
+
+            }
+
+        },
+        {
+            threshold: [0.25, 0.5, 0.75],
+            rootMargin: "-15% 0px -55% 0px"
+        }
+    );
+
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+
+    /*
+     * Cartes avec data-link
+     */
+    document.querySelectorAll("[data-link]").forEach(card => {
+
+        card.addEventListener("click", event => {
+
+            /*
+             * Si l'utilisateur clique déjà sur
+             * un lien interne, on ne fait rien.
+             */
+            if (event.target.closest("a")) return;
+
+            const link = card.dataset.link;
+
+            if (
+                link &&
+                link !== "#" &&
+                link.trim() !== ""
+            ) {
+                window.location.href = link;
             }
 
         });
 
     });
 
-});
+
+    /*
+     * Empêche les # de faire remonter la page.
+     * À remplacer par tes vrais liens.
+     */
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+
+        link.addEventListener("click", event => {
+            event.preventDefault();
+        });
+
+    });
 
 
-/* =========================================================
-   EFFET SOURIS PREMIUM
-========================================================= */
+    /*
+     * Animation des catégories d'inventaire
+     */
+    document
+        .querySelectorAll(".inventory-category")
+        .forEach(category => {
 
-document.addEventListener("pointermove", event => {
+            category.addEventListener("toggle", () => {
 
-    const x = (event.clientX / window.innerWidth) * 100;
-    const y = (event.clientY / window.innerHeight) * 100;
+                if (!category.open) return;
 
-    document.documentElement.style.setProperty(
-        "--mouse-x",
-        x + "%"
-    );
+                document
+                    .querySelectorAll(".inventory-category")
+                    .forEach(other => {
 
-    document.documentElement.style.setProperty(
-        "--mouse-y",
-        y + "%"
-    );
+                        if (
+                            other !== category &&
+                            other.open
+                        ) {
+                            other.open = false;
+                        }
 
-});
+                    });
 
+            });
 
-/* =========================================================
-   FLAMMES / BRAISES
-========================================================= */
-
-const canvas = document.getElementById("fireCanvas");
-
-if (!canvas) {
-    return;
-}
-
-const ctx = canvas.getContext("2d");
-
-let width = 0;
-let height = 0;
-
-const flames = [];
-const embers = [];
-
-function resizeCanvas() {
-
-    const ratio = Math.min(
-        window.devicePixelRatio || 1,
-        2
-    );
-
-    width = window.innerWidth;
-    height = window.innerHeight;
-
-    canvas.width = width * ratio;
-    canvas.height = height * ratio;
-
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
-
-    ctx.setTransform(
-        ratio,
-        0,
-        0,
-        ratio,
-        0,
-        0
-    );
-
-}
+        });
 
 
-function random(min, max) {
-    return Math.random() * (max - min) + min;
-}
+    /*
+     * Effet léger de parallaxe sur la photo
+     */
+    const heroPhoto =
+        document.querySelector(".hero-photo-frame");
 
+    if (heroPhoto) {
 
-function createFlame() {
+        document.addEventListener("mousemove", event => {
 
-    return {
-        x: random(-30, width + 30),
-        y: height + random(10, 120),
-        size: random(20, 80),
-        speed: random(.25, .85),
-        sway: random(-.5, .5),
-        life: random(0, Math.PI * 2)
-    };
+            if (window.innerWidth < 900) return;
 
-}
+            const x =
+                (event.clientX / window.innerWidth - 0.5);
 
+            const y =
+                (event.clientY / window.innerHeight - 0.5);
 
-function createEmber() {
-
-    return {
-        x: random(0, width),
-        y: height + random(0, 80),
-        size: random(.7, 2.2),
-        speed: random(.35, 1.25),
-        drift: random(-.35, .35),
-        alpha: random(.25, .8)
-    };
-
-}
-
-
-for (let i = 0; i < 30; i++) {
-    flames.push(createFlame());
-}
-
-for (let i = 0; i < 85; i++) {
-    embers.push(createEmber());
-}
-
-
-function drawFlame(flame) {
-
-    flame.y -= flame.speed;
-    flame.life += .018;
-
-    flame.x +=
-        Math.sin(flame.life) *
-        flame.sway;
-
-    if (flame.y < height * .35) {
-
-        Object.assign(
-            flame,
-            createFlame()
-        );
+            heroPhoto.style.transform =
+                `perspective(1000px)
+                 rotateY(${x * -4}deg)
+                 rotateX(${y * 2}deg)`;
+        });
 
     }
 
-    const alpha =
-        Math.max(
-            0,
-            Math.min(
-                .12,
-                (height - flame.y) /
-                height * .12
-            )
-        );
 
-    const gradient =
-        ctx.createRadialGradient(
-            flame.x,
-            flame.y,
-            0,
-            flame.x,
-            flame.y,
-            flame.size
-        );
+    /*
+     * Retour au comportement normal
+     * quand la souris quitte l'écran.
+     */
+    document.addEventListener("mouseleave", () => {
 
-    gradient.addColorStop(
-        0,
-        `rgba(255,75,28,${alpha})`
-    );
+        if (!heroPhoto) return;
 
-    gradient.addColorStop(
-        .35,
-        `rgba(226,29,47,${alpha * .55})`
-    );
-
-    gradient.addColorStop(
-        1,
-        "rgba(0,0,0,0)"
-    );
-
-    ctx.fillStyle = gradient;
-
-    ctx.beginPath();
-
-    ctx.arc(
-        flame.x,
-        flame.y,
-        flame.size,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
+        heroPhoto.style.transform =
+            "perspective(1000px) rotateY(-4deg)";
+    });
 
 
-function drawEmber(ember) {
+    /*
+     * Touche ESC :
+     * referme les catégories ouvertes.
+     */
+    document.addEventListener("keydown", event => {
 
-    ember.y -= ember.speed;
-    ember.x += ember.drift;
+        if (event.key !== "Escape") return;
 
-    if (
-        ember.y < height * .35 ||
-        ember.x < -20 ||
-        ember.x > width + 20
-    ) {
-
-        Object.assign(
-            ember,
-            createEmber()
-        );
-
-    }
-
-    ctx.beginPath();
-
-    ctx.fillStyle =
-        `rgba(255,90,35,${ember.alpha})`;
-
-    ctx.shadowBlur = 9;
-    ctx.shadowColor = "rgba(255,60,25,.8)";
-
-    ctx.arc(
-        ember.x,
-        ember.y,
-        ember.size,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-    ctx.shadowBlur = 0;
-
-}
-
-
-function animateFire() {
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-    flames.forEach(drawFlame);
-    embers.forEach(drawEmber);
-
-    requestAnimationFrame(
-        animateFire
-    );
-
-}
-
-
-resizeCanvas();
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-animateFire();
-
-
-/* =========================================================
-   ESCAPE = FERMER LES ACCORDEONS
-========================================================= */
-
-document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
-
-        inventoryCategories.forEach(
-            category => {
+        document
+            .querySelectorAll(".inventory-category[open]")
+            .forEach(category => {
                 category.open = false;
-            }
-        );
+            });
 
-    }
-
-});
-
+    });
 
 });
-
-
