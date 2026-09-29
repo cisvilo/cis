@@ -1669,6 +1669,10 @@ a {
    TÉLÉPHONE
 ========================================================= */
 
+/* =========================================================
+   TÉLÉPHONE — VERSION PREMIUM
+========================================================= */
+
 @media (max-width: 800px) {
 
     html {
@@ -1677,22 +1681,33 @@ a {
 
     body {
         width: 100%;
+        overflow-x: hidden;
     }
 
-    /* Navigation horizontale comme sur ordinateur */
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
     .site-header {
+        position: sticky;
+        top: 0;
+
         min-height: 62px;
+
+        z-index: 1000;
     }
 
     .nav-shell {
         min-height: 62px;
+
+        width: 100%;
 
         padding: 0;
 
         display: block;
 
         overflow-x: auto;
-
         overflow-y: hidden;
 
         scrollbar-width: none;
@@ -1719,8 +1734,7 @@ a {
     .nav-link {
         min-height: 62px;
 
-        padding:
-            22px 13px;
+        padding: 0 13px;
 
         display: flex;
 
@@ -1738,195 +1752,368 @@ a {
         right: 10px;
     }
 
-    /* =============================
+
+    /* =====================================================
        HERO MOBILE
-    ============================= */
+       
+       IMPORTANT :
+       La photo commence immédiatement sous le menu.
+       Aucun padding bleu au-dessus.
+    ===================================================== */
 
     .hero {
-        min-height: 650px;
 
-        padding:
-            45px 22px 90px;
+        width: 100%;
 
-        align-items: flex-end;
+        min-height: 0 !important;
 
-        /*
-          IMPORTANT :
-          on conserve beaucoup plus de photo
-        */
+        height: auto !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        display: block;
+
+        overflow: hidden;
+
+        isolation: isolate;
+    }
+
+
+    /* =====================================================
+       PHOTO
+
+       La photo remplit maintenant toute la largeur.
+       Plus de CONTAIN = plus de vide bleu.
+    ===================================================== */
+
+    .hero-photo {
+
+        position: relative;
+
+        inset: auto;
+
+        width: 100%;
+
+        height: 390px;
+
+        min-height: 390px;
+
+        margin: 0;
+
+        padding: 0;
+
+        overflow: hidden;
+
+        background: #07121e;
     }
 
     .hero-photo img {
+
+        display: block;
+
+        width: 100% !important;
+
+        height: 100% !important;
+
+        min-height: 390px;
+
+        margin: 0;
+
+        padding: 0;
+
         /*
-          PAS DE GROS ZOOM MOBILE
+           COVER remplit complètement la zone.
+           On ne met surtout PAS contain ici.
         */
-        object-fit: contain;
 
-        object-position: center center;
+        object-fit: cover !important;
 
-        transform: scale(1);
+        /*
+           On montre davantage le haut de la photo.
+        */
 
-        opacity: .76;
+        object-position: center 32% !important;
 
-        background: #07121e;
+        transform: none !important;
 
-        animation: none;
+        opacity: .88;
+
+        animation: none !important;
     }
 
+
+    /* =====================================================
+       VOILE SUR LA PHOTO
+    ===================================================== */
+
     .hero-photo-overlay {
+
+        opacity: 1;
+
         background:
             linear-gradient(
                 180deg,
-                rgba(3,9,15,.35) 0%,
-                rgba(3,9,15,.42) 38%,
-                rgba(3,9,15,.82) 72%,
-                rgba(3,9,15,.97) 100%
+                rgba(3, 9, 15, .04) 0%,
+                rgba(3, 9, 15, .08) 42%,
+                rgba(3, 9, 15, .42) 72%,
+                rgba(3, 8, 14, .92) 100%
             );
     }
 
     .hero-photo-gradient {
+
         background:
             linear-gradient(
-                0deg,
-                rgba(3,8,14,.95),
-                transparent 55%
+                180deg,
+                transparent 45%,
+                rgba(3, 8, 14, .25) 58%,
+                rgba(3, 8, 14, .94) 100%
             );
     }
 
+
+    /* =====================================================
+       CONTENU DU HERO
+    ===================================================== */
+
     .hero-content {
+
+        position: relative;
+
         width: 100%;
 
         max-width: 100%;
 
-        padding: 0;
-    }
+        padding:
+            20px
+            20px
+            28px;
 
-    .hero-logo {
-        width: 88px;
-        height: 88px;
+        margin: 0;
 
-        margin-bottom: 20px;
-
-        padding: 9px;
-
-        border-radius: 15px;
-    }
-
-    .hero-line {
-        width: 48px;
-
-        margin-bottom: 15px;
-    }
-
-    .hero-kicker {
-        font-size: 8px;
-
-        letter-spacing: .18em;
-
-        line-height: 1.5;
-    }
-
-    .hero h1 {
-        font-size:
-            clamp(
-                58px,
-                19vw,
-                92px
+        background:
+            linear-gradient(
+                180deg,
+                rgba(5, 11, 19, .94),
+                #050b13
             );
     }
 
-    .hero-location {
-        margin-top: 20px;
+
+    /* LOGO À GAUCHE */
+
+    .hero-logo {
+
+        width: 82px;
+        height: 82px;
+
+        margin:
+            -5px
+            0
+            18px;
+
+        padding: 8px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 15px;
+
+        background:
+            rgba(6, 21, 36, .78);
+
+        border:
+            1px solid rgba(190,220,240,.20);
+
+        box-shadow:
+            0 18px 40px rgba(0,0,0,.42),
+            inset 0 1px 0 rgba(255,255,255,.08);
+
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+
+    .hero-logo img {
+
+        width: 100%;
+        height: 100%;
+
+        max-width: none;
+        max-height: none;
+
+        object-fit: contain;
+    }
+
+
+    .hero-line {
+
+        width: 48px;
+
+        height: 2px;
+
+        margin-bottom: 14px;
+    }
+
+    .hero-kicker {
+
+        margin-bottom: 12px;
 
         font-size: 8px;
 
-        letter-spacing: .13em;
+        line-height: 1.5;
+
+        letter-spacing: .17em;
+    }
+
+    .hero h1 {
+
+        font-size:
+            clamp(
+                56px,
+                18vw,
+                88px
+            );
+
+        line-height: .86;
+    }
+
+    .hero-location {
+
+        margin-top: 18px;
+
+        font-size: 8px;
+
+        line-height: 1.5;
+
+        letter-spacing: .12em;
 
         flex-wrap: wrap;
     }
 
+
+    /* =====================================================
+       BAS DU HERO
+    ===================================================== */
+
     .hero-bottom {
-        left: 22px;
-        right: 22px;
-        bottom: 25px;
+
+        position: relative;
+
+        left: auto;
+        right: auto;
+        bottom: auto;
+
+        width: 100%;
+
+        padding:
+            0
+            20px
+            22px;
+
+        background: #050b13;
     }
 
     .hero-scroll {
         display: none;
     }
 
-    /* =============================
+
+    /* =====================================================
        SECTIONS
-    ============================= */
+    ===================================================== */
 
     .section {
+
+        width: 100%;
+
         padding:
-            80px 18px;
+            75px
+            18px;
 
         scroll-margin-top: 62px;
     }
 
     .section-heading {
+
         margin-bottom: 35px;
     }
 
     .section-heading h2 {
+
         font-size: 45px;
     }
 
     .section-heading p {
+
         font-size: 11px;
 
         line-height: 1.7;
     }
 
-    /* =============================
+
+    /* =====================================================
        CARTES
-    ============================= */
+    ===================================================== */
 
     .quick-grid,
     .service-grid,
     .document-grid,
     .inventory-grid {
+
         grid-template-columns: 1fr;
 
         gap: 12px;
     }
 
     .quick-card {
+
         min-height: 220px;
 
         padding: 25px;
     }
 
     .premium-card {
-        /*
-          Le verre reste actif sur téléphone
-        */
+
         backdrop-filter: blur(18px);
+
         -webkit-backdrop-filter: blur(18px);
     }
 
+
+    /* =====================================================
+       INVENTAIRES
+    ===================================================== */
+
     .inventory-card summary {
+
         min-height: 88px;
 
         padding:
-            20px 17px;
+            20px
+            17px;
     }
 
     .inventory-title {
+
         gap: 13px;
     }
 
     .inventory-title h3 {
+
         font-size: 23px;
     }
 
     .inventory-title small {
+
         font-size: 7px;
     }
 
     .inventory-code {
+
         width: 36px;
         height: 36px;
 
@@ -1934,19 +2121,24 @@ a {
     }
 
     .inventory-body {
+
         grid-template-columns: 1fr;
 
         padding:
-            0 12px 12px;
+            0
+            12px
+            12px;
     }
 
     .vehicle-card {
+
         min-height: 115px;
 
         padding: 18px;
     }
 
     .results-card {
+
         grid-column: auto;
 
         min-height: 145px;
@@ -1954,23 +2146,37 @@ a {
         padding: 25px;
     }
 
+
+    /* =====================================================
+       ENTRETIENS
+    ===================================================== */
+
     .service-card {
+
         min-height: 230px;
 
         padding: 25px;
     }
 
+
+    /* =====================================================
+       DOCUMENTS
+    ===================================================== */
+
     .document-card {
+
         min-height: 125px;
 
         padding: 21px;
     }
 
-    /* =============================
+
+    /* =====================================================
        AMICALE
-    ============================= */
+    ===================================================== */
 
     .amicale-panel {
+
         min-height: 430px;
 
         padding: 30px;
@@ -1979,21 +2185,29 @@ a {
     }
 
     .amicale-content {
+
         max-width: 100%;
     }
 
     .amicale-content h3 {
+
         font-size:
-            clamp(55px,16vw,78px);
+            clamp(
+                55px,
+                16vw,
+                78px
+            );
     }
 
     .amicale-content p {
+
         font-size: 11px;
 
         max-width: 300px;
     }
 
     .amicale-mark {
+
         position: absolute;
 
         width: 260px;
@@ -2005,11 +2219,13 @@ a {
         font-size: 70px;
     }
 
-    /* =============================
+
+    /* =====================================================
        RACCOURCIS
-    ============================= */
+    ===================================================== */
 
     .shortcut-grid {
+
         grid-template-columns:
             repeat(2,1fr);
 
@@ -2017,22 +2233,27 @@ a {
     }
 
     .shortcut-card {
+
         min-height: 150px;
 
         padding: 20px;
     }
 
     .shortcut-card strong {
+
         font-size: 22px;
     }
 
-    /* =============================
+
+    /* =====================================================
        FOOTER
-    ============================= */
+    ===================================================== */
 
     .footer-inner {
+
         padding:
-            28px 18px;
+            28px
+            18px;
 
         flex-wrap: wrap;
 
@@ -2040,12 +2261,14 @@ a {
     }
 
     .footer-line {
+
         flex-basis: 100%;
 
         order: 3;
     }
 
     .footer-right {
+
         width: 100%;
 
         justify-content: space-between;
@@ -2054,83 +2277,102 @@ a {
 
 
 /* =========================================================
-   PETIT TÉLÉPHONE
+   PETITS TÉLÉPHONES
 ========================================================= */
 
 @media (max-width: 430px) {
 
     .nav-link {
+
         padding:
-            21px 10px;
+            0
+            10px;
 
         font-size: 7.5px;
     }
 
-    .hero {
-        min-height: 620px;
+
+    /* PHOTO ENCORE PLUS HAUTE ET IMMÉDIATEMENT VISIBLE */
+
+    .hero-photo {
+
+        height: 350px;
+
+        min-height: 350px;
+    }
+
+    .hero-photo img {
+
+        width: 100% !important;
+
+        height: 100% !important;
+
+        min-height: 350px;
+
+        object-fit: cover !important;
+
+        object-position: center 30% !important;
+
+        transform: none !important;
+
+        opacity: .90;
+    }
+
+
+    .hero-content {
 
         padding:
-            35px 18px 80px;
-    }
-
-    /*
-       PHOTO ENCORE PLUS VISIBLE
-       SUR LES PETITS ÉCRANS
-    */
-    .hero-photo img {
-        object-fit: contain;
-
-        transform: none;
-
-        opacity: .72;
-    }
-
-    .hero-photo-overlay {
-        background:
-            linear-gradient(
-                180deg,
-                rgba(3,9,15,.22),
-                rgba(3,9,15,.38) 42%,
-                rgba(3,9,15,.90) 78%,
-                rgba(3,9,15,.98)
-            );
+            18px
+            18px
+            25px;
     }
 
     .hero-logo {
-        width: 75px;
-        height: 75px;
+
+        width: 72px;
+        height: 72px;
     }
 
     .hero-kicker {
+
         font-size: 7px;
     }
 
     .hero h1 {
-        font-size: 64px;
+
+        font-size: 62px;
     }
 
     .hero-location {
+
         font-size: 7px;
     }
 
+
     .section {
+
         padding:
-            70px 15px;
+            65px
+            15px;
     }
 
     .section-heading h2 {
+
         font-size: 41px;
     }
 
     .inventory-title h3 {
+
         font-size: 21px;
     }
 
     .inventory-title small {
+
         max-width: 170px;
     }
 
     .details-plus {
+
         width: 29px;
         height: 29px;
 
@@ -2138,20 +2380,22 @@ a {
     }
 
     .shortcut-grid {
+
         grid-template-columns: 1fr;
     }
 
     .amicale-panel {
+
         padding: 26px;
 
         min-height: 420px;
     }
 
     .amicale-content h3 {
+
         font-size: 57px;
     }
 }
-
 
 /* =========================================================
    ACCESSIBILITÉ
