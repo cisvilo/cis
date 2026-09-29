@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-
     /* =====================================================
        ANNÉE
     ===================================================== */
 
-    const year = document.getElementById("current-year");
+    const yearElement = document.getElementById("current-year");
 
-    if (year) {
-        year.textContent = new Date().getFullYear();
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
     }
 
 
@@ -16,20 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
        MENU MOBILE
     ===================================================== */
 
-    const mobileMenuToggle =
-        document.getElementById("mobile-menu-toggle");
-
-    const mobileMenu =
-        document.getElementById("mobile-menu");
-
-    const mobileMenuOverlay =
-        document.getElementById("mobile-menu-overlay");
-
-    const mobileMenuClose =
-        document.getElementById("mobile-menu-close");
-
-    const mobileNavLinks =
-        document.querySelectorAll(".mobile-nav-link");
+    const mobileToggle = document.getElementById("mobile-menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileOverlay = document.getElementById("mobile-menu-overlay");
+    const mobileClose = document.getElementById("mobile-menu-close");
+    const mobileLinks = document.querySelectorAll(".mobile-nav-link");
 
 
     function openMobileMenu() {
@@ -38,19 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         mobileMenu.classList.add("open");
 
-        mobileMenuOverlay?.classList.add("open");
+        if (mobileOverlay) {
+            mobileOverlay.classList.add("open");
+        }
 
-        mobileMenuToggle?.classList.add("active");
+        if (mobileToggle) {
+            mobileToggle.setAttribute("aria-expanded", "true");
+        }
 
-        mobileMenuToggle?.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-
-        mobileMenu.setAttribute(
-            "aria-hidden",
-            "false"
-        );
+        mobileMenu.setAttribute("aria-hidden", "false");
 
         document.body.classList.add("menu-open");
     }
@@ -62,269 +48,269 @@ document.addEventListener("DOMContentLoaded", () => {
 
         mobileMenu.classList.remove("open");
 
-        mobileMenuOverlay?.classList.remove("open");
+        if (mobileOverlay) {
+            mobileOverlay.classList.remove("open");
+        }
 
-        mobileMenuToggle?.classList.remove("active");
+        if (mobileToggle) {
+            mobileToggle.setAttribute("aria-expanded", "false");
+        }
 
-        mobileMenuToggle?.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        mobileMenu.setAttribute(
-            "aria-hidden",
-            "true"
-        );
+        mobileMenu.setAttribute("aria-hidden", "true");
 
         document.body.classList.remove("menu-open");
     }
 
 
-    mobileMenuToggle?.addEventListener(
-        "click",
-        () => {
-
-            if (mobileMenu?.classList.contains("open")) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-
-        }
-    );
+    if (mobileToggle) {
+        mobileToggle.addEventListener("click", openMobileMenu);
+    }
 
 
-    mobileMenuClose?.addEventListener(
-        "click",
-        closeMobileMenu
-    );
+    if (mobileClose) {
+        mobileClose.addEventListener("click", closeMobileMenu);
+    }
 
 
-    mobileMenuOverlay?.addEventListener(
-        "click",
-        closeMobileMenu
-    );
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener("click", closeMobileMenu);
+    }
 
 
-    mobileNavLinks.forEach(link => {
+    mobileLinks.forEach(link => {
 
-        link.addEventListener(
-            "click",
-            closeMobileMenu
-        );
+        link.addEventListener("click", () => {
+            closeMobileMenu();
+        });
 
     });
 
 
-    document.addEventListener(
-        "keydown",
-        event => {
+    document.addEventListener("keydown", event => {
 
-            if (event.key === "Escape") {
-                closeMobileMenu();
-            }
-
+        if (event.key === "Escape") {
+            closeMobileMenu();
         }
-    );
-
-
-    /* =====================================================
-       CARTES + / -
-    ===================================================== */
-
-    const inventoryCards =
-        document.querySelectorAll(".inventory-card");
-
-
-    inventoryCards.forEach(card => {
-
-        const header =
-            card.querySelector(".inventory-header");
-
-        const plus =
-            card.querySelector(".inventory-plus");
-
-
-        if (!header) return;
-
-
-        function toggleCard() {
-
-            const isOpen =
-                card.classList.contains("open");
-
-
-            // On ferme la carte
-            if (isOpen) {
-
-                card.classList.remove("open");
-
-                if (plus) {
-                    plus.textContent = "+";
-                }
-
-                return;
-            }
-
-
-            // On ouvre la carte
-            card.classList.add("open");
-
-            if (plus) {
-                plus.textContent = "−";
-            }
-
-        }
-
-
-        header.addEventListener(
-            "click",
-            toggleCard
-        );
-
-
-        // Accessibilité clavier
-        header.setAttribute(
-            "tabindex",
-            "0"
-        );
-
-
-        header.setAttribute(
-            "role",
-            "button"
-        );
-
-
-        header.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-
-                    event.preventDefault();
-
-                    toggleCard();
-
-                }
-
-            }
-        );
 
     });
 
 
     /* =====================================================
-       ANIMATION DES FLAMMES
+       CARTES DÉPLIABLES
+       Inventaires
+       Entretiens
+       Documents
+       Amicale
+       Raccourcis
     ===================================================== */
 
-    const flamesContainer =
-        document.querySelector(".flames");
+    const collapsibleCards = document.querySelectorAll(
+        "[data-collapsible]"
+    );
 
 
-    if (flamesContainer) {
+    function toggleCard(card) {
 
-        const flameCount =
-            window.innerWidth <= 800 ? 24 : 38;
+        if (!card) return;
 
+        const isOpen = card.classList.contains("open");
 
-        for (let i = 0; i < flameCount; i++) {
+        card.classList.toggle("open", !isOpen);
 
-            const flame =
-                document.createElement("span");
+        const plus = card.querySelector(
+            ".inventory-plus, .resource-plus"
+        );
 
-
-            flame.style.position = "absolute";
-
-            flame.style.bottom =
-                `${Math.random() * 5}px`;
-
-            flame.style.left =
-                `${Math.random() * 100}%`;
-
-            flame.style.width =
-                `${3 + Math.random() * 7}px`;
-
-            flame.style.height =
-                `${12 + Math.random() * 38}px`;
-
-            flame.style.borderRadius =
-                "50% 50% 35% 35%";
-
-            flame.style.background =
-                "rgba(237,82,98,.28)";
-
-            flame.style.filter =
-                "blur(3px)";
-
-            flame.style.transform =
-                `rotate(${Math.random() * 20 - 10}deg)`;
-
-            flame.style.opacity =
-                `${.15 + Math.random() * .35}`;
-
-            flame.style.animation =
-                `flameFloat ${2 + Math.random() * 3}s ease-in-out infinite alternate`;
-
-            flame.style.animationDelay =
-                `${Math.random() * 2}s`;
-
-
-            flamesContainer.appendChild(flame);
-
+        if (plus) {
+            plus.textContent = isOpen ? "+" : "−";
         }
 
     }
 
 
+    collapsibleCards.forEach(card => {
+
+        const header = card.querySelector(
+            ".inventory-header, .resource-header"
+        );
+
+        if (!header) return;
+
+
+        /* État initial : fermé */
+
+        card.classList.remove("open");
+
+
+        const plus = header.querySelector(
+            ".inventory-plus, .resource-plus"
+        );
+
+        if (plus) {
+            plus.textContent = "+";
+        }
+
+
+        /* Clic souris / tactile */
+
+        header.addEventListener("click", event => {
+
+            /*
+             * On empêche uniquement les clics parasites
+             * provenant d'un éventuel lien dans le header.
+             */
+
+            if (
+                event.target.closest("a") ||
+                event.target.closest("button")
+            ) {
+                return;
+            }
+
+            toggleCard(card);
+
+        });
+
+
+        /* Clavier */
+
+        header.setAttribute("tabindex", "0");
+        header.setAttribute("role", "button");
+        header.setAttribute("aria-expanded", "false");
+
+
+        header.addEventListener("keydown", event => {
+
+            if (
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
+
+                event.preventDefault();
+
+                toggleCard(card);
+
+                header.setAttribute(
+                    "aria-expanded",
+                    card.classList.contains("open")
+                        ? "true"
+                        : "false"
+                );
+
+            }
+
+        });
+
+
+        /*
+         * Mise à jour de aria-expanded après clic.
+         */
+
+        header.addEventListener("click", () => {
+
+            header.setAttribute(
+                "aria-expanded",
+                card.classList.contains("open")
+                    ? "true"
+                    : "false"
+            );
+
+        });
+
+    });
+
+
     /* =====================================================
-       ANIMATION FLAMMES DYNAMIQUES
+       FLAMMES
     ===================================================== */
 
-    if (!document.getElementById("flame-animation-style")) {
-
-        const style =
-            document.createElement("style");
-
-        style.id =
-            "flame-animation-style";
+    const flamesContainer = document.querySelector(".flames");
 
 
-        style.textContent = `
+    if (flamesContainer) {
+
+        const flameCount = 18;
+
+        for (let i = 0; i < flameCount; i++) {
+
+            const flame = document.createElement("span");
+
+            flame.style.left =
+                `${Math.random() * 100}%`;
+
+            flame.style.animationDelay =
+                `${Math.random() * 2.5}s`;
+
+            flame.style.animationDuration =
+                `${2 + Math.random() * 2}s`;
+
+            flame.style.transform =
+                `scale(${0.5 + Math.random() * 0.8})`;
+
+            flamesContainer.appendChild(flame);
+
+        }
+
+
+        const flameStyle = document.createElement("style");
+
+        flameStyle.textContent = `
 
             @keyframes flameFloat {
 
                 0% {
                     transform:
-                        translateY(0)
-                        scale(.85)
-                        rotate(-8deg);
+                        translateY(20px)
+                        scale(.65)
+                        rotate(-3deg);
 
-                    opacity: .15;
+                    opacity: 0;
                 }
 
-                50% {
-                    opacity: .45;
+                25% {
+                    opacity: .7;
+                }
+
+                70% {
+                    opacity: .4;
                 }
 
                 100% {
                     transform:
-                        translateY(-55px)
-                        scale(1.15)
-                        rotate(8deg);
+                        translateY(-110px)
+                        scale(1)
+                        rotate(5deg);
 
-                    opacity: .05;
+                    opacity: 0;
                 }
 
             }
 
+            .flames span {
+                position: absolute;
+                bottom: 0;
+                width: 18px;
+                height: 42px;
+
+                border-radius:
+                    50% 50% 45% 45%;
+
+                background:
+                    linear-gradient(
+                        to top,
+                        rgba(184,32,50,.7),
+                        rgba(237,82,98,.05)
+                    );
+
+                filter: blur(2px);
+
+                animation:
+                    flameFloat 3s ease-in-out infinite;
+            }
+
         `;
 
-
-        document.head.appendChild(style);
+        document.head.appendChild(flameStyle);
 
     }
 
@@ -347,9 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         if (entry.isIntersecting) {
 
-                            entry.target.classList.add(
-                                "visible"
-                            );
+                            entry.target.classList.add("visible");
 
                             revealObserver.unobserve(
                                 entry.target
@@ -361,7 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 },
                 {
-                    threshold: .08
+                    threshold: 0.08
                 }
             );
 
@@ -375,192 +359,168 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
 
         revealElements.forEach(element => {
-
             element.classList.add("visible");
-
         });
 
     }
 
 
     /* =====================================================
-       LIENS PLACEHOLDER #
+       LIENS #
     ===================================================== */
 
-    const toast =
-        document.getElementById("toast");
+    const toast = document.getElementById("toast");
 
+    document.querySelectorAll('a[href="#"]').forEach(link => {
 
-    let toastTimer;
+        link.addEventListener("click", event => {
 
+            event.preventDefault();
 
-    function showToast() {
+            if (toast) {
 
-        if (!toast) return;
+                toast.classList.add("show");
 
+                setTimeout(() => {
 
-        toast.classList.add("show");
+                    toast.classList.remove("show");
 
+                }, 2500);
 
-        clearTimeout(toastTimer);
-
-
-        toastTimer =
-            setTimeout(() => {
-
-                toast.classList.remove("show");
-
-            }, 2600);
-
-    }
-
-
-    document
-        .querySelectorAll('a[href="#"]')
-        .forEach(link => {
-
-            link.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-
-                    showToast();
-
-                }
-            );
+            }
 
         });
 
+    });
+
 
     /* =====================================================
-       SCROLL FLUIDE
+       SMOOTH SCROLL
     ===================================================== */
 
-    document
-        .querySelectorAll(
-            'a[href^="#"]:not([href="#"])'
-        )
-        .forEach(link => {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
 
-            link.addEventListener(
-                "click",
-                event => {
+        link.addEventListener("click", event => {
 
-                    const targetId =
-                        link.getAttribute("href");
+            const targetId =
+                link.getAttribute("href");
 
-
-                    const target =
-                        document.querySelector(targetId);
+            if (
+                !targetId ||
+                targetId === "#"
+            ) {
+                return;
+            }
 
 
-                    if (!target) return;
+            const target =
+                document.querySelector(targetId);
 
 
-                    event.preventDefault();
+            if (!target) {
+                return;
+            }
 
 
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
+            event.preventDefault();
 
-                }
-            );
+
+            const header =
+                document.querySelector(".site-header");
+
+
+            const headerHeight =
+                header
+                    ? header.offsetHeight
+                    : 0;
+
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                headerHeight -
+                15;
+
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth"
+            });
 
         });
 
+    });
+
 
     /* =====================================================
-       TILT DES CARTES — DESKTOP
+       EFFET TILT
+       Désactivé sur les cartes dépliables
     ===================================================== */
 
-    if (window.innerWidth > 900) {
-
-        document
-            .querySelectorAll(".premium-card")
-            .forEach(card => {
-
-                card.addEventListener(
-                    "mousemove",
-                    event => {
-
-                        if (
-                            card.classList.contains(
-                                "inventory-card"
-                            )
-                        ) {
-                            return;
-                        }
+    const tiltCards =
+        document.querySelectorAll(
+            ".premium-card:not(.inventory-card):not(.resource-card)"
+        );
 
 
-                        const rect =
-                            card.getBoundingClientRect();
+    if (window.matchMedia("(pointer:fine)").matches) {
+
+        tiltCards.forEach(card => {
+
+            card.addEventListener("mousemove", event => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+                const x =
+                    event.clientX - rect.left;
+
+                const y =
+                    event.clientY - rect.top;
+
+                const rotateY =
+                    ((x / rect.width) - 0.5) * 4;
+
+                const rotateX =
+                    ((y / rect.height) - 0.5) * -4;
 
 
-                        const x =
-                            event.clientX -
-                            rect.left;
-
-
-                        const y =
-                            event.clientY -
-                            rect.top;
-
-
-                        const rotateY =
-                            ((x / rect.width) - .5) * 2;
-
-
-                        const rotateX =
-                            -((y / rect.height) - .5) * 2;
-
-
-                        card.style.transform =
-                            `translateY(-5px)
-                             perspective(700px)
-                             rotateX(${rotateX}deg)
-                             rotateY(${rotateY}deg)`;
-
-                    }
-                );
-
-
-                card.addEventListener(
-                    "mouseleave",
-                    () => {
-
-                        card.style.transform =
-                            "";
-
-                    }
-                );
+                card.style.transform =
+                    `perspective(900px)
+                     rotateX(${rotateX}deg)
+                     rotateY(${rotateY}deg)
+                     translateY(-3px)`;
 
             });
 
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform = "";
+
+            });
+
+        });
+
     }
 
 
     /* =====================================================
-       EMPÊCHER LES BOUTONS FORMULAIRES
-       DE DÉCLENCHER LES AUTRES ACTIONS
+       EMPÊCHE L'OUVERTURE D'UNE CARTE PARENT
+       QUAND ON CLIQUE SUR UN BOUTON / LIEN INTERNE
     ===================================================== */
 
-    document
-        .querySelectorAll(".inventory-button")
-        .forEach(button => {
+    document.querySelectorAll(
+        ".inventory-button, .maintenance-card, .large-button"
+    ).forEach(link => {
 
-            button.addEventListener(
-                "click",
-                event => {
+        link.addEventListener("click", event => {
 
-                    event.stopPropagation();
-
-                }
-            );
+            event.stopPropagation();
 
         });
+
+    });
 
 
 });
