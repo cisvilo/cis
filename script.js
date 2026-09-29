@@ -1,249 +1,409 @@
 /* =========================================================
-   CIS VILLENAVE — NAVIGATION
+   CIS VILLENAVE — INTERACTIONS
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const navButtons = document.querySelectorAll("[data-open]");
-    const sections = document.querySelectorAll("main .page-section");
+    /* =====================================================
+       ANNÉE
+    ====================================================== */
 
-    /*
-     * Les boutons qui possèdent data-open ouvrent
-     * directement la section correspondante.
-     */
-    navButtons.forEach(button => {
+    const year = document.getElementById("current-year");
 
-        button.addEventListener("click", event => {
-
-            event.preventDefault();
-
-            const targetName = button.dataset.open;
-
-            if (!targetName) return;
-
-            openSection(targetName);
-
-        });
-
-    });
-
-
-    /*
-     * Ouvre une section
-     */
-    function openSection(name) {
-
-        let target;
-
-        if (name === "home") {
-            target = document.getElementById("home");
-        } else {
-            target = document.getElementById(name);
-        }
-
-        if (!target) return;
-
-        /*
-         * Pour l'accueil, on remonte tout en haut.
-         */
-        if (name === "home") {
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        } else {
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-
-        updateActiveNavigation(name);
+    if (year) {
+        year.textContent = new Date().getFullYear();
     }
 
 
-    /*
-     * Menu actif
-     */
-    function updateActiveNavigation(name) {
+    /* =====================================================
+       FLAMMES DISCRÈTES
+    ====================================================== */
 
-        document.querySelectorAll(".nav-item").forEach(item => {
+    const flameField = document.querySelector(".flame-field");
 
-            item.classList.toggle(
-                "active",
-                item.dataset.open === name
-            );
+    if (flameField) {
 
-        });
+        const flameCount = 24;
 
-    }
+        for (let i = 0; i < flameCount; i++) {
 
+            const flame = document.createElement("span");
 
-    /*
-     * Détection automatique de la section visible
-     */
-    const observer = new IntersectionObserver(
-        entries => {
+            flame.className = "flame";
 
-            const visibleSections = entries
-                .filter(entry => entry.isIntersecting)
-                .sort(
-                    (a, b) =>
-                        b.intersectionRatio -
-                        a.intersectionRatio
+            const size =
+                Math.floor(
+                    Math.random() * 24
+                ) + 10;
+
+            const x =
+                Math.floor(
+                    Math.random() * 100
                 );
 
-            if (!visibleSections.length) return;
+            const duration =
+                (
+                    Math.random() * 7 + 7
+                ).toFixed(2);
 
-            const section = visibleSections[0].target;
+            const delay =
+                (
+                    Math.random() * -12
+                ).toFixed(2);
 
-            if (section.id) {
+            const drift =
+                (
+                    Math.random() * 120 - 60
+                ).toFixed(0);
 
-                updateActiveNavigation(section.id);
+            const opacity =
+                (
+                    Math.random() * 0.25 + 0.08
+                ).toFixed(2);
 
-            }
+            flame.style.setProperty(
+                "--size",
+                `${size}px`
+            );
 
-        },
-        {
-            threshold: [0.25, 0.5, 0.75],
-            rootMargin: "-15% 0px -55% 0px"
+            flame.style.setProperty(
+                "--x",
+                `${x}%`
+            );
+
+            flame.style.setProperty(
+                "--duration",
+                `${duration}s`
+            );
+
+            flame.style.setProperty(
+                "--delay",
+                `${delay}s`
+            );
+
+            flame.style.setProperty(
+                "--drift",
+                `${drift}px`
+            );
+
+            flame.style.setProperty(
+                "--opacity",
+                opacity
+            );
+
+            flameField.appendChild(flame);
         }
-    );
+    }
 
 
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+    /* =====================================================
+       APPARITION DES CARTES
+    ====================================================== */
 
+    const revealElements =
+        document.querySelectorAll(".reveal");
 
-    /*
-     * Cartes avec data-link
-     */
-    document.querySelectorAll("[data-link]").forEach(card => {
+    if ("IntersectionObserver" in window) {
 
-        card.addEventListener("click", event => {
+        const revealObserver =
+            new IntersectionObserver(
+                (entries, observer) => {
 
-            /*
-             * Si l'utilisateur clique déjà sur
-             * un lien interne, on ne fait rien.
-             */
-            if (event.target.closest("a")) return;
+                    entries.forEach(entry => {
 
-            const link = card.dataset.link;
+                        if (entry.isIntersecting) {
 
-            if (
-                link &&
-                link !== "#" &&
-                link.trim() !== ""
-            ) {
-                window.location.href = link;
-            }
+                            entry.target.classList.add(
+                                "visible"
+                            );
 
-        });
-
-    });
-
-
-    /*
-     * Empêche les # de faire remonter la page.
-     * À remplacer par tes vrais liens.
-     */
-    document.querySelectorAll('a[href="#"]').forEach(link => {
-
-        link.addEventListener("click", event => {
-            event.preventDefault();
-        });
-
-    });
-
-
-    /*
-     * Animation des catégories d'inventaire
-     */
-    document
-        .querySelectorAll(".inventory-category")
-        .forEach(category => {
-
-            category.addEventListener("toggle", () => {
-
-                if (!category.open) return;
-
-                document
-                    .querySelectorAll(".inventory-category")
-                    .forEach(other => {
-
-                        if (
-                            other !== category &&
-                            other.open
-                        ) {
-                            other.open = false;
+                            observer.unobserve(
+                                entry.target
+                            );
                         }
+                    });
+
+                },
+                {
+                    threshold: 0.10
+                }
+            );
+
+        revealElements.forEach(
+            element => revealObserver.observe(element)
+        );
+
+    } else {
+
+        revealElements.forEach(
+            element =>
+                element.classList.add("visible")
+        );
+    }
+
+
+    /* =====================================================
+       NAVIGATION ACTIVE
+    ====================================================== */
+
+    const navLinks =
+        document.querySelectorAll(".nav-link");
+
+    const sections =
+        document.querySelectorAll(
+            "main section[id]"
+        );
+
+    const sectionObserver =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    const id =
+                        entry.target.getAttribute("id");
+
+                    navLinks.forEach(link => {
+
+                        const target =
+                            link.getAttribute("href");
+
+                        link.classList.toggle(
+                            "active",
+                            target === `#${id}`
+                        );
 
                     });
 
-            });
+                });
 
+            },
+            {
+                rootMargin:
+                    "-35% 0px -55% 0px",
+                threshold: 0
+            }
+        );
+
+    sections.forEach(
+        section =>
+            sectionObserver.observe(section)
+    );
+
+
+    /* =====================================================
+       LIENS AVEC "#"
+    ====================================================== */
+
+    const placeholderLinks =
+        document.querySelectorAll(
+            'a[href="#"]'
+        );
+
+    placeholderLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                showMessage(
+                    "Lien à connecter à votre ressource."
+                );
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       MESSAGE DISCRET
+    ====================================================== */
+
+    function showMessage(message) {
+
+        let toast =
+            document.querySelector(".site-toast");
+
+        if (!toast) {
+
+            toast =
+                document.createElement("div");
+
+            toast.className =
+                "site-toast";
+
+            document.body.appendChild(toast);
+        }
+
+        toast.textContent = message;
+
+        requestAnimationFrame(() => {
+            toast.classList.add("show");
         });
 
+        clearTimeout(
+            window.__toastTimer
+        );
 
-    /*
-     * Effet léger de parallaxe sur la photo
-     */
-    const heroPhoto =
-        document.querySelector(".hero-photo-frame");
+        window.__toastTimer =
+            setTimeout(() => {
 
-    if (heroPhoto) {
+                toast.classList.remove(
+                    "show"
+                );
 
-        document.addEventListener("mousemove", event => {
-
-            if (window.innerWidth < 900) return;
-
-            const x =
-                (event.clientX / window.innerWidth - 0.5);
-
-            const y =
-                (event.clientY / window.innerHeight - 0.5);
-
-            heroPhoto.style.transform =
-                `perspective(1000px)
-                 rotateY(${x * -4}deg)
-                 rotateX(${y * 2}deg)`;
-        });
-
+            }, 2600);
     }
 
 
-    /*
-     * Retour au comportement normal
-     * quand la souris quitte l'écran.
-     */
-    document.addEventListener("mouseleave", () => {
+    /* =====================================================
+       EFFET PREMIUM SUR LES CARTES
+    ====================================================== */
 
-        if (!heroPhoto) return;
+    const cards =
+        document.querySelectorAll(
+            ".premium-card"
+        );
 
-        heroPhoto.style.transform =
-            "perspective(1000px) rotateY(-4deg)";
+    const canTilt =
+        window.matchMedia(
+            "(hover: hover) and (pointer: fine)"
+        ).matches;
+
+    if (canTilt) {
+
+        cards.forEach(card => {
+
+            card.addEventListener(
+                "mousemove",
+                event => {
+
+                    const rect =
+                        card.getBoundingClientRect();
+
+                    const x =
+                        event.clientX -
+                        rect.left;
+
+                    const y =
+                        event.clientY -
+                        rect.top;
+
+                    const rotateY =
+                        ((x / rect.width) - 0.5)
+                        * 2.5;
+
+                    const rotateX =
+                        ((y / rect.height) - 0.5)
+                        * -2.5;
+
+                    card.style.transform =
+                        `
+                        translateY(-5px)
+                        perspective(900px)
+                        rotateX(${rotateX}deg)
+                        rotateY(${rotateY}deg)
+                        `;
+                }
+            );
+
+            card.addEventListener(
+                "mouseleave",
+                () => {
+
+                    card.style.transform = "";
+                }
+            );
+
+        });
+    }
+
+
+    /* =====================================================
+       OUVERTURE DES DETAILS
+    ====================================================== */
+
+    const details =
+        document.querySelectorAll(
+            ".inventory-card"
+        );
+
+    details.forEach(detail => {
+
+        detail.addEventListener(
+            "toggle",
+            () => {
+
+                if (!detail.open) {
+                    return;
+                }
+
+                details.forEach(other => {
+
+                    if (
+                        other !== detail &&
+                        other.open
+                    ) {
+                        other.open = false;
+                    }
+
+                });
+
+            }
+        );
+
     });
 
 
-    /*
-     * Touche ESC :
-     * referme les catégories ouvertes.
-     */
-    document.addEventListener("keydown", event => {
+    /* =====================================================
+       SCROLL FLUIDE
+    ====================================================== */
 
-        if (event.key !== "Escape") return;
+    document
+        .querySelectorAll(
+            'a[href^="#"]:not([href="#"])'
+        )
+        .forEach(link => {
 
-        document
-            .querySelectorAll(".inventory-category[open]")
-            .forEach(category => {
-                category.open = false;
-            });
+            link.addEventListener(
+                "click",
+                event => {
 
-    });
+                    const targetId =
+                        link.getAttribute(
+                            "href"
+                        );
+
+                    const target =
+                        document.querySelector(
+                            targetId
+                        );
+
+                    if (!target) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                    history.replaceState(
+                        null,
+                        "",
+                        targetId
+                    );
+                }
+            );
+
+        });
 
 });
