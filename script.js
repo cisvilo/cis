@@ -1,432 +1,566 @@
-/* =========================================================
-   CIS VILLENAVE
-   SCRIPT PRINCIPAL
-   ========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
 
 
-/* =========================================================
-   ANNÉE AUTOMATIQUE
-   ========================================================== */
+    /* =====================================================
+       ANNÉE
+    ===================================================== */
 
-const currentYear = document.getElementById("currentYear");
+    const year = document.getElementById("current-year");
 
-if (currentYear) {
-    currentYear.textContent = new Date().getFullYear();
-}
-
-
-/* =========================================================
-   FLAMMES
-   ========================================================== */
-
-const flameContainer = document.querySelector(".flame-field");
-
-if (flameContainer) {
-
-    for (let i = 0; i < 18; i++) {
-
-        const flame = document.createElement("span");
-
-        flame.className = "flame";
-
-        flame.style.left = `${Math.random() * 100}%`;
-        flame.style.animationDelay = `${Math.random() * 5}s`;
-        flame.style.animationDuration = `${4 + Math.random() * 5}s`;
-
-        flameContainer.appendChild(flame);
-    }
-}
-
-
-/* =========================================================
-   APPARITION DES ÉLÉMENTS
-   ========================================================== */
-
-const revealElements = document.querySelectorAll(".reveal");
-
-if ("IntersectionObserver" in window) {
-
-    const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
-
-            entries.forEach((entry) => {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.classList.add("visible");
-
-                    observer.unobserve(entry.target);
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.08
-        }
-    );
-
-
-    revealElements.forEach((element) => {
-        revealObserver.observe(element);
-    });
-
-} else {
-
-    revealElements.forEach((element) => {
-        element.classList.add("visible");
-    });
-
-}
-
-
-/* =========================================================
-   MENU MOBILE
-   ========================================================== */
-
-const menuToggle = document.querySelector(".menu-toggle");
-const mobileNav = document.querySelector(".mobile-nav");
-
-if (menuToggle && mobileNav) {
-
-    menuToggle.addEventListener("click", () => {
-
-        const isOpen = mobileNav.classList.toggle("is-open");
-
-        menuToggle.classList.toggle("is-open", isOpen);
-
-        menuToggle.setAttribute("aria-expanded", isOpen);
-
-    });
-
-
-    mobileNav.querySelectorAll("a").forEach((link) => {
-
-        link.addEventListener("click", () => {
-
-            mobileNav.classList.remove("is-open");
-            menuToggle.classList.remove("is-open");
-
-            menuToggle.setAttribute("aria-expanded", "false");
-
-        });
-
-    });
-
-}
-
-
-/* =========================================================
-   NAVIGATION ACTIVE
-   ========================================================== */
-
-const navLinks = document.querySelectorAll(
-    ".desktop-nav a, .mobile-nav a"
-);
-
-const sections = document.querySelectorAll(
-    "main section[id]"
-);
-
-if ("IntersectionObserver" in window && sections.length) {
-
-    const sectionObserver = new IntersectionObserver(
-        (entries) => {
-
-            entries.forEach((entry) => {
-
-                if (!entry.isIntersecting) {
-                    return;
-                }
-
-                const id = entry.target.id;
-
-                navLinks.forEach((link) => {
-
-                    link.classList.toggle(
-                        "active",
-                        link.getAttribute("href") === `#${id}`
-                    );
-
-                });
-
-            });
-
-        },
-        {
-            rootMargin: "-25% 0px -65% 0px"
-        }
-    );
-
-
-    sections.forEach((section) => {
-        sectionObserver.observe(section);
-    });
-
-}
-
-
-/* =========================================================
-   TOAST
-   ========================================================== */
-
-const toast = document.getElementById("toast");
-
-let toastTimer = null;
-
-
-function showToast(message) {
-
-    if (!toast) {
-        return;
+    if (year) {
+        year.textContent = new Date().getFullYear();
     }
 
-    toast.textContent = message;
 
-    toast.classList.add("show");
+    /* =====================================================
+       MENU MOBILE
+    ===================================================== */
 
-    clearTimeout(toastTimer);
+    const mobileMenuToggle =
+        document.getElementById("mobile-menu-toggle");
 
-    toastTimer = setTimeout(() => {
+    const mobileMenu =
+        document.getElementById("mobile-menu");
 
-        toast.classList.remove("show");
+    const mobileMenuOverlay =
+        document.getElementById("mobile-menu-overlay");
 
-    }, 2800);
+    const mobileMenuClose =
+        document.getElementById("mobile-menu-close");
 
-}
+    const mobileNavLinks =
+        document.querySelectorAll(".mobile-nav-link");
 
 
-/* =========================================================
-   LIENS PLACEHOLDER "#"
-   ========================================================== */
+    function openMobileMenu() {
 
-document.querySelectorAll('a[href="#"]').forEach((link) => {
+        if (!mobileMenu) return;
 
-    link.addEventListener("click", (event) => {
+        mobileMenu.classList.add("open");
 
-        event.preventDefault();
+        mobileMenuOverlay?.classList.add("open");
 
-        showToast(
-            "Cette ressource doit encore être connectée."
+        mobileMenuToggle?.classList.add("active");
+
+        mobileMenuToggle?.setAttribute(
+            "aria-expanded",
+            "true"
         );
 
-    });
+        mobileMenu.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
-});
-
-
-/* =========================================================
-   ANCRES INTERNES
-   ========================================================== */
-
-document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((link) => {
-
-    link.addEventListener("click", (event) => {
-
-        const targetId = link.getAttribute("href");
-
-        const target = document.querySelector(targetId);
-
-        if (!target) {
-            return;
-        }
-
-        event.preventDefault();
-
-        target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-    });
-
-});
-
-
-/* =========================================================
-   CARTES DÉPLIABLES
-   ========================================================= */
-
-const collapsibleCards = document.querySelectorAll(
-    ".collapsible-card"
-);
-
-
-collapsibleCards.forEach((card, index) => {
-
-    const toggle = card.querySelector(".collapse-toggle");
-    const content = card.querySelector(".collapse-content");
-    const icon = card.querySelector(".collapse-icon");
-
-    if (!toggle || !content) {
-        return;
+        document.body.classList.add("menu-open");
     }
 
 
-    /* ID unique pour l'accessibilité */
+    function closeMobileMenu() {
 
-    const contentId =
-        content.id ||
-        `collapse-content-${index + 1}`;
+        if (!mobileMenu) return;
 
-    content.id = contentId;
+        mobileMenu.classList.remove("open");
 
-    toggle.setAttribute(
-        "aria-controls",
-        contentId
-    );
+        mobileMenuOverlay?.classList.remove("open");
 
-    toggle.setAttribute(
-        "aria-expanded",
-        "false"
-    );
+        mobileMenuToggle?.classList.remove("active");
 
-
-    /* Toutes les cartes sont fermées au démarrage */
-
-    card.classList.remove("is-open");
-
-
-    /* -------------------------------------------------------
-       OUVERTURE / FERMETURE
-       ------------------------------------------------------- */
-
-    toggle.addEventListener("click", (event) => {
-
-        event.preventDefault();
-
-        const isOpen =
-            card.classList.contains("is-open");
-
-
-        if (isOpen) {
-
-            /* Fermer */
-
-            card.classList.remove("is-open");
-
-            toggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            if (icon) {
-                icon.textContent = "+";
-            }
-
-        } else {
-
-            /* Ouvrir */
-
-            card.classList.add("is-open");
-
-            toggle.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-
-            if (icon) {
-                icon.textContent = "−";
-            }
-
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   EFFET HOVER PREMIUM
-   On ne l'applique PAS aux cartes dépliables,
-   pour ne pas gêner le bouton + / −.
-   ========================================================== */
-
-const premiumCards = document.querySelectorAll(
-    ".premium-card:not(.collapsible-card)"
-);
-
-
-if (window.matchMedia("(hover: hover)").matches) {
-
-    premiumCards.forEach((card) => {
-
-        card.addEventListener("mousemove", (event) => {
-
-            const rect = card.getBoundingClientRect();
-
-            const x =
-                event.clientX - rect.left;
-
-            const y =
-                event.clientY - rect.top;
-
-            const centerX =
-                rect.width / 2;
-
-            const centerY =
-                rect.height / 2;
-
-            const rotateX =
-                ((y - centerY) / centerY) * -2;
-
-            const rotateY =
-                ((x - centerX) / centerX) * 2;
-
-            card.style.transform =
-                `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
-
-        });
-
-
-        card.addEventListener("mouseleave", () => {
-
-            card.style.transform = "";
-
-        });
-
-    });
-
-}
-
-
-/* =========================================================
-   EMPÊCHER LES CLICS DES LIENS DE PROPAGER
-   ========================================================== */
-
-document.querySelectorAll(
-    ".maintenance-link, .card-action, .vehicle-card"
-).forEach((link) => {
-
-    link.addEventListener("click", (event) => {
-
-        event.stopPropagation();
-
-    });
-
-});
-
-
-/* =========================================================
-   FERMETURE DU MENU SI REDIMENSIONNEMENT
-   ========================================================== */
-
-window.addEventListener("resize", () => {
-
-    if (
-        window.innerWidth > 800 &&
-        mobileNav &&
-        menuToggle
-    ) {
-
-        mobileNav.classList.remove("is-open");
-        menuToggle.classList.remove("is-open");
-
-        menuToggle.setAttribute(
+        mobileMenuToggle?.setAttribute(
             "aria-expanded",
             "false"
         );
 
+        mobileMenu.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.classList.remove("menu-open");
     }
+
+
+    mobileMenuToggle?.addEventListener(
+        "click",
+        () => {
+
+            if (mobileMenu?.classList.contains("open")) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+
+        }
+    );
+
+
+    mobileMenuClose?.addEventListener(
+        "click",
+        closeMobileMenu
+    );
+
+
+    mobileMenuOverlay?.addEventListener(
+        "click",
+        closeMobileMenu
+    );
+
+
+    mobileNavLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            closeMobileMenu
+        );
+
+    });
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+                closeMobileMenu();
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CARTES + / -
+    ===================================================== */
+
+    const inventoryCards =
+        document.querySelectorAll(".inventory-card");
+
+
+    inventoryCards.forEach(card => {
+
+        const header =
+            card.querySelector(".inventory-header");
+
+        const plus =
+            card.querySelector(".inventory-plus");
+
+
+        if (!header) return;
+
+
+        function toggleCard() {
+
+            const isOpen =
+                card.classList.contains("open");
+
+
+            // On ferme la carte
+            if (isOpen) {
+
+                card.classList.remove("open");
+
+                if (plus) {
+                    plus.textContent = "+";
+                }
+
+                return;
+            }
+
+
+            // On ouvre la carte
+            card.classList.add("open");
+
+            if (plus) {
+                plus.textContent = "−";
+            }
+
+        }
+
+
+        header.addEventListener(
+            "click",
+            toggleCard
+        );
+
+
+        // Accessibilité clavier
+        header.setAttribute(
+            "tabindex",
+            "0"
+        );
+
+
+        header.setAttribute(
+            "role",
+            "button"
+        );
+
+
+        header.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    toggleCard();
+
+                }
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       ANIMATION DES FLAMMES
+    ===================================================== */
+
+    const flamesContainer =
+        document.querySelector(".flames");
+
+
+    if (flamesContainer) {
+
+        const flameCount =
+            window.innerWidth <= 800 ? 24 : 38;
+
+
+        for (let i = 0; i < flameCount; i++) {
+
+            const flame =
+                document.createElement("span");
+
+
+            flame.style.position = "absolute";
+
+            flame.style.bottom =
+                `${Math.random() * 5}px`;
+
+            flame.style.left =
+                `${Math.random() * 100}%`;
+
+            flame.style.width =
+                `${3 + Math.random() * 7}px`;
+
+            flame.style.height =
+                `${12 + Math.random() * 38}px`;
+
+            flame.style.borderRadius =
+                "50% 50% 35% 35%";
+
+            flame.style.background =
+                "rgba(237,82,98,.28)";
+
+            flame.style.filter =
+                "blur(3px)";
+
+            flame.style.transform =
+                `rotate(${Math.random() * 20 - 10}deg)`;
+
+            flame.style.opacity =
+                `${.15 + Math.random() * .35}`;
+
+            flame.style.animation =
+                `flameFloat ${2 + Math.random() * 3}s ease-in-out infinite alternate`;
+
+            flame.style.animationDelay =
+                `${Math.random() * 2}s`;
+
+
+            flamesContainer.appendChild(flame);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ANIMATION FLAMMES DYNAMIQUES
+    ===================================================== */
+
+    if (!document.getElementById("flame-animation-style")) {
+
+        const style =
+            document.createElement("style");
+
+        style.id =
+            "flame-animation-style";
+
+
+        style.textContent = `
+
+            @keyframes flameFloat {
+
+                0% {
+                    transform:
+                        translateY(0)
+                        scale(.85)
+                        rotate(-8deg);
+
+                    opacity: .15;
+                }
+
+                50% {
+                    opacity: .45;
+                }
+
+                100% {
+                    transform:
+                        translateY(-55px)
+                        scale(1.15)
+                        rotate(8deg);
+
+                    opacity: .05;
+                }
+
+            }
+
+        `;
+
+
+        document.head.appendChild(style);
+
+    }
+
+
+    /* =====================================================
+       REVEAL AU SCROLL
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(".reveal");
+
+
+    if ("IntersectionObserver" in window) {
+
+        const revealObserver =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                            revealObserver.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: .08
+                }
+            );
+
+
+        revealElements.forEach(element => {
+
+            revealObserver.observe(element);
+
+        });
+
+    } else {
+
+        revealElements.forEach(element => {
+
+            element.classList.add("visible");
+
+        });
+
+    }
+
+
+    /* =====================================================
+       LIENS PLACEHOLDER #
+    ===================================================== */
+
+    const toast =
+        document.getElementById("toast");
+
+
+    let toastTimer;
+
+
+    function showToast() {
+
+        if (!toast) return;
+
+
+        toast.classList.add("show");
+
+
+        clearTimeout(toastTimer);
+
+
+        toastTimer =
+            setTimeout(() => {
+
+                toast.classList.remove("show");
+
+            }, 2600);
+
+    }
+
+
+    document
+        .querySelectorAll('a[href="#"]')
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    showToast();
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       SCROLL FLUIDE
+    ===================================================== */
+
+    document
+        .querySelectorAll(
+            'a[href^="#"]:not([href="#"])'
+        )
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                event => {
+
+                    const targetId =
+                        link.getAttribute("href");
+
+
+                    const target =
+                        document.querySelector(targetId);
+
+
+                    if (!target) return;
+
+
+                    event.preventDefault();
+
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       TILT DES CARTES — DESKTOP
+    ===================================================== */
+
+    if (window.innerWidth > 900) {
+
+        document
+            .querySelectorAll(".premium-card")
+            .forEach(card => {
+
+                card.addEventListener(
+                    "mousemove",
+                    event => {
+
+                        if (
+                            card.classList.contains(
+                                "inventory-card"
+                            )
+                        ) {
+                            return;
+                        }
+
+
+                        const rect =
+                            card.getBoundingClientRect();
+
+
+                        const x =
+                            event.clientX -
+                            rect.left;
+
+
+                        const y =
+                            event.clientY -
+                            rect.top;
+
+
+                        const rotateY =
+                            ((x / rect.width) - .5) * 2;
+
+
+                        const rotateX =
+                            -((y / rect.height) - .5) * 2;
+
+
+                        card.style.transform =
+                            `translateY(-5px)
+                             perspective(700px)
+                             rotateX(${rotateX}deg)
+                             rotateY(${rotateY}deg)`;
+
+                    }
+                );
+
+
+                card.addEventListener(
+                    "mouseleave",
+                    () => {
+
+                        card.style.transform =
+                            "";
+
+                    }
+                );
+
+            });
+
+    }
+
+
+    /* =====================================================
+       EMPÊCHER LES BOUTONS FORMULAIRES
+       DE DÉCLENCHER LES AUTRES ACTIONS
+    ===================================================== */
+
+    document
+        .querySelectorAll(".inventory-button")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                event => {
+
+                    event.stopPropagation();
+
+                }
+            );
+
+        });
+
 
 });
