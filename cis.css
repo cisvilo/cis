@@ -9,6 +9,9 @@
     --red: #b82032;
     --red-light: #ed5262;
 
+    --fire-orange: #ff7a35;
+    --fire-yellow: #ffd36a;
+
     --white: #ffffff;
     --text: #edf3f6;
     --muted: #91a1aa;
@@ -33,6 +36,7 @@
 
 html {
     scroll-padding-top: 90px;
+    scroll-behavior: auto;
 }
 
 body {
@@ -43,12 +47,26 @@ body {
 
     color: var(--text);
     font-family: "Inter", sans-serif;
+
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 body.menu-open {
     overflow: hidden;
+}
+
+body.category-view .hero,
+body.category-view .intro-section {
+    display: none;
+}
+
+body.home-view .portal-stage {
+    display: none;
+}
+
+body.category-view .portal-stage {
+    display: block;
 }
 
 a {
@@ -103,14 +121,17 @@ img {
 
 .brand span {
     display: block;
+
     font-size: 7px;
     font-weight: 800;
     letter-spacing: .17em;
+
     color: var(--red-light);
 }
 
 .brand strong {
     display: block;
+
     margin-top: 2px;
 
     font-family: "Oswald", sans-serif;
@@ -158,28 +179,14 @@ img {
     transition: var(--transition);
 }
 
-.main-nav a:hover {
+.main-nav a:hover,
+.main-nav a.active {
     color: #fff;
 }
 
 .main-nav a:hover::after,
 .main-nav a.active::after {
     transform: scaleX(1);
-}
-
-.main-nav a.active {
-    color: #fff;
-}
-
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-.mobile-menu-toggle,
-.mobile-menu,
-.mobile-menu-overlay {
-    display: none;
 }
 
 
@@ -200,6 +207,33 @@ img {
     overflow: hidden;
 
     background: #03080d;
+}
+
+.hero-photo::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            var(--red-dark) 15%,
+            var(--red-light) 50%,
+            var(--red-dark) 85%,
+            transparent 100%
+        );
+
+    box-shadow:
+        0 0 16px rgba(237,82,98,.45);
+
+    z-index: 5;
 }
 
 .hero-photo > img {
@@ -246,14 +280,27 @@ img {
 
 .portal-stage {
     position: relative;
+
     overflow: hidden;
+
     isolation: isolate;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(184,32,50,.07),
+            transparent 40%
+        ),
+        linear-gradient(
+            180deg,
+            #050d13 0%,
+            #02070b 100%
+        );
 }
 
 
 /* =========================================================
-   FLAMMES
-   Discrètes + réparties derrière toute la zone
+   FLAMMES PREMIUM
 ========================================================= */
 
 .portal-stage .flames {
@@ -268,7 +315,7 @@ img {
     pointer-events: none;
     overflow: hidden;
 
-    opacity: .22;
+    opacity: .72;
 }
 
 .portal-stage .flames::before {
@@ -279,34 +326,34 @@ img {
 
     background:
         radial-gradient(
-            ellipse at 8% 20%,
-            rgba(184,32,50,.20),
+            ellipse at 8% 18%,
+            rgba(255,75,40,.12),
             transparent 22%
         ),
         radial-gradient(
-            ellipse at 28% 65%,
-            rgba(237,82,98,.14),
+            ellipse at 27% 52%,
+            rgba(255,120,45,.08),
             transparent 24%
         ),
         radial-gradient(
-            ellipse at 52% 30%,
-            rgba(184,32,50,.16),
+            ellipse at 52% 25%,
+            rgba(255,55,35,.10),
             transparent 25%
         ),
         radial-gradient(
-            ellipse at 74% 75%,
-            rgba(237,82,98,.14),
-            transparent 24%
+            ellipse at 76% 58%,
+            rgba(255,120,45,.08),
+            transparent 23%
         ),
         radial-gradient(
-            ellipse at 94% 35%,
-            rgba(184,32,50,.17),
-            transparent 23%
+            ellipse at 94% 30%,
+            rgba(255,55,35,.10),
+            transparent 22%
         );
 
-    filter: blur(18px);
+    filter: blur(25px);
 
-    animation: flameBackground 7s ease-in-out infinite alternate;
+    animation: fireGlow 8s ease-in-out infinite alternate;
 }
 
 .portal-stage .flames::after {
@@ -314,114 +361,176 @@ img {
 
     position: absolute;
 
-    left: -10%;
-    right: -10%;
-    bottom: -5%;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-    height: 45%;
+    height: 65%;
 
     background:
         radial-gradient(
-            ellipse at 10% 100%,
-            rgba(184,32,50,.25),
-            transparent 28%
+            ellipse at 8% 100%,
+            rgba(184,32,50,.15),
+            transparent 25%
         ),
         radial-gradient(
             ellipse at 30% 100%,
-            rgba(237,82,98,.17),
-            transparent 27%
+            rgba(255,91,39,.10),
+            transparent 25%
         ),
         radial-gradient(
             ellipse at 52% 100%,
-            rgba(184,32,50,.20),
-            transparent 29%
+            rgba(184,32,50,.13),
+            transparent 26%
         ),
         radial-gradient(
-            ellipse at 73% 100%,
-            rgba(237,82,98,.16),
-            transparent 28%
+            ellipse at 75% 100%,
+            rgba(255,91,39,.09),
+            transparent 24%
         ),
         radial-gradient(
             ellipse at 94% 100%,
-            rgba(184,32,50,.22),
-            transparent 27%
+            rgba(184,32,50,.12),
+            transparent 24%
         );
 
-    filter: blur(18px);
+    filter: blur(22px);
 
-    animation: flameWave 5s ease-in-out infinite alternate;
+    animation: fireWave 6s ease-in-out infinite alternate;
 }
 
 .portal-stage .flames span {
     position: absolute;
 
-    bottom: 4%;
+    width: 13px;
+    height: 42px;
 
-    width: 14px;
-    height: 55px;
-
-    border-radius: 50% 50% 45% 45%;
+    border-radius:
+        55% 45% 50% 50% /
+        70% 70% 30% 30%;
 
     background:
-        linear-gradient(
-            to top,
-            rgba(184,32,50,.35),
-            rgba(237,82,98,.20),
-            transparent
+        radial-gradient(
+            ellipse at 50% 78%,
+            rgba(255,225,125,.82) 0%,
+            rgba(255,126,45,.65) 24%,
+            rgba(235,35,40,.42) 52%,
+            transparent 75%
         );
 
-    filter: blur(4px);
+    filter: blur(2.5px);
+
+    transform-origin: 50% 100%;
 
     z-index: 1;
 
-    animation: flameFloat 5s ease-in-out infinite;
+    animation:
+        flameRise 4.8s ease-in-out infinite;
 }
 
-@keyframes flameBackground {
+.portal-stage .flames span::before {
+    content: "";
 
+    position: absolute;
+
+    left: 25%;
+    bottom: 10%;
+
+    width: 50%;
+    height: 55%;
+
+    border-radius:
+        60% 40% 55% 45% /
+        70% 65% 35% 30%;
+
+    background:
+        radial-gradient(
+            ellipse at center bottom,
+            rgba(255,245,180,.95),
+            rgba(255,164,61,.65) 45%,
+            transparent 75%
+        );
+
+    filter: blur(1px);
+}
+
+.portal-stage .flames span::after {
+    content: "";
+
+    position: absolute;
+
+    left: 38%;
+    bottom: 8%;
+
+    width: 24%;
+    height: 28%;
+
+    border-radius: 50%;
+
+    background: rgba(255,245,200,.75);
+
+    filter: blur(2px);
+}
+
+@keyframes fireGlow {
     0% {
-        transform: translate3d(-1%, 1%, 0) scale(1);
-        opacity: .65;
+        transform: scale(1) translate3d(-1%, 1%, 0);
+        opacity: .55;
     }
 
     50% {
-        opacity: .9;
+        opacity: .78;
     }
 
     100% {
-        transform: translate3d(1%, -1%, 0) scale(1.04);
-        opacity: .7;
+        transform: scale(1.04) translate3d(1%, -1%, 0);
+        opacity: .62;
     }
 }
 
-@keyframes flameWave {
-
+@keyframes fireWave {
     0% {
-        transform: scaleX(.98) translateY(8px);
+        transform: scaleX(.98) translateY(7px);
     }
 
     100% {
-        transform: scaleX(1.04) translateY(-5px);
+        transform: scaleX(1.04) translateY(-6px);
     }
 }
 
-@keyframes flameFloat {
-
+@keyframes flameRise {
     0% {
-        transform: translateY(35px) scale(.65);
+        transform:
+            translateY(45px)
+            rotate(-3deg)
+            scale(.55);
+
         opacity: 0;
     }
 
-    25% {
-        opacity: .45;
+    18% {
+        opacity: .58;
     }
 
-    65% {
-        opacity: .28;
+    45% {
+        transform:
+            translateY(-15px)
+            rotate(3deg)
+            scale(.85);
+
+        opacity: .42;
+    }
+
+    75% {
+        opacity: .22;
     }
 
     100% {
-        transform: translateY(-170px) scale(1.05);
+        transform:
+            translateY(-145px)
+            rotate(-4deg)
+            scale(1.05);
+
         opacity: 0;
     }
 }
@@ -434,6 +543,7 @@ img {
 .intro-section,
 .content-section {
     position: relative;
+
     z-index: 4;
 
     width: min(1200px, 90%);
@@ -443,18 +553,11 @@ img {
     padding: 105px 0;
 }
 
-
-/* Vue active / inactive */
-
 .page-view {
     position: relative;
 }
 
 .page-view:not(.active) {
-    display: none;
-}
-
-.hero.page-view:not(.active) {
     display: none;
 }
 
@@ -465,6 +568,7 @@ img {
 
 .section-heading {
     max-width: 700px;
+
     margin-bottom: 42px;
 }
 
@@ -697,6 +801,8 @@ img {
 
     color: var(--red-light);
 
+    background: rgba(184,32,50,.04);
+
     font-size: 22px;
 
     font-weight: 300;
@@ -742,7 +848,7 @@ img {
 
 
 /* =========================================================
-   VEHICLES
+   VEHICLES INVENTAIRES
 ========================================================= */
 
 .vehicle-grid {
@@ -870,7 +976,7 @@ img {
     display: grid;
 
     grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+        repeat(3, minmax(0,1fr));
 
     gap: 12px;
 }
@@ -878,7 +984,7 @@ img {
 .maintenance-card {
     position: relative;
 
-    min-height: 205px;
+    min-height: 220px;
 
     display: flex;
 
@@ -894,7 +1000,7 @@ img {
 
     border-radius: 14px;
 
-    background: rgba(255,255,255,.025);
+    background: #07131c;
 
     color: var(--white);
 
@@ -916,15 +1022,18 @@ img {
 
     object-fit: cover;
 
-    opacity: .62;
+    object-position: center;
+
+    opacity: .82;
 
     filter:
-        saturate(.85)
-        contrast(1.05);
+        saturate(.95)
+        contrast(1.08)
+        brightness(.92);
 
     transition:
-        transform .4s ease,
-        opacity .4s ease;
+        transform .5s ease,
+        opacity .5s ease;
 }
 
 .maintenance-card::after {
@@ -937,24 +1046,23 @@ img {
     background:
         linear-gradient(
             0deg,
-            rgba(2,7,11,.95) 0%,
-            rgba(2,7,11,.62) 40%,
-            rgba(2,7,11,.08) 100%
+            rgba(2,7,11,.96) 0%,
+            rgba(2,7,11,.66) 35%,
+            rgba(2,7,11,.08) 72%,
+            rgba(2,7,11,.02) 100%
         );
 }
 
 .maintenance-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
 
-    background: rgba(184,32,50,.10);
-
-    border-color: rgba(237,82,98,.25);
+    border-color: rgba(237,82,98,.35);
 }
 
 .maintenance-card:hover img {
-    transform: scale(1.06);
+    transform: scale(1.055);
 
-    opacity: .78;
+    opacity: .95;
 }
 
 .maintenance-card strong,
@@ -974,7 +1082,7 @@ img {
 }
 
 .maintenance-card small {
-    color: #c4ced2;
+    color: #d1dade;
 
     font-size: 12px;
 
@@ -1021,6 +1129,8 @@ img {
 
 .resource-card:hover {
     border-color: rgba(237,82,98,.28);
+
+    transform: translateY(-3px);
 }
 
 .resource-header {
@@ -1035,16 +1145,6 @@ img {
     justify-content: space-between;
 
     gap: 20px;
-
-    cursor: pointer;
-
-    user-select: none;
-
-    -webkit-tap-highlight-color: transparent;
-}
-
-.resource-header > div:first-child {
-    min-width: 0;
 }
 
 .resource-number {
@@ -1083,67 +1183,9 @@ img {
     font-size: 13px;
 }
 
-.resource-plus {
-    flex: 0 0 auto;
-
-    width: 46px;
-    height: 46px;
-
-    display: grid;
-
-    place-items: center;
-
-    border: 1px solid rgba(255,255,255,.10);
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,.035);
-
-    color: var(--white);
-
-    font-size: 25px;
-
-    line-height: 1;
-
-    transition:
-        transform var(--transition),
-        background var(--transition),
-        border-color var(--transition);
-}
-
-.resource-card.open .resource-plus {
-    transform: rotate(180deg);
-
-    background: rgba(184,32,50,.18);
-
-    border-color: rgba(237,82,98,.30);
-}
-
 .resource-content {
-    display: grid;
-
-    grid-template-rows: 0fr;
-
-    transition: grid-template-rows .42s ease;
-
-    padding-left: 26px;
-    padding-right: 26px;
-}
-
-.resource-card.open .resource-content {
-    grid-template-rows: 1fr;
-
-    padding-bottom: 26px;
-}
-
-.resource-content > * {
-    min-height: 0;
-}
-
-.resource-content .large-button {
-    width: 100%;
-
-    box-sizing: border-box;
+    padding:
+        0 26px 26px;
 }
 
 .amicale-grid {
@@ -1162,7 +1204,7 @@ img {
 ========================================================= */
 
 .large-button {
-    margin-top: 17px;
+    width: 100%;
 
     display: inline-flex;
 
@@ -1170,9 +1212,7 @@ img {
 
     justify-content: center;
 
-    gap: 12px;
-
-    padding: 10px 14px;
+    padding: 11px 14px;
 
     border-radius: 9px;
 
@@ -1346,12 +1386,10 @@ img {
    ACCESSIBILITÉ
 ========================================================= */
 
-.resource-header,
 .inventory-header {
     touch-action: manipulation;
 }
 
-.resource-header *,
 .inventory-header * {
     pointer-events: none;
 }
@@ -1360,6 +1398,13 @@ img {
 /* =========================================================
    MOBILE
 ========================================================= */
+
+.mobile-menu-toggle,
+.mobile-menu,
+.mobile-menu-overlay {
+    display: none;
+}
+
 
 @media (max-width: 800px) {
 
@@ -1466,7 +1511,6 @@ img {
         backdrop-filter: blur(4px);
 
         opacity: 0;
-
         visibility: hidden;
 
         transition: .3s ease;
@@ -1677,40 +1721,14 @@ img {
     }
 
     .hero-photo > img {
-        position: absolute;
-
-        inset: 0;
-
-        width: 100%;
-        height: 100%;
-
-        min-height: 0;
-
-        object-fit: cover;
-        object-position: center;
-
         transform: none;
-    }
-
-    .hero-overlay {
-        height: 100%;
-
-        bottom: 0;
-
-        background:
-            linear-gradient(
-                180deg,
-                rgba(2,7,11,.08),
-                rgba(2,7,11,.08) 50%,
-                rgba(2,7,11,.65)
-            );
     }
 
 
     /* FLAMMES */
 
     .portal-stage .flames {
-        opacity: .18;
+        opacity: .62;
     }
 
 
@@ -1801,7 +1819,7 @@ img {
     }
 
     .maintenance-card {
-        min-height: 190px;
+        min-height: 205px;
     }
 
 
@@ -1827,20 +1845,9 @@ img {
         font-size: 12px;
     }
 
-    .resource-plus {
-        width: 42px;
-        height: 42px;
-
-        font-size: 22px;
-    }
-
     .resource-content {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .resource-card.open .resource-content {
-        padding-bottom: 20px;
+        padding:
+            0 20px 20px;
     }
 
 
@@ -1879,10 +1886,6 @@ img {
         height: 290px;
 
         min-height: 290px;
-    }
-
-    .hero-photo > img {
-        min-height: 0;
     }
 
     .shortcut-resource-grid {
