@@ -132,10 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =====================================================
        ACCORDÉONS
        
-       Une seule carte ouverte à la fois
-       dans chaque groupe.
-       
-       Aucun scroll automatique.
+       UNE SEULE CARTE OUVERTE PAR GRILLE.
+       AUCUN SCROLL AUTOMATIQUE.
     ===================================================== */
 
     const collapsibleCards =
@@ -146,23 +144,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getCardGroup(card) {
 
-        if (
-            card.closest(".inventory-grid")
-        ) {
-            return card.closest(".inventory-grid");
+        const inventoryGrid =
+            card.closest(".inventory-grid");
+
+        if (inventoryGrid) {
+            return inventoryGrid;
         }
 
-        if (
-            card.closest(".resource-grid")
-        ) {
-            return card.closest(".resource-grid");
+
+        const resourceGrid =
+            card.closest(".resource-grid");
+
+        if (resourceGrid) {
+            return resourceGrid;
         }
 
+
         if (
-            card.classList.contains("entretien-card")
+            card.classList.contains(
+                "entretien-card"
+            )
         ) {
             return card.parentElement;
         }
+
 
         return card.parentElement;
     }
@@ -178,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const cards =
             group.querySelectorAll(
-                '[data-collapsible]'
+                "[data-collapsible]"
             );
 
 
@@ -276,6 +281,12 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
+        header.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+
         header.addEventListener(
             "click",
             toggleCard
@@ -305,8 +316,6 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =====================================================
        PHOTOS DES VÉHICULES
        ENTRETIENS
-       
-       VTU 1 (VIA) + VTU 2 inclus.
     ===================================================== */
 
     const vehicleImages = {
@@ -344,14 +353,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "VSR M":
             "https://sapeurs-pompiers35.fr/content/uploads/2017/07/VSR_1.jpg",
 
-        "VTU 1":
-            "https://pompiersstpaul3chateaux.fr/images/a/vehicules_vtu_med_hr-688-692.jpg",
-
         "VTU 1 (VIA)":
             "https://pompiersstpaul3chateaux.fr/images/a/vehicules_vtu_med_hr-688-692.jpg",
 
         "VTU 2":
-            "https://pompiersstpaul3chateaux.fr/images/a/vehicules_vtu_med_hr-688-692.jpg",
+            "https://www.usfirepolice.net/france_62/france_62_montreuil_sur_mer_vlhr_%287%29-1.jpg",
 
         "VLS 1":
             "https://up.autotitre.com/50ac913d07.jpg",
@@ -390,12 +396,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!imageUrl) return;
 
 
-            if (
+            const oldImage =
                 card.querySelector(
                     ".maintenance-image"
-                )
-            ) {
-                return;
+                );
+
+
+            if (oldImage) {
+                oldImage.remove();
             }
 
 
@@ -422,10 +430,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 card.querySelector("small");
 
 
-            const arrow =
-                card.querySelector("b");
-
-
             const info =
                 document.createElement("div");
 
@@ -449,11 +453,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            if (arrow) {
-                arrow.remove();
-            }
-
-
             card.insertBefore(
                 image,
                 card.firstChild
@@ -466,392 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       AMICALE
-    ===================================================== */
-
-    const amicaleLinks = {
-
-        "01": {
-            title: "NOUVEAUTÉS",
-            subtitle: "Sorties et actualités",
-            links: [
-                [
-                    "SOIRÉE ENJOY 33 — 08 SEPTEMBRE",
-                    "https://forms.gle/vmvFjFrtcmnVrP6C6"
-                ],
-                [
-                    "TOURNOI PADEL — 22/09",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSd1wey0THEvrfyJRKpnmwYdVHR6nzq0e44UvZT1F9QPhXm8wA/viewform?usp=dialog"
-                ],
-                [
-                    "UBB — STADE FRANÇAIS — 20/09",
-                    "https://docs.google.com/forms/d/e/1FAIpQLScgOl8zBbhS4iuNMQ8nazXS38Ex17I8-0gZhKyiwXZ-lgw2DA/viewform?usp=header"
-                ],
-                [
-                    "SPEEDPARK — 05 ET 12 OCTOBRE",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSf3ZJ1FjxqNDaW_wky0Gr4klqyzqpKVr1sR_6Zs3h0igpL1ag/viewform?usp=header"
-                ],
-                [
-                    "LOCATION MATÉRIEL JOLT",
-                    "https://forms.gle/ZxMAxuXU16isUjD78"
-                ]
-            ]
-        },
-
-        "02": {
-            title: "INSCRIPTIONS / COMMANDES",
-            subtitle: "Sorties, commandes et inscriptions",
-            links: [
-                [
-                    "SOIRÉE ENJOY — INSCRIPTION",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSdwZr5wQbEGY4oT7HKPXYKjQwi0LDVIzDobKQmyK479s0RlJA/viewform?usp=header"
-                ],
-                [
-                    "INSCRIPTIONS MATCH UBB — STADE FRANÇAIS",
-                    "https://docs.google.com/forms/d/e/1FAIpQLScgOl8zBbhS4iuNMQ8nazXS38Ex17I8-0gZhKyiwXZ-lgw2DA/viewform?usp=header"
-                ],
-                [
-                    "RAPPEL DES RÈGLES D'ATTRIBUTION",
-                    "https://drive.google.com/file/d/1VleKfAE5S1V0WXyCBqhueX9uqhXzTyOm/view?usp=sharing"
-                ],
-                [
-                    "TOURNOI PADEL 22/09",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSd1wey0THEvrfyJRKpnmwYdVHR6nzq0e44UvZT1F9QPhXm8wA/viewform?usp=dialog"
-                ],
-                [
-                    "SOIRÉE SPEEDPARK — 05 ET 12 OCTOBRE",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSf3ZJ1FjxqNDaW_wky0Gr4klqyzqpKVr1sR_6Zs3h0igpL1ag/viewform?usp=header"
-                ]
-            ]
-        },
-
-        "03": {
-            title: "TRÉSORERIE",
-            subtitle: "Paiements et demandes",
-            links: [
-                [
-                    "LIEN POUR PAYER UNE PRESTATION",
-                    "https://pay.sumup.com/b2c/QL9SNKAR"
-                ],
-                [
-                    "DEMANDE D'INDEMNISATION / SUBVENTION / REMBOURSEMENT",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSdoNRLaLy2dahxObT4eTlctBZ8FFMp4bH0rBD05T2QRFgrv0g/viewform?usp=header"
-                ],
-                [
-                    "TABLEAU PRESTATIONS",
-                    "https://drive.google.com/file/d/1pYoqLNOE89M5B1MqkF2Sz1jFm5v2hdeG/view?usp=drive_link"
-                ]
-            ]
-        },
-
-        "04": {
-            title: "LOCATION",
-            subtitle: "Matériel et salles",
-            links: [
-                [
-                    "DEMANDE DE LOCATION DU MATÉRIEL",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSfPz3EyIxsQFtr65ksZpYA-MQK_-RTLv1OwGL-Emijii3a6eg/viewform?usp=header"
-                ],
-                [
-                    "DEMANDE DE LOCATION MATÉRIEL JOLT",
-                    "https://forms.gle/ZxMAxuXU16isUjD78"
-                ],
-                [
-                    "LOCATION SALLES DES FÊTES DE LUDON",
-                    "https://www.amicalepompiersbordeaux.fr/"
-                ]
-            ]
-        },
-
-        "05": {
-            title: "DOCUMENTS CADRES",
-            subtitle: "Règlements et documents officiels",
-            links: [
-                [
-                    "STATUTS DE L'AMICALE",
-                    "https://drive.google.com/file/d/13935dl1_BXo9TxPw-MHYxcBizpAxvEDQ/view?usp=drive_link"
-                ],
-                [
-                    "RÈGLEMENT INTÉRIEUR",
-                    "https://drive.google.com/file/d/1G7iWYH27CzaEJ9ZpGVD2WX1m6FJbMqtJ/view?usp=drive_link"
-                ],
-                [
-                    "RÈGLES POUR ÊTRE AMICALISTE",
-                    "https://drive.google.com/file/d/1IBvJA1N0hZMMpAEh1qomH_F8QLefknJs/view?usp=drive_link"
-                ],
-                [
-                    "TABLEAU PRESTATIONS AMICALE",
-                    "https://drive.google.com/file/d/1pYoqLNOE89M5B1MqkF2Sz1jFm5v2hdeG/view?usp=drive_link"
-                ],
-                [
-                    "COMPTE-RENDU DERNIER CA",
-                    "https://drive.google.com/file/d/1waEKRd2Pt6skdirNydr6-Y6JpZoxjMWo/view?usp=drive_link"
-                ]
-            ]
-        },
-
-        "06": {
-            title: "ADHÉRENTS",
-            subtitle: "Adhésion et liste des membres",
-            links: [
-                [
-                    "DEMANDE ADHÉSION 2026",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSfMt2cx18aGF0WtHOc5WacRjTBE5b70YDuNV7TnLUmg1ChKOQ/viewform?usp=header"
-                ],
-                [
-                    "LISTE ADHÉRENTS 2026",
-                    "https://drive.google.com/file/d/1nGGmhIzKY4fDMgEp1zCAIQJ1B7pgSfB6/view?usp=sharing"
-                ]
-            ]
-        },
-
-        "07": {
-            title: "CALENDRIERS",
-            subtitle: "Organisation des calendriers",
-            links: [
-                [
-                    "SECTEURS CALENDRIERS",
-                    "https://www.google.com/maps/d/edit?mid=1a7CY1kuTPUbNeoAkft3Wwx5SfWOI-7U&usp=drive_link"
-                ],
-                [
-                    "RÈGLEMENTS DISTRIBUTION CALENDRIERS",
-                    "https://drive.google.com/file/d/1E78LngumgOKvv2SD9gFfcTk72L3kng_H/view?usp=drive_link"
-                ],
-                [
-                    "FICHE RETOUR COLLECTE",
-                    "https://drive.google.com/file/d/1Rhh_vC4OWL5IdvKZWRFtZWmElq_k9P_u/view?usp=drive_link"
-                ],
-                [
-                    "FICHE DE TÂCHES DISTRIBUTEUR 2025",
-                    "https://drive.google.com/file/d/1TMhYsD_NWmkCIiukVjw0xbRs9eejVIsy/view?usp=drive_link"
-                ],
-                [
-                    "UTILISATION APPLICATION SUMUP",
-                    "https://drive.google.com/file/d/18AREoboAmm0_co0vlKli3ATQqP_zRt_G/view?usp=drive_link"
-                ]
-            ]
-        },
-
-        "08": {
-            title: "BAL",
-            subtitle: "Bal de Madère",
-            links: [
-                [
-                    "FORMULAIRE INSCRIPTIONS BÉNÉVOLAT BAL",
-                    "https://forms.gle/LShcXjrQmnmcuzof9"
-                ],
-                [
-                    "INSCRIPTIONS AVANT LE 15/06",
-                    "https://forms.gle/LShcXjrQmnmcuzof9"
-                ]
-            ]
-        },
-
-        "09": {
-            title: "CONTACT",
-            subtitle: "Contacter l'amicale",
-            links: [
-                [
-                    "MAIL AMICALE VILO",
-                    "mailto:amicale.vilo@gmail.com"
-                ],
-                [
-                    "TÉLÉPHONE SECRÉTARIAT",
-                    "tel:0761272754"
-                ],
-                [
-                    "MAIL AMICALE BORDEAUX MÉTROPOLE",
-                    "mailto:amicalespompiersbxmetropole@gmail.com"
-                ],
-                [
-                    "SITE AMICALE BORDEAUX MÉTROPOLE",
-                    "https://www.amicalepompiersbordeaux.fr/"
-                ]
-            ]
-        },
-
-        "10": {
-            title: "PARTENARIAT",
-            subtitle: "Partenaires et calendriers 2027",
-            links: [
-                [
-                    "AFFICHE RECHERCHE PARTENAIRES — CALENDRIERS 2027",
-                    "https://drive.google.com/file/d/1PIuBN9HFVh7fuJ4_bM9O6AfwHYqFLewS/view?usp=sharing"
-                ],
-                [
-                    "FORMULAIRE CONTACT PUBS — CALENDRIERS 2027",
-                    "https://docs.google.com/forms/d/e/1FAIpQLSd3-NRxOMQcz8EF8thwNtg8mCpMpWLz2EiM_b9yFhwTZKRW3A/viewform?usp=header"
-                ]
-            ]
-        },
-
-        "11": {
-            title: "BUREAU",
-            subtitle: "Composition et fonctionnement",
-            links: [
-                [
-                    "COMPOSITION BUREAU 2026",
-                    "https://drive.google.com/file/d/1g3NxiYsp2GFC1mCAikz2lLolBs2pnk6V/view?usp=drive_link"
-                ],
-                [
-                    "COMPTE-RENDU DERNIER CA",
-                    "https://drive.google.com/file/d/1waEKRd2Pt6skdirNydr6-Y6JpZoxjMWo/view?usp=drive_link"
-                ],
-                [
-                    "RESPONSABLES BAL : SIMON Bertrand / DEVISE Frédéric",
-                    "mailto:organisation.baldemadere@gmail.com"
-                ]
-            ]
-        },
-
-        "12": {
-            title: "SUMUP",
-            subtitle: "Paiements de l'amicale",
-            links: [
-                [
-                    "RECHARGER LA CARTE DU MES",
-                    "https://pay.sumup.com/b2c/QN2MQ7XB?utm_campaign=pdf&utm_medium=print&utm_source=qr"
-                ],
-                [
-                    "PAYER UNE PRESTATION",
-                    "https://pay.sumup.com/b2c/QL9SNKAR"
-                ]
-            ]
-        }
-
-    };
-
-
-    /* =====================================================
-       REMPLACEMENT DES CARTES AMICALE
-    ===================================================== */
-
-    const amicaleSection =
-        document.getElementById("amicale");
-
-
-    if (amicaleSection) {
-
-        const cards =
-            amicaleSection.querySelectorAll(
-                ".resource-card"
-            );
-
-
-        cards.forEach(card => {
-
-            const numberElement =
-                card.querySelector(
-                    ".resource-number"
-                );
-
-
-            if (!numberElement) return;
-
-
-            const number =
-                numberElement.textContent.trim();
-
-
-            const data =
-                amicaleLinks[number];
-
-
-            if (!data) return;
-
-
-            const header =
-                card.querySelector(
-                    ".resource-header"
-                );
-
-
-            const content =
-                card.querySelector(
-                    ".resource-content"
-                );
-
-
-            const title =
-                header?.querySelector("h3");
-
-
-            const subtitle =
-                header?.querySelector("p");
-
-
-            if (title) {
-                title.textContent =
-                    data.title;
-            }
-
-
-            if (subtitle) {
-                subtitle.textContent =
-                    data.subtitle;
-            }
-
-
-            if (!content) return;
-
-
-            content.innerHTML = "";
-
-
-            const wrapper =
-                document.createElement("div");
-
-
-            wrapper.className =
-                "amicale-links";
-
-
-            data.links.forEach(
-                ([label, url]) => {
-
-                    const link =
-                        document.createElement("a");
-
-
-                    link.href = url;
-
-
-                    link.target =
-                        url.startsWith("mailto:") ||
-                        url.startsWith("tel:")
-                            ? "_self"
-                            : "_blank";
-
-
-                    link.rel =
-                        "noopener noreferrer";
-
-
-                    link.className =
-                        "large-button";
-
-
-                    /* Pas de flèche */
-
-                    link.textContent =
-                        label;
-
-
-                    wrapper.appendChild(link);
-
-                }
-            );
-
-
-            content.appendChild(wrapper);
-
-        });
-
-    }
-
-
-    /* =====================================================
-       REVEAL AU SCROLL
+       RÉVÈLEMENT DES CARTES
     ===================================================== */
 
     const revealElements =
@@ -918,60 +532,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
-
-
-    /* =====================================================
-       LIENS #
-    ===================================================== */
-
-    const toast =
-        document.getElementById("toast");
-
-    let toastTimer;
-
-
-    function showToast() {
-
-        if (!toast) return;
-
-        toast.classList.add("show");
-
-        clearTimeout(toastTimer);
-
-
-        toastTimer =
-            setTimeout(
-                () => {
-
-                    toast.classList.remove(
-                        "show"
-                    );
-
-                },
-                2600
-            );
-
-    }
-
-
-    document
-        .querySelectorAll(
-            'a[href="#"]'
-        )
-        .forEach(link => {
-
-            link.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-
-                    showToast();
-
-                }
-            );
-
-        });
 
 
     /* =====================================================
@@ -1048,5 +608,20 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
     }
+
+
+    /* =====================================================
+       SUPPRESSION DES FLÈCHES ÉVENTUELLES
+    ===================================================== */
+
+    document
+        .querySelectorAll(
+            "a b, a .arrow, a .external-arrow"
+        )
+        .forEach(element => {
+
+            element.remove();
+
+        });
 
 });
