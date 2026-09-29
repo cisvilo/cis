@@ -1,428 +1,449 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+const views = [...document.querySelectorAll(".view")];
+const navButtons = [...document.querySelectorAll(".nav-btn")];
+const openButtons = [...document.querySelectorAll("[data-open]")];
+const inventoryCategories = [...document.querySelectorAll(".inventory-category")];
 
 /* =========================================================
    NAVIGATION PRINCIPALE
-   ========================================================= */
+========================================================= */
 
-const views = document.querySelectorAll(".view");
-const navigationButtons = document.querySelectorAll("[data-open]");
+function openView(viewId, updateUrl = true) {
 
+    const target = document.getElementById(viewId);
 
-function openView(viewId, updateHash = true) {
-
-    const targetView = document.getElementById(viewId);
-
-    if (!targetView) {
+    if (!target) {
         console.warn("Section introuvable :", viewId);
         return;
     }
 
-    /* Masquer toutes les sections */
     views.forEach(view => {
         view.classList.remove("active");
     });
 
-    /* Afficher la section demandée */
-    targetView.classList.add("active");
+    target.classList.add("active");
 
-
-    /* Mettre à jour le bouton actif */
-    document.querySelectorAll(".nav-btn").forEach(button => {
-
+    navButtons.forEach(button => {
         button.classList.toggle(
             "active",
             button.dataset.open === viewId
         );
-
     });
 
-
-    /* Mettre à jour l'adresse */
-    if (updateHash) {
-
+    if (updateUrl) {
         history.pushState(
-            { view: viewId },
+            null,
             "",
             "#" + viewId
         );
-
     }
 
-
-    /* Retour en haut */
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
-
 }
 
 
 /* =========================================================
-   TOUS LES ÉLÉMENTS DATA-OPEN
-   ========================================================= */
+   BOUTONS DATA-OPEN
+========================================================= */
 
-navigationButtons.forEach(element => {
+openButtons.forEach(button => {
 
-    element.addEventListener("click", event => {
-
-        const viewId = element.dataset.open;
-
-        if (!viewId) {
-            return;
-        }
-
-        /*
-         * Empêche le comportement du lien
-         * lorsqu'il s'agit d'une navigation interne.
-         */
+    button.addEventListener("click", event => {
 
         event.preventDefault();
 
-        openView(viewId);
+        const viewId = button.dataset.open;
+
+        if (viewId) {
+            openView(viewId);
+        }
 
     });
-
-});
-
-
-/* =========================================================
-   OUVERTURE DE LA PAGE DEPUIS LE HASH
-   ========================================================= */
-
-function openHash() {
-
-    const hash =
-        window.location.hash.substring(1);
-
-    if (
-        hash &&
-        document.getElementById(hash)
-    ) {
-
-        openView(hash, false);
-
-    } else {
-
-        openView("home", false);
-
-    }
-
-}
-
-
-openHash();
-
-
-/* =========================================================
-   BOUTON PRÉCÉDENT / SUIVANT DU NAVIGATEUR
-   ========================================================= */
-
-window.addEventListener("popstate", () => {
-
-    openHash();
-
-});
-
-
-window.addEventListener("hashchange", () => {
-
-    openHash();
-
-});
-
-
-/* =========================================================
-   INVENTAIRES
-   Une seule catégorie ouverte à la fois.
-   ========================================================= */
-
-const inventoryCategories =
-    document.querySelectorAll(
-        ".inventory-category"
-    );
-
-
-inventoryCategories.forEach(category => {
-
-    category.addEventListener(
-        "toggle",
-        () => {
-
-            if (!category.open) {
-                return;
-            }
-
-            inventoryCategories.forEach(
-                otherCategory => {
-
-                    if (
-                        otherCategory !== category &&
-                        otherCategory.open
-                    ) {
-
-                        otherCategory.open = false;
-
-                    }
-
-                }
-            );
-
-        }
-    );
 
 });
 
 
 /* =========================================================
    LIENS EXTERNES
-   ========================================================= */
-
-/*
- * Ajoute ici uniquement tes vraies URLs.
- *
- * Exemple :
- *
- * vsav1_chef:
- * "https://docs.google.com/forms/..."
- *
- */
+========================================================= */
 
 const links = {
 
-    /* ==============================
-       INVENTAIRES
-       ============================== */
+    /* ================= INVENTAIRES ================= */
 
-    /*
-    vsav1_chef: "TON_URL",
-    vsav1_conducteur: "TON_URL",
-    vsav1_equipier: "TON_URL",
+    vsav1_chef:
+        "https://docs.google.com/forms/d/e/1FAIpQLSfL36QKhU4DK_iWfPn4x19gmU9dLKnTLWVugFOpg3ryMzXapg/viewform?ouid=105918993275116743934&usp=sharing",
 
-    vsav2_chef: "TON_URL",
-    vsav2_conducteur: "TON_URL",
-    vsav2_equipier: "TON_URL",
+    vsav1_conducteur: "#",
+    vsav1_equipier: "#",
 
-    vsav3_chef: "TON_URL",
-    vsav3_conducteur: "TON_URL",
-    vsav3_equipier: "TON_URL",
+    vsav2_chef: "#",
+    vsav2_conducteur: "#",
+    vsav2_equipier: "#",
 
-    asu_pdg: "TON_URL",
-    asu_utilisation: "TON_URL",
+    vsav3_chef: "#",
+    vsav3_conducteur: "#",
+    vsav3_equipier: "#",
 
-    fpt01: "TON_URL",
-    fptgp02: "TON_URL",
-    ech: "TON_URL",
-    fmogp: "TON_URL",
-    vl_cdgg: "TON_URL",
+    asu_pdg: "#",
+    asu_utilisation: "#",
 
-    vtu1_via: "TON_URL",
-    vtu2: "TON_URL",
-    vsrm: "TON_URL",
+    fpt01: "#",
+    fptgp02: "#",
+    ech: "#",
+    fmogp: "#",
+    vl_cdgg: "#",
 
-    ccf1: "TON_URL",
-    ccf2: "TON_URL",
-    vlhr: "TON_URL",
-    amsec: "TON_URL",
+    vtu1_via: "#",
+    vtu2: "#",
+    vsrm: "#",
 
-    eld: "TON_URL",
-    drone: "TON_URL",
+    ccf1: "#",
+    ccf2: "#",
+    vlhr: "#",
+    amsec: "#",
 
-    stas: "TON_URL",
-    sac_ps_stas: "TON_URL",
+    eld: "#",
+    drone: "#",
 
-    reserve_inc: "TON_URL",
-    pharmacie_asu: "TON_URL",
+    stas: "#",
+    sac_ps_stas: "#",
 
-    resultats_inventaires: "TON_URL",
+    reserve_inc: "#",
+    pharmacie_asu: "#",
 
-    */
+    resultats_inventaires: "#",
 
-    /* ==============================
-       ENTRETIENS
-       ============================== */
+    /* ================= ENTRETIENS ================= */
 
-    /*
-    entretien_vsav: "TON_URL",
-    entretien_incendie: "TON_URL",
-    entretien_div: "TON_URL",
-    */
+    entretien_vsav: "#",
+    entretien_incendie: "#",
+    entretien_div: "#",
 
-    /* ==============================
-       DOCUMENTS
-       ============================== */
+    /* ================= DOCUMENTS ================= */
 
-    /*
-    notes_service: "TON_URL",
-    procedures: "TON_URL",
-    documents_ssuap: "TON_URL",
-    auto_protection_mensuel: "TON_URL",
-    auto_protection_hebdo: "TON_URL",
-    */
+    notes_service:
+        "https://drive.google.com/drive/folders/1mZU_QXucWcthPotO1mkU4cxS8GGF8erV?usp=sharing",
 
-    /* ==============================
-       AMICALE
-       ============================== */
-
-    /*
-    amicale_calendriers: "TON_URL",
-    amicale_documents: "TON_URL",
-    amicale_informations: "TON_URL",
-    */
-
-    /* ==============================
-       RACCOURCIS
-       ============================== */
-
-    /*
-    agatt: "TON_URL",
-    zimbra: "TON_URL",
-    gipsi: "TON_URL",
-    enasis: "TON_URL",
-    udsp: "TON_URL",
-    cos: "TON_URL"
-    */
+    procedures: "#",
+    documents_ssuap: "#",
+    fdf_documents: "#",
+    drive: "#"
 
 };
 
 
-document.querySelectorAll("[data-link]")
-    .forEach(element => {
+document.querySelectorAll("[data-link]").forEach(link => {
 
-        const key =
-            element.dataset.link;
+    link.addEventListener("click", event => {
 
-        const url =
-            links[key];
+        const key = link.dataset.link;
+        const url = links[key];
 
+        if (!url || url === "#") {
+            event.preventDefault();
 
-        if (
-            url &&
-            typeof url === "string"
-        ) {
+            console.log(
+                "Lien à renseigner :",
+                key
+            );
 
-            element.href = url;
-
-            if (
-                url.startsWith("http://") ||
-                url.startsWith("https://")
-            ) {
-
-                element.target = "_blank";
-
-                element.rel =
-                    "noopener noreferrer";
-
-            }
-
+            return;
         }
+
+        link.href = url;
 
     });
 
+});
+
 
 /* =========================================================
-   MOUVEMENT DE LA SOURIS
-   ========================================================= */
+   HASH / RETOUR NAVIGATION
+========================================================= */
 
-let targetX = 50;
-let targetY = 50;
+function loadHash() {
 
-window.addEventListener(
-    "mousemove",
-    event => {
+    const hash = window.location.hash.replace("#", "");
 
-        targetX =
-            (event.clientX /
-                window.innerWidth) * 100;
-
-        targetY =
-            (event.clientY /
-                window.innerHeight) * 100;
-
-        document.documentElement.style.setProperty(
-            "--mx",
-            targetX + "%"
-        );
-
-        document.documentElement.style.setProperty(
-            "--my",
-            targetY + "%"
-        );
-
+    if (hash && document.getElementById(hash)) {
+        openView(hash, false);
+    } else {
+        openView("home", false);
     }
-);
+
+}
+
+window.addEventListener("popstate", loadHash);
+window.addEventListener("hashchange", loadHash);
+
+loadHash();
 
 
 /* =========================================================
-   FLAMMES
-   ========================================================= */
+   ACCORDEON INVENTAIRES
+========================================================= */
 
-const canvas =
-    document.getElementById("fireCanvas");
+inventoryCategories.forEach(category => {
+
+    category.addEventListener("toggle", () => {
+
+        if (!category.open) {
+            return;
+        }
+
+        inventoryCategories.forEach(other => {
+
+            if (other !== category) {
+                other.open = false;
+            }
+
+        });
+
+    });
+
+});
+
+
+/* =========================================================
+   EFFET SOURIS PREMIUM
+========================================================= */
+
+document.addEventListener("pointermove", event => {
+
+    const x = (event.clientX / window.innerWidth) * 100;
+    const y = (event.clientY / window.innerHeight) * 100;
+
+    document.documentElement.style.setProperty(
+        "--mouse-x",
+        x + "%"
+    );
+
+    document.documentElement.style.setProperty(
+        "--mouse-y",
+        y + "%"
+    );
+
+});
+
+
+/* =========================================================
+   FLAMMES / BRAISES
+========================================================= */
+
+const canvas = document.getElementById("fireCanvas");
 
 if (!canvas) {
     return;
 }
 
-
-const ctx =
-    canvas.getContext("2d");
-
-if (!ctx) {
-    return;
-}
-
+const ctx = canvas.getContext("2d");
 
 let width = 0;
 let height = 0;
-let dpr = 1;
-
 
 const flames = [];
 const embers = [];
 
-
-/* =========================================================
-   REDIMENSIONNEMENT
-   ========================================================= */
-
 function resizeCanvas() {
 
-    dpr =
-        Math.min(
-            window.devicePixelRatio || 1,
-            2
-        );
+    const ratio = Math.min(
+        window.devicePixelRatio || 1,
+        2
+    );
 
-    width =
-        window.innerWidth;
+    width = window.innerWidth;
+    height = window.innerHeight;
 
-    height =
-        window.innerHeight;
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
 
-
-    canvas.width =
-        width * dpr;
-
-    canvas.height =
-        height * dpr;
-
-
-    canvas.style.width =
-        width + "px";
-
-    canvas.style.height =
-        height + "px";
-
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
 
     ctx.setTransform(
-        dpr,
+        ratio,
         0,
         0,
-        dpr,
+        ratio,
         0,
         0
+    );
+
+}
+
+
+function random(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+
+function createFlame() {
+
+    return {
+        x: random(-30, width + 30),
+        y: height + random(10, 120),
+        size: random(20, 80),
+        speed: random(.25, .85),
+        sway: random(-.5, .5),
+        life: random(0, Math.PI * 2)
+    };
+
+}
+
+
+function createEmber() {
+
+    return {
+        x: random(0, width),
+        y: height + random(0, 80),
+        size: random(.7, 2.2),
+        speed: random(.35, 1.25),
+        drift: random(-.35, .35),
+        alpha: random(.25, .8)
+    };
+
+}
+
+
+for (let i = 0; i < 30; i++) {
+    flames.push(createFlame());
+}
+
+for (let i = 0; i < 85; i++) {
+    embers.push(createEmber());
+}
+
+
+function drawFlame(flame) {
+
+    flame.y -= flame.speed;
+    flame.life += .018;
+
+    flame.x +=
+        Math.sin(flame.life) *
+        flame.sway;
+
+    if (flame.y < height * .35) {
+
+        Object.assign(
+            flame,
+            createFlame()
+        );
+
+    }
+
+    const alpha =
+        Math.max(
+            0,
+            Math.min(
+                .12,
+                (height - flame.y) /
+                height * .12
+            )
+        );
+
+    const gradient =
+        ctx.createRadialGradient(
+            flame.x,
+            flame.y,
+            0,
+            flame.x,
+            flame.y,
+            flame.size
+        );
+
+    gradient.addColorStop(
+        0,
+        `rgba(255,75,28,${alpha})`
+    );
+
+    gradient.addColorStop(
+        .35,
+        `rgba(226,29,47,${alpha * .55})`
+    );
+
+    gradient.addColorStop(
+        1,
+        "rgba(0,0,0,0)"
+    );
+
+    ctx.fillStyle = gradient;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        flame.x,
+        flame.y,
+        flame.size,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+function drawEmber(ember) {
+
+    ember.y -= ember.speed;
+    ember.x += ember.drift;
+
+    if (
+        ember.y < height * .35 ||
+        ember.x < -20 ||
+        ember.x > width + 20
+    ) {
+
+        Object.assign(
+            ember,
+            createEmber()
+        );
+
+    }
+
+    ctx.beginPath();
+
+    ctx.fillStyle =
+        `rgba(255,90,35,${ember.alpha})`;
+
+    ctx.shadowBlur = 9;
+    ctx.shadowColor = "rgba(255,60,25,.8)";
+
+    ctx.arc(
+        ember.x,
+        ember.y,
+        ember.size,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+    ctx.shadowBlur = 0;
+
+}
+
+
+function animateFire() {
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+    flames.forEach(drawFlame);
+    embers.forEach(drawEmber);
+
+    requestAnimationFrame(
+        animateFire
     );
 
 }
@@ -435,27 +456,28 @@ window.addEventListener(
     resizeCanvas
 );
 
+animateFire();
+
 
 /* =========================================================
-   CRÉATION DES FLAMMES
-   ========================================================= */
+   ESCAPE = FERMER LES ACCORDEONS
+========================================================= */
 
-function createFlame() {
+document.addEventListener("keydown", event => {
 
-    return {
+    if (event.key === "Escape") {
 
-        x:
-            Math.random() * width,
+        inventoryCategories.forEach(
+            category => {
+                category.open = false;
+            }
+        );
 
-        y:
-            height +
-            Math.random() * 100,
+    }
 
-        size:
-            15 +
-            Math.random() * 45,
+});
 
-        speed:
-            .25 +
-            Math.random() * .85,
+
+});
+
 
