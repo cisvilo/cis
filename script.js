@@ -1,1226 +1,656 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700&display=swap");
-
-:root {
-    --navy-950: #02070b;
-    --navy-900: #050d13;
-    --navy-850: #07131c;
-    --navy-800: #0a1924;
-    --navy-750: #0d2230;
-
-    --red-dark: #8f1626;
-    --red: #b82032;
-    --red-light: #ed5262;
-    --red-soft: rgba(184, 32, 50, .18);
-
-    --white: #ffffff;
-    --text: #f4f7f9;
-    --muted: #a3b0ba;
-    --line: rgba(255,255,255,.10);
-
-    --glass: rgba(255,255,255,.045);
-    --glass-strong: rgba(255,255,255,.075);
-    --glass-border: rgba(255,255,255,.13);
-    --glass-blur: blur(18px) saturate(150%);
-    --glass-shadow:
-        0 18px 50px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.14),
-        inset 0 0 0 1px rgba(255,255,255,.02);
-
-    --font-display: "Sora", "Manrope", sans-serif;
-    --font-body: "Manrope", "Inter", sans-serif;
-
-    --shadow: 0 22px 60px rgba(0,0,0,.30);
-    --radius: 18px;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: auto !important; }
-
-body {
-    min-height: 100vh;
-    background: var(--navy-950);
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.55;
-    overflow-x: hidden;
-    scroll-behavior: auto !important;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-}
-
-body.menu-open { overflow: hidden; }
-
-a { color: inherit; text-decoration: none; }
-button { font: inherit; }
-img { max-width: 100%; display: block; }
-
-/* =========================================================
-   FLAMMES — ARRIÈRE-PLAN FIXE RÉPARTI SUR TOUTE LA PAGE
-========================================================= */
-
-/* Lueurs ambiantes réparties */
-body::before {
-    content: "";
-    position: fixed;
-    inset: -10%;
-    z-index: 0;
-    pointer-events: none;
-    background:
-        radial-gradient(ellipse 38% 34% at 8% 18%,  rgba(237,82,98,.20), transparent 70%),
-        radial-gradient(ellipse 34% 30% at 92% 30%, rgba(255,112,46,.15), transparent 70%),
-        radial-gradient(ellipse 40% 34% at 18% 62%, rgba(184,32,50,.18), transparent 70%),
-        radial-gradient(ellipse 36% 32% at 84% 76%, rgba(255,112,46,.16), transparent 70%),
-        radial-gradient(ellipse 50% 30% at 50% 100%, rgba(237,82,98,.22), transparent 72%);
-    translate: 0 calc(var(--scroll-p, 0) * -7vh);
-    filter: blur(30px);
-    animation: ambientDrift 14s ease-in-out infinite alternate;
-    will-change: transform, opacity;
-}
-
-/* Langues de flammes sur toute la largeur */
-body::after {
-    content: "";
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: -60px;
-    height: calc(46vh + var(--flame-grow, 0px));
-    z-index: 0;
-    pointer-events: none;
-    background:
-        radial-gradient(ellipse 3.5% 70%  at 4%  100%, rgba(255,150,70,.65), rgba(237,82,98,.30) 40%, transparent 72%),
-        radial-gradient(ellipse 4%   95%  at 12% 100%, rgba(237,82,98,.62), rgba(184,32,50,.28) 40%, transparent 72%),
-        radial-gradient(ellipse 4%   80%  at 21% 100%, rgba(255,130,55,.60), rgba(184,32,50,.26) 40%, transparent 72%),
-        radial-gradient(ellipse 3.5% 105% at 30% 100%, rgba(237,82,98,.62), rgba(184,32,50,.28) 40%, transparent 72%),
-        radial-gradient(ellipse 4%   78%  at 40% 100%, rgba(255,130,55,.58), rgba(184,32,50,.26) 40%, transparent 72%),
-        radial-gradient(ellipse 4%   100% at 50% 100%, rgba(237,82,98,.64), rgba(184,32,50,.28) 40%, transparent 72%),
-        radial-gradient(ellipse 3.5% 82%  at 60% 100%, rgba(255,130,55,.58), rgba(184,32,50,.26) 40%, transparent 72%),
-        radial-gradient(ellipse 4%   108% at 70% 100%, rgba(237,82,98,.62), rgba(184,32,50,.28) 40%, transparent 72%),
-        radial-gradient(ellipse 4%   84%  at 80% 100%, rgba(255,130,55,.58), rgba(184,32,50,.26) 40%, transparent 72%),
-        radial-gradient(ellipse 3.5% 98%  at 89% 100%, rgba(237,82,98,.62), rgba(184,32,50,.28) 40%, transparent 72%),
-        radial-gradient(ellipse 3.5% 74%  at 97% 100%, rgba(255,150,70,.60), rgba(237,82,98,.28) 40%, transparent 72%);
-    filter: blur(10px);
-    opacity: .85;
-    animation: flameTongues 3.4s ease-in-out infinite alternate;
-    will-change: transform, opacity;
-}
-
-@keyframes ambientDrift {
-    0%   { transform: translate3d(-1.5%, 1%, 0) scale(1);    opacity: .75; }
-    100% { transform: translate3d(1.5%, -1%, 0) scale(1.06); opacity: 1; }
-}
-
-@keyframes flameTongues {
-    0%   { transform: translateY(10px) scaleY(.82); opacity: .62; }
-    50%  { transform: translateY(-4px) scaleY(1);   opacity: .88; }
-    100% { transform: translateY(-14px) scaleY(.9); opacity: .76; }
-}
-
-/* Le contenu passe devant les flammes */
-main, .site-footer { position: relative; z-index: 1; }
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.site-header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    height: 78px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5vw;
-    background: linear-gradient(180deg, rgba(8,18,26,.62), rgba(2,7,11,.52));
-    backdrop-filter: blur(22px) saturate(160%);
-    -webkit-backdrop-filter: blur(22px) saturate(160%);
-    border-bottom: 1px solid var(--glass-border);
-    box-shadow: 0 10px 40px rgba(0,0,0,.28), inset 0 -1px 0 rgba(237,82,98,.12);
-}
-
-.brand { display: flex; align-items: center; gap: 13px; }
-
-.brand img { width: 45px; height: 45px; object-fit: contain; }
-
-.brand div { display: flex; flex-direction: column; }
-
-.brand span {
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: .2em;
-    color: var(--muted);
-}
-
-.brand strong {
-    font-family: var(--font-display);
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: .1em;
-}
-
-.main-nav { display: flex; align-items: center; gap: 26px; }
-
-.main-nav a {
-    position: relative;
-    color: #d3dbe1;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .14em;
-    transition: color .25s ease, transform .25s ease;
-}
-
-.main-nav a::after {
-    content: "";
-    position: absolute;
-    left: 0; bottom: -8px;
-    width: 0; height: 2px;
-    background: var(--red-light);
-    box-shadow: 0 0 10px rgba(237,82,98,.7);
-    transition: width .25s ease;
-}
-
-.main-nav a:hover { color: var(--white); transform: translateY(-1px); }
-.main-nav a:hover::after { width: 100%; }
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-.mobile-menu-toggle {
-    display: none;
-    position: fixed;
-    top: 18px; right: 18px;
-    z-index: 1100;
-    width: 45px; height: 45px;
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    background: rgba(10,22,32,.55);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    cursor: pointer;
-}
-
-.mobile-menu-toggle span {
-    display: block;
-    width: 20px; height: 2px;
-    margin: 4px auto;
-    background: var(--white);
-    transition: transform .25s ease;
-}
-
-.mobile-menu-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1050;
-    background: rgba(0,0,0,.65);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .25s ease, visibility .25s ease;
-}
-
-.mobile-menu-overlay.open { opacity: 1; visibility: visible; }
-
-.mobile-menu {
-    position: fixed;
-    top: 0; right: 0; bottom: 0;
-    width: min(390px, 90vw);
-    z-index: 1080;
-    padding: 25px;
-    background: linear-gradient(180deg, rgba(10,25,36,.82), rgba(2,7,11,.92));
-    backdrop-filter: blur(26px) saturate(150%);
-    -webkit-backdrop-filter: blur(26px) saturate(150%);
-    border-left: 1px solid var(--glass-border);
-    transform: translateX(100%);
-    transition: transform .3s ease;
-    overflow-y: auto;
-}
-
-.mobile-menu.open { transform: translateX(0); }
-
-.mobile-menu-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 25px;
-    border-bottom: 1px solid var(--line);
-}
-
-.mobile-menu-kicker {
-    display: block;
-    color: var(--red-light);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: .2em;
-}
-
-.mobile-menu-header strong {
-    font-family: var(--font-display);
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.mobile-menu-close {
-    width: 40px; height: 40px;
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
-    color: var(--white);
-    background: var(--glass);
-    font-size: 27px;
-    cursor: pointer;
-}
-
-.mobile-nav { display: flex; flex-direction: column; margin-top: 20px; }
-
-.mobile-nav-link {
-    display: grid;
-    grid-template-columns: 35px 1fr;
-    gap: 14px;
-    padding: 20px 5px;
-    border-bottom: 1px solid var(--line);
-}
-
-.mobile-nav-link > span {
-    color: var(--red-light);
-    font-family: var(--font-display);
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.mobile-nav-link strong {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .1em;
-}
-
-.mobile-nav-link small { color: var(--muted); font-size: 11px; }
-
-.mobile-menu-footer {
-    margin-top: 30px;
-    color: var(--muted);
-    font-size: 9px;
-    letter-spacing: .2em;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero { position: relative; width: 100%; }
-
-.hero-photo {
-    position: relative;
-    min-height: 620px;
-    overflow: hidden;
-    background: var(--navy-950);
-}
-
-.hero-photo > img {
-    width: 100%;
-    height: 620px;
-    object-fit: cover;
-    filter: none;
-    transform: none;
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        180deg,
-        rgba(2,7,11,.10) 0%,
-        rgba(2,7,11,.02) 35%,
-        rgba(2,7,11,.72) 100%
-    );
-    pointer-events: none;
-}
-
-.hero::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 4px;
-    z-index: 10;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--red-dark) 12%,
-        var(--red-light) 50%,
-        var(--red-dark) 88%,
-        transparent 100%
-    );
-    box-shadow: 0 0 14px rgba(237,82,98,.48), 0 -2px 12px rgba(184,32,50,.20);
-    pointer-events: none;
-}
-
-.hero .flames { display: none !important; }
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-.intro-section,
-.content-section {
-    position: relative;
-    width: min(1400px, 90vw);
-    margin: 0 auto;
-}
-
-.intro-section { padding: 100px 0 70px; }
-.content-section { padding: 100px 0; }
-
-.section-heading { position: relative; z-index: 3; margin-bottom: 38px; }
-
-.section-kicker {
-    display: inline-block;
-    margin-bottom: 10px;
-    color: var(--red-light);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: .2em;
-}
-
-.section-heading h2 {
-    font-family: var(--font-display);
-    font-size: clamp(34px, 5vw, 58px);
-    font-weight: 700;
-    line-height: 1.02;
-    letter-spacing: -.01em;
-    background: linear-gradient(180deg, #ffffff 30%, #b9c4cc 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.section-heading p {
-    max-width: 650px;
-    margin-top: 15px;
-    color: var(--muted);
-    font-size: 14.5px;
-    font-weight: 500;
-}
-
-/* =========================================================
-   EFFET VERRE — CARTES
-========================================================= */
-
-.quick-card,
-.inventory-card,
-.resource-card,
-.result-card,
-.maintenance-card {
-    background:
-        linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.025) 55%, rgba(255,255,255,.04));
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-}
-
-/* reflet de verre */
-.quick-card::before,
-.inventory-card::before,
-.resource-card::before,
-.result-card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 55%;
-    border-radius: inherit;
-    background: linear-gradient(180deg, rgba(255,255,255,.07), transparent);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.inventory-header,
-.resource-header,
-.inventory-content,
-.resource-content,
-.quick-card > * { position: relative; z-index: 1; }
-
-/* =========================================================
-   QUICK CARDS
-========================================================= */
-
-.quick-grid { display: grid; gap: 15px; }
-.quick-grid-five { grid-template-columns: repeat(5, 1fr); }
-
-.quick-card {
-    position: relative;
-    min-height: 215px;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    border-radius: var(--radius);
-    transition: transform .3s ease, border-color .3s ease, background .3s ease, box-shadow .3s ease;
-}
-
-.quick-card:hover {
-    transform: translateY(-7px);
-    border-color: rgba(237,82,98,.45);
-    background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(237,82,98,.06) 60%, rgba(255,255,255,.05));
-    box-shadow: 0 26px 60px rgba(0,0,0,.4), 0 0 30px rgba(237,82,98,.14), inset 0 1px 0 rgba(255,255,255,.2);
-}
-
-.card-number {
-    color: rgba(237,82,98,.6);
-    font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 600;
-}
-
-.card-kicker {
-    display: block;
-    margin-bottom: 7px;
-    color: var(--red-light);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: .18em;
-}
-
-.quick-card h3 {
-    font-family: var(--font-display);
-    font-size: 23px;
-    font-weight: 600;
-    letter-spacing: -.005em;
-}
-
-.quick-card p { margin-top: 7px; color: var(--muted); font-size: 12px; }
-
-/* =========================================================
-   INVENTAIRES
-========================================================= */
-
-.inventory-grid,
-.resource-grid,
-.maintenance-grid { position: relative; }
-
-.inventory-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 17px;
-}
-
-.inventory-card,
-.result-card,
-.resource-card { position: relative; z-index: 2; }
-
-.inventory-card { overflow: hidden; border-radius: var(--radius); }
-
-.inventory-header {
-    min-height: 105px;
-    padding: 24px 26px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    user-select: none;
-    transition: background .25s ease;
-}
-
-.inventory-header:hover { background: rgba(255,255,255,.035); }
-
-.inventory-header:focus-visible,
-.resource-header:focus-visible {
-    outline: 2px solid var(--red-light);
-    outline-offset: -2px;
-}
-
-.inventory-code,
-.resource-number {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--red-light);
-    font-family: var(--font-display);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .14em;
-}
-
-.inventory-header h3,
-.resource-header h3 {
-    font-family: var(--font-display);
-    font-size: 21px;
-    font-weight: 600;
-    letter-spacing: .01em;
-}
-
-.inventory-header p,
-.resource-header p {
-    margin-top: 3px;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.inventory-plus,
-.resource-plus {
-    flex: 0 0 auto;
-    width: 40px; height: 40px;
-    display: grid;
-    place-items: center;
-    border: 1px solid rgba(237,82,98,.35);
-    border-radius: 50%;
-    background: rgba(255,255,255,.04);
-    color: var(--red-light);
-    font-size: 23px;
-    font-weight: 400;
-    transition: transform .3s ease, background .3s ease;
-}
-
-.inventory-card.open .inventory-plus,
-.resource-card.open .resource-plus {
-    background: rgba(184,32,50,.2);
-    transform: rotate(180deg);
-}
-
-.inventory-content,
-.resource-content {
-    display: grid;
-    grid-template-rows: 0fr;
-    padding: 0 26px;
-    opacity: 0;
-    transition: grid-template-rows .38s ease, opacity .25s ease, padding .38s ease;
-}
-
-.inventory-card.open .inventory-content,
-.resource-card.open .resource-content {
-    grid-template-rows: 1fr;
-    padding-top: 0;
-    padding-bottom: 26px;
-    opacity: 1;
-}
-
-.inventory-content > *,
-.resource-content > * { min-height: 0; }
-
-/* =========================================================
-   VEHICLES
-========================================================= */
-
-.vehicle-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    overflow: hidden;
-}
-
-.vehicle-card {
-    position: relative;
-    min-height: 105px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid rgba(255,255,255,.11);
-    border-radius: 13px;
-    background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-    transition: transform .25s ease, border-color .25s ease, background .25s ease;
-}
-
-.vehicle-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(237,82,98,.42);
-    background: linear-gradient(145deg, rgba(237,82,98,.12), rgba(255,255,255,.03));
-}
-
-.vehicle-card > span:first-child,
-.vehicle-card > div > span {
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: .02em;
-}
-
-.vehicle-card small { color: var(--muted); font-size: 10.5px; font-weight: 500; }
-
-.vehicle-buttons { display: grid; gap: 7px; margin-top: 13px; }
-.asu-buttons { grid-template-columns: repeat(2, 1fr); }
-
-.inventory-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 38px;
-    padding: 8px 11px;
-    border: 1px solid rgba(237,82,98,.24);
-    border-radius: 9px;
-    background: rgba(184,32,50,.10);
-    color: #f0f3f5;
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: .02em;
-    transition: background .2s ease, border-color .2s ease, transform .2s ease;
-}
-
-.inventory-button:hover {
-    background: rgba(184,32,50,.24);
-    border-color: rgba(237,82,98,.5);
-    transform: translateY(-1px);
-}
-
-/* =========================================================
-   RESULTATS
-========================================================= */
-
-.result-card {
-    min-height: 145px;
-    padding: 28px;
-    display: flex;
-    align-items: center;
-    grid-column: span 2;
-    overflow: hidden;
-    background: linear-gradient(120deg, rgba(184,32,50,.55), rgba(255,255,255,.05) 70%);
-    border: 1px solid rgba(237,82,98,.38);
-    border-radius: var(--radius);
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-
-.result-card > div { position: relative; z-index: 1; }
-
-.result-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 26px 60px rgba(0,0,0,.4), 0 0 34px rgba(237,82,98,.2), inset 0 1px 0 rgba(255,255,255,.2);
-}
-
-.result-card h3 {
-    margin-top: 3px;
-    font-family: var(--font-display);
-    font-size: 26px;
-    font-weight: 600;
-}
-
-.result-card p { margin-top: 6px; color: rgba(255,255,255,.78); font-size: 12.5px; }
-
-/* =========================================================
-   ENTRETIENS
-========================================================= */
-
-.entretien-card { width: 100%; }
-
-.maintenance-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    overflow: visible;
-}
-
-.maintenance-card {
-    position: relative;
-    z-index: 2;
-    min-height: 190px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 17px;
-    border-radius: 15px;
-    transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
-}
-
-.maintenance-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(237,82,98,.5);
-    box-shadow: 0 22px 50px rgba(0,0,0,.4), 0 0 24px rgba(237,82,98,.15), inset 0 1px 0 rgba(255,255,255,.18);
-}
-
-.maintenance-image {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    transform: scale(1.02);
-    transition: transform .45s ease;
-}
-
-.maintenance-card:hover .maintenance-image { transform: scale(1.08); }
-
-.maintenance-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(
-        180deg,
-        rgba(2,7,11,.05) 10%,
-        rgba(2,7,11,.30) 40%,
-        rgba(2,7,11,.92) 100%
-    );
-}
-
-.maintenance-info {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    padding: 10px 12px;
-    margin: -4px;
-    border-radius: 11px;
-    background: rgba(255,255,255,.07);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,.12);
-}
-
-.maintenance-info > span { display: none; }
-
-.maintenance-info strong {
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: .02em;
-}
-
-.maintenance-info small {
-    margin-top: 2px;
-    color: rgba(255,255,255,.75);
-    font-size: 10.5px;
-    font-weight: 500;
-}
-
-/* =========================================================
-   RESSOURCES
-========================================================= */
-
-.resource-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 17px;
-}
-
-.resource-card { overflow: hidden; border-radius: var(--radius); }
-
-.resource-header {
-    min-height: 108px;
-    padding: 23px 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    user-select: none;
-    transition: background .25s ease;
-}
-
-.resource-header:hover { background: rgba(255,255,255,.035); }
-
-.resource-content { padding-left: 25px; padding-right: 25px; }
-
-.large-button {
-    min-height: 50px;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(237,82,98,.26);
-    border-radius: 10px;
-    background: rgba(184,32,50,.10);
-    color: var(--white);
-    font-size: 10.5px;
-    font-weight: 800;
-    letter-spacing: .08em;
-    transition: background .25s ease, border-color .25s ease, transform .25s ease;
-}
-
-.large-button:hover {
-    background: rgba(184,32,50,.24);
-    border-color: rgba(237,82,98,.5);
-    transform: translateY(-2px);
-}
-
-.amicale-links { display: grid; grid-template-columns: 1fr; gap: 9px; }
-
-.amicale-links .large-button {
-    justify-content: flex-start;
-    text-align: left;
-    min-height: 46px;
-    line-height: 1.35;
-}
-
-/* =========================================================
-   REVEAL
-========================================================= */
-
-.reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity .6s ease, transform .6s ease;
-}
-
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.site-footer {
-    min-height: 120px;
-    padding: 30px 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid var(--glass-border);
-    background: rgba(2,7,11,.55);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-}
-
-.footer-brand { display: flex; align-items: center; gap: 13px; }
-
-.footer-brand img { width: 42px; height: 42px; object-fit: contain; }
-
-.footer-brand div { display: flex; flex-direction: column; }
-
-.footer-brand strong {
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: .06em;
-}
-
-.footer-brand span { color: var(--muted); font-size: 10px; }
-
-.footer-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    color: var(--muted);
-    font-size: 9px;
-    letter-spacing: .14em;
-}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 1150px) {
-    .quick-grid-five { grid-template-columns: repeat(3, 1fr); }
-    .maintenance-grid { grid-template-columns: repeat(3, 1fr); }
-    .resource-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 900px) {
-    .site-header { height: 70px; }
-    .main-nav { display: none; }
-    .mobile-menu-toggle { display: block; }
-    .brand { max-width: calc(100% - 65px); }
-    .brand img { width: 38px; height: 38px; }
-    .brand span { font-size: 7px; }
-    .brand strong { font-size: 16px; }
-
-    .hero-photo,
-    .hero-photo > img { min-height: 500px; height: 500px; }
-
-    .inventory-grid { grid-template-columns: 1fr; }
-    .result-card { grid-column: span 1; }
-    .maintenance-grid { grid-template-columns: repeat(2, 1fr); }
-
-    body::after { height: calc(36vh + var(--flame-grow, 0px)); }
-}
-
-@media (max-width: 650px) {
-    .intro-section,
-    .content-section {
-        width: min(92vw, 600px);
-        padding-top: 70px;
-        padding-bottom: 70px;
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* =====================================================
+       ANNÉE
+    ===================================================== */
+
+    const year = document.getElementById("current-year");
+    if (year) year.textContent = new Date().getFullYear();
+
+
+    /* =====================================================
+       MENU MOBILE
+    ===================================================== */
+
+    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+    const mobileMenuClose = document.getElementById("mobile-menu-close");
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+    function openMobileMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.add("open");
+        mobileMenuOverlay?.classList.add("open");
+        mobileMenuToggle?.classList.add("active");
+        mobileMenuToggle?.setAttribute("aria-expanded", "true");
+        mobileMenu.setAttribute("aria-hidden", "false");
+        document.body.classList.add("menu-open");
     }
 
-    .quick-grid-five,
-    .resource-grid { grid-template-columns: 1fr; }
-
-    .quick-card { min-height: 170px; }
-    .vehicle-grid { grid-template-columns: 1fr; }
-    .maintenance-grid { grid-template-columns: 1fr; }
-    .asu-buttons { grid-template-columns: 1fr; }
-
-    .inventory-header,
-    .resource-header { padding: 20px; }
-
-    .inventory-content,
-    .resource-content { padding-left: 20px; padding-right: 20px; }
-
-    .inventory-card.open .inventory-content,
-    .resource-card.open .resource-content { padding-bottom: 20px; }
-
-    .maintenance-card { min-height: 210px; }
-
-    .site-footer { align-items: flex-start; flex-direction: column; gap: 20px; }
-    .footer-right { flex-direction: column; align-items: flex-start; gap: 7px; }
-}
-
-@media (max-width: 420px) {
-    .hero-photo,
-    .hero-photo > img { min-height: 430px; height: 430px; }
-
-    .section-heading h2 { font-size: 36px; }
-    .mobile-menu { width: 94vw; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    body::before, body::after { animation: none; }
-}
-
-
-/* =========================================================
-   EFFETS DYNAMIQUES (pilotés par script.js)
-========================================================= */
-
-/* Reflet de lumière qui suit la souris */
-.glass-glow {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    background: radial-gradient(
-        280px circle at var(--mx, 50%) var(--my, 50%),
-        rgba(255,255,255,.13),
-        rgba(237,82,98,.07) 40%,
-        transparent 70%
-    );
-    transition: opacity .3s ease;
-}
-
-.premium-card:hover > .glass-glow,
-.vehicle-card:hover > .glass-glow,
-.maintenance-card:hover > .glass-glow { opacity: 1; }
-
-.maintenance-card > .glass-glow { z-index: 2; }
-
-/* Pause quand l'onglet est caché */
-html.flames-paused body::before,
-html.flames-paused body::after { animation-play-state: paused; }
-
-/* Mode allégé (mobiles / appareils modestes) */
-html.flames-lite { --glass-blur: blur(10px) saturate(130%); }
-
-html.flames-lite body::before {
-    filter: blur(18px);
-    animation: none;
-}
-
-html.flames-lite body::after {
-    filter: blur(6px);
-    animation-duration: 5.5s;
-}
-
-
-/* =========================================================
-   FLAMMES VISIBLES DERRIÈRE LES CARTES (correctif)
-   - flammes ajoutées au bas de chaque section, derrière les cartes
-   - cartes en verre plus transparentes pour laisser passer la lumière
-========================================================= */
-
-.intro-section::before,
-.content-section::before {
-    content: "";
-    position: absolute;
-    left: -6%;
-    right: -6%;
-    bottom: -30px;
-    height: 420px;
-    z-index: 0;
-    pointer-events: none;
-    background:
-        radial-gradient(ellipse 5% 70%  at 5%  100%, rgba(255,150,70,.85), rgba(237,82,98,.45) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 100% at 15% 100%, rgba(237,82,98,.85), rgba(184,32,50,.42) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 78%  at 25% 100%, rgba(255,130,55,.82), rgba(184,32,50,.40) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 108% at 35% 100%, rgba(237,82,98,.85), rgba(184,32,50,.42) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 80%  at 45% 100%, rgba(255,130,55,.82), rgba(184,32,50,.40) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 104% at 55% 100%, rgba(237,82,98,.85), rgba(184,32,50,.42) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 82%  at 65% 100%, rgba(255,130,55,.82), rgba(184,32,50,.40) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 110% at 75% 100%, rgba(237,82,98,.85), rgba(184,32,50,.42) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 84%  at 85% 100%, rgba(255,130,55,.82), rgba(184,32,50,.40) 40%, transparent 74%),
-        radial-gradient(ellipse 5% 96%  at 95% 100%, rgba(255,150,70,.85), rgba(237,82,98,.42) 40%, transparent 74%);
-    filter: blur(9px);
-    opacity: .9;
-    animation: flameTongues 3.2s ease-in-out infinite alternate;
-}
-
-/* le contenu des sections reste au-dessus des flammes */
-.section-heading,
-.quick-grid,
-.inventory-grid,
-.resource-grid,
-.entretien-card { position: relative; z-index: 2; }
-
-/* flammes globales un peu plus présentes */
-body::after { opacity: .95; }
-
-/* verre plus transparent : la lumière passe à travers */
-.quick-card,
-.inventory-card,
-.resource-card,
-.maintenance-card {
-    background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.015) 55%, rgba(255,255,255,.03));
-    backdrop-filter: blur(10px) saturate(160%);
-    -webkit-backdrop-filter: blur(10px) saturate(160%);
-}
-
-html.flames-lite .intro-section::before,
-html.flames-lite .content-section::before {
-    height: 300px;
-    filter: blur(6px);
-    animation-duration: 5.5s;
-}
-
-
-/* =========================================================
-   CORRECTIF iPHONE / SAFARI iOS
-   Safari iOS n'affiche pas de façon fiable les grandes couches
-   avec filter: blur() + position: fixed + animation.
-   On retire le flou (les dégradés sont déjà doux) et on simplifie.
-========================================================= */
-
-@supports (-webkit-touch-callout: none) {
-
-    body::before,
-    body::after,
-    .intro-section::before,
-    .content-section::before {
-        filter: none;
-        will-change: auto;
-        -webkit-transform: translateZ(0);
+    function closeMobileMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove("open");
+        mobileMenuOverlay?.classList.remove("open");
+        mobileMenuToggle?.classList.remove("active");
+        mobileMenuToggle?.setAttribute("aria-expanded", "false");
+        mobileMenu.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("menu-open");
     }
 
-    body::before {
-        inset: 0;
-        translate: none;
+    mobileMenuToggle?.addEventListener("click", () => {
+        if (mobileMenu?.classList.contains("open")) closeMobileMenu();
+        else openMobileMenu();
+    });
+
+    mobileMenuClose?.addEventListener("click", closeMobileMenu);
+    mobileMenuOverlay?.addEventListener("click", closeMobileMenu);
+    mobileNavLinks.forEach(link => link.addEventListener("click", closeMobileMenu));
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") closeMobileMenu();
+    });
+
+
+    /* =====================================================
+       ACCORDÉONS
+       - UNE SEULE CARTE OUVERTE PAR GROUPE
+       - AUCUN SCROLL AUTOMATIQUE
+       - POSITION EXACTEMENT CONSERVÉE
+    ===================================================== */
+
+    const collapsibleCards = document.querySelectorAll("[data-collapsible]");
+
+    function getCardGroup(card) {
+        const inventoryGrid = card.closest(".inventory-grid");
+        if (inventoryGrid) return inventoryGrid;
+
+        const resourceGrid = card.closest(".resource-grid");
+        if (resourceGrid) return resourceGrid;
+
+        if (card.classList.contains("entretien-card")) return card.parentElement;
+
+        return card.parentElement;
     }
 
-    .intro-section::before,
-    .content-section::before {
-        left: 0;
-        right: 0;
-        height: 320px;
+    function updateCardState(card, open) {
+        card.classList.toggle("open", open);
+
+        const plus = card.querySelector(".inventory-plus, .resource-plus");
+        if (plus) plus.textContent = open ? "−" : "+";
+
+        const header = card.querySelector(".inventory-header, .resource-header");
+        if (header) header.setAttribute("aria-expanded", open ? "true" : "false");
     }
 
-    .quick-card,
-    .inventory-card,
-    .resource-card,
-    .maintenance-card,
-    .vehicle-card {
-        -webkit-backdrop-filter: blur(8px) saturate(150%);
-        backdrop-filter: blur(8px) saturate(150%);
-    }
-}
+    function closeOtherCards(currentCard) {
+        const group = getCardGroup(currentCard);
+        if (!group) return;
 
-
-/* =========================================================
-   CORRECTIF 2 — CONTENU INVISIBLE SUR iPHONE
-========================================================= */
-
-@supports (-webkit-touch-callout: none) {
-    /* iOS : trop de couches "verre" => Safari n'affiche plus le contenu.
-       On supprime le flou d'arrière-plan des cartes et on garde un fond translucide. */
-    .quick-card,
-    .inventory-card,
-    .resource-card,
-    .result-card,
-    .maintenance-card,
-    .vehicle-card,
-    .maintenance-info {
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
-        background: linear-gradient(145deg, rgba(20,34,46,.62), rgba(6,14,20,.70));
+        group.querySelectorAll("[data-collapsible]").forEach(card => {
+            if (card !== currentCard) updateCardState(card, false);
+        });
     }
 
-    .result-card {
-        background: linear-gradient(120deg, rgba(150,26,42,.70), rgba(8,18,26,.72));
+    function restoreScroll(x, y) {
+        window.scrollTo(x, y);
+        requestAnimationFrame(() => window.scrollTo(x, y));
     }
 
-    /* le contenu ne doit jamais rester invisible */
-    .reveal {
-        opacity: 1;
-        transform: none;
+    collapsibleCards.forEach(card => {
+
+        const header = card.querySelector(".inventory-header, .resource-header");
+        if (!header) return;
+
+        updateCardState(card, card.classList.contains("open"));
+
+        function toggleCard(event) {
+
+            if (event && event.target.closest("a, button")) return;
+
+            /* On mémorise la position AVANT toute modification du DOM. */
+            const savedX = window.scrollX;
+            const savedY = window.scrollY;
+
+            const isOpen = card.classList.contains("open");
+
+            if (isOpen) {
+                updateCardState(card, false);
+            } else {
+                closeOtherCards(card);
+                updateCardState(card, true);
+            }
+
+            /* On restaure la position après le recalcul du layout. */
+            restoreScroll(savedX, savedY);
+        }
+
+        header.setAttribute("tabindex", "0");
+        header.setAttribute("role", "button");
+        header.addEventListener("click", toggleCard);
+
+        header.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                toggleCard(event);
+            }
+        });
+    });
+
+
+    /* =====================================================
+       PHOTOS DES VÉHICULES — ENTRETIENS
+    ===================================================== */
+
+    const vehicleImages = {
+        "FPT 01": "https://www.usfirepolice.net/france_62/france_62_vitry_en_artois_fpt_%282%29-1.JPG",
+        "FPTGP 02": "https://www.usfirepolice.net/france_62/france_62_vitry_en_artois_fpt_%282%29-1.JPG",
+        "ECH": "https://cloudfront-eu-central-1.images.arcpublishing.com/leparisien/PRNAZMXQHNC2TOBAZTY3PUM2JY.jpg",
+        "VSAV 1": "https://up.autotitre.com/1c78a63715.jpg",
+        "VSAV 2": "https://up.autotitre.com/1c78a63715.jpg",
+        "VSAV 3": "https://up.autotitre.com/1c78a63715.jpg",
+        "CCF 1": "https://pompieractu.fr/storage/articles/pompieractufr/definition-ccf-camion-citerne-feux-forets-pompiers-francais/featured-1nGRrpceYimnNcyH.jpg",
+        "CCF 2": "https://pompieractu.fr/storage/articles/pompieractufr/definition-ccf-camion-citerne-feux-forets-pompiers-francais/featured-1nGRrpceYimnNcyH.jpg",
+        "VLHR": "https://www.usfirepolice.net/france_62/france_62_montreuil_sur_mer_vlhr_%287%29-1.jpg",
+        "FMOGP": "https://www.usfirepolice.net/france_75/france_75_bspp_1_10_3_fmogp_1-3.jpg",
+        "VSR M": "https://sapeurs-pompiers35.fr/content/uploads/2017/07/VSR_1.jpg",
+        "VTU 1 (VIA)": "https://pompiersstpaul3chateaux.fr/images/a/vehicules_vtu_med_hr-688-692.jpg",
+        "VTU 2": "https://up.autotitre.com/6572ae9036.jpg",
+        "VLS 1": "https://up.autotitre.com/50ac913d07.jpg",
+        "VLS 2": "https://up.autotitre.com/50ac913d07.jpg",
+        "VLS 3": "https://up.autotitre.com/50ac913d07.jpg",
+        "V DRONE": "https://www.sdis50.fr/app/uploads/2026/03/IMG_8196-1024x683.jpg"
+    };
+
+    document.querySelectorAll(".maintenance-card").forEach(card => {
+
+        const titleElement = card.querySelector("strong");
+        if (!titleElement) return;
+
+        const vehicleName = titleElement.textContent.trim().replace(/\s+/g, " ");
+        const imageUrl = vehicleImages[vehicleName];
+        if (!imageUrl) return;
+
+        const oldImage = card.querySelector(".maintenance-image");
+        if (oldImage) oldImage.remove();
+
+        const image = document.createElement("div");
+        image.className = "maintenance-image";
+        image.style.backgroundImage = `url("${imageUrl}")`;
+
+        const icon = card.querySelector("span");
+        const strong = card.querySelector("strong");
+        const small = card.querySelector("small");
+
+        const info = document.createElement("div");
+        info.className = "maintenance-info";
+
+        if (icon) info.appendChild(icon);
+        if (strong) info.appendChild(strong);
+        if (small) info.appendChild(small);
+
+        card.insertBefore(image, card.firstChild);
+        card.appendChild(info);
+    });
+
+
+    /* =====================================================
+       AMICALE
+       TRANSFORMATION DES DONNÉES EN CARTES PROPRES
+    ===================================================== */
+
+    const amicaleLinks = {
+
+        "01": [
+            { title: "SOIRÉE ENJOY 33 — 08 SEPTEMBRE", subtitle: "OUVERT À TOUS LES AGENTS DE VILO", url: "https://forms.gle/vmvFjFrtcmnVrP6C6" },
+            { title: "INSCRIPTIONS TOURNOI PADEL — COMPLEXE 4PADEL — 22/09 10H/12H", subtitle: "OUVERT À TOUS LES AGENTS DE VILO", url: "https://docs.google.com/forms/d/e/1FAIpQLSd1wey0THEvrfyJRKpnmwYdVHR6nzq0e44UvZT1F9QPhXm8wA/viewform?usp=dialog" },
+            { title: "UBB — STADE FRANÇAIS — DIMANCHE 20/09 21H00", subtitle: "OUVERT AUX AMICALISTES", url: "https://docs.google.com/forms/d/e/1FAIpQLScgOl8zBbhS4iuNMQ8nazXS38Ex17I8-0gZhKyiwXZ-lgw2DA/viewform?usp=header" },
+            { title: "SPEEDPARK — 05 ET 12 OCTOBRE", subtitle: "OUVERT À TOUS LES AGENTS DE VILO", url: "https://docs.google.com/forms/d/e/1FAIpQLSf3ZJ1FjxqNDaW_wky0Gr4klqyzqpKVr1sR_6Zs3h0igpL1ag/viewform?usp=header" },
+            { title: "LOCATION MATÉRIEL JOLT", url: "https://forms.gle/ZxMAxuXU16isUjD78" }
+        ],
+
+        "02": [
+            { title: "SOIRÉE ENJOY — INSCRIPTION", url: "https://docs.google.com/forms/d/e/1FAIpQLSdwZr5wQbEGY4oT7HKPXYKjQwi0LDVIzDobKQmyK479s0RlJA/viewform?usp=header" },
+            { title: "INSCRIPTIONS MATCH UBB — STADE FRANÇAIS", url: "https://docs.google.com/forms/d/e/1FAIpQLScgOl8zBbhS4iuNMQ8nazXS38Ex17I8-0gZhKyiwXZ-lgw2DA/viewform?usp=header" },
+            { title: "RAPPEL DES RÈGLES D'ATTRIBUTION", url: "https://drive.google.com/file/d/1VleKfAE5S1V0WXyCBqhueX9uqhXzTyOm/view?usp=sharing" },
+            { title: "TOURNOI PADEL 22/09", url: "https://docs.google.com/forms/d/e/1FAIpQLSd1wey0THEvrfyJRKpnmwYdVHR6nzq0e44UvZT1F9QPhXm8wA/viewform?usp=dialog" },
+            { title: "SOIRÉE SPEEDPARK — 05 ET 12 OCTOBRE", url: "https://docs.google.com/forms/d/e/1FAIpQLSf3ZJ1FjxqNDaW_wky0Gr4klqyzqpKVr1sR_6Zs3h0igpL1ag/viewform?usp=header" }
+        ],
+
+        "03": [
+            { title: "LIEN POUR PAYER UNE PRESTATION", url: "https://pay.sumup.com/b2c/QL9SNKAR" },
+            { title: "DEMANDE D'INDEMNISATION / SUBVENTION / REMBOURSEMENT", url: "https://docs.google.com/forms/d/e/1FAIpQLSdoNRLaLy2dahxObT4eTlctBZ8FFMp4bH0rBD05T2QRFgrv0g/viewform?usp=header" },
+            { title: "TABLEAU PRESTATIONS", url: "https://drive.google.com/file/d/1pYoqLNOE89M5B1MqkF2Sz1jFm5v2hdeG/view?usp=drive_link" }
+        ],
+
+        "04": [
+            { title: "DEMANDE DE LOCATION DU MATÉRIEL", url: "https://docs.google.com/forms/d/e/1FAIpQLSfPz3EyIxsQFtr65ksZpYA-MQK_-RTLv1OwGL-Emijii3a6eg/viewform?usp=header" },
+            { title: "DEMANDE DE LOCATION MATÉRIEL JOLT", url: "https://forms.gle/ZxMAxuXU16isUjD78" },
+            { title: "LOCATION SALLES DES FÊTES DE LUDON", url: "https://www.amicalepompiersbordeaux.fr/" }
+        ],
+
+        "05": [
+            { title: "STATUTS DE L'AMICALE", url: "https://drive.google.com/file/d/13935dl1_BXo9TxPw-MHYxcBizpAxvEDQ/view?usp=drive_link" },
+            { title: "RÈGLEMENT INTÉRIEUR", url: "https://drive.google.com/file/d/1G7iWYH27CzaEJ9ZpGVD2WX1m6FJbMqtJ/view?usp=drive_link" },
+            { title: "RÈGLES POUR ÊTRE AMICALISTE", url: "https://drive.google.com/file/d/1IBvJA1N0hZMMpAEh1qomH_F8QLefknJs/view?usp=drive_link" },
+            { title: "TABLEAU PRESTATIONS AMICALE", url: "https://drive.google.com/file/d/1pYoqLNOE89M5B1MqkF2Sz1jFm5v2hdeG/view?usp=drive_link" },
+            { title: "COMPTE-RENDU DERNIER CA", url: "https://drive.google.com/file/d/1waEKRd2Pt6skdirNydr6-Y6JpZoxjMWo/view?usp=drive_link" }
+        ],
+
+        "06": [
+            { title: "DEMANDE ADHÉSION 2026", url: "https://docs.google.com/forms/d/e/1FAIpQLSfMt2cx18aGF0WtHOc5WacRjTBE5b70YDuNV7TnLUmg1ChKOQ/viewform?usp=header" },
+            { title: "LISTE ADHÉRENTS 2026", url: "https://drive.google.com/file/d/1nGGmhIzKY4fDMgEp1zCAIQJ1B7pgSfB6/view?usp=sharing" }
+        ],
+
+        "07": [
+            { title: "SECTEURS CALENDRIERS", url: "https://www.google.com/maps/d/edit?mid=1a7CY1kuTPUbNeoAkft3Wwx5SfWOI-7U&usp=drive_link" },
+            { title: "RÈGLEMENTS DISTRIBUTION CALENDRIERS", url: "https://drive.google.com/file/d/1E78LngumgOKvv2SD9gFfcTk72L3kng_H/view?usp=drive_link" },
+            { title: "FICHE RETOUR COLLECTE", url: "https://drive.google.com/file/d/1Rhh_vC4OWL5IdvKZWRFtZWmElq_k9P_u/view?usp=drive_link" },
+            { title: "FICHE DE TÂCHES DISTRIBUTEUR 2025", url: "https://drive.google.com/file/d/1TMhYsD_NWmkCIiukVjw0xbRs9eejVIsy/view?usp=drive_link" },
+            { title: "UTILISATION APPLICATION SUMUP", url: "https://drive.google.com/file/d/18AREoboAmm0_co0vlKli3ATQqP_zRt_G/view?usp=drive_link" }
+        ],
+
+        "08": [
+            { title: "FORMULAIRE INSCRIPTIONS BÉNÉVOLAT BAL", url: "https://forms.gle/LShcXjrQmnmcuzof9" },
+            { title: "INSCRIPTIONS AVANT LE 15/06", url: "https://forms.gle/LShcXjrQmnmcuzof9" }
+        ],
+
+        "09": [
+            { title: "MAIL AMICALE VILO", url: "mailto:amicale.vilo@gmail.com" },
+            { title: "TÉLÉPHONE SECRÉTARIAT", url: "tel:0761272754" },
+            { title: "MAIL AMICALE BORDEAUX MÉTROPOLE", url: "mailto:amicalespompiersbxmetropole@gmail.com" },
+            { title: "SITE AMICALE BORDEAUX MÉTROPOLE", url: "https://www.amicalepompiersbordeaux.fr/" }
+        ],
+
+        "10": [
+            { title: "AFFICHE RECHERCHE PARTENAIRES — CALENDRIERS 2027", url: "https://drive.google.com/file/d/1PIuBN9HFVh7fuJ4_bM9O6AfwHYqFLewS/view?usp=sharing" },
+            { title: "FORMULAIRE CONTACT PUBS — CALENDRIERS 2027", url: "https://docs.google.com/forms/d/e/1FAIpQLSd3-NRxOMQcz8EF8thwNtg8mCpMpWLz2EiM_b9yFhwTZKRW3A/viewform?usp=header" }
+        ],
+
+        "11": [
+            { title: "COMPOSITION BUREAU 2026", url: "https://drive.google.com/file/d/1g3NxiYsp2GFC1mCAikz2lLolBs2pnk6V/view?usp=drive_link" },
+            { title: "COMPTE-RENDU DERNIER CA", url: "https://drive.google.com/file/d/1waEKRd2Pt6skdirNydr6-Y6JpZoxjMWo/view?usp=drive_link" },
+            { title: "RESPONSABLES BAL : SIMON Bertrand / DEVISE Frédéric", url: "mailto:organisation.baldemadere@gmail.com" }
+        ],
+
+        "12": [
+            { title: "RECHARGER LA CARTE DU MES", url: "https://pay.sumup.com/b2c/QN2MQ7XB?utm_campaign=pdf&utm_medium=print&utm_source=qr" },
+            { title: "PAYER UNE PRESTATION", url: "https://pay.sumup.com/b2c/QL9SNKAR" }
+        ]
+    };
+
+    document.querySelectorAll(".amicale-grid .resource-card").forEach(card => {
+
+        const numberElement = card.querySelector(".resource-number");
+        if (!numberElement) return;
+
+        const links = amicaleLinks[numberElement.textContent.trim()];
+        if (!links || !links.length) return;
+
+        const content = card.querySelector(".resource-content");
+        if (!content) return;
+
+        content.innerHTML = "";
+
+        const linksContainer = document.createElement("div");
+        linksContainer.className = "amicale-links";
+
+        links.forEach(item => {
+
+            const link = document.createElement("a");
+            link.href = item.url;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.className = "large-button";
+
+            const title = document.createElement("strong");
+            title.textContent = item.title;
+            link.appendChild(title);
+
+            if (item.subtitle) {
+                const subtitle = document.createElement("small");
+                subtitle.textContent = item.subtitle;
+                subtitle.style.display = "block";
+                subtitle.style.marginTop = "3px";
+                subtitle.style.color = "rgba(255,255,255,.58)";
+                subtitle.style.fontWeight = "500";
+                link.appendChild(subtitle);
+            }
+
+            linksContainer.appendChild(link);
+        });
+
+        content.appendChild(linksContainer);
+    });
+
+
+    /* =====================================================
+       REVEAL DES CARTES
+    ===================================================== */
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: .08 });
+
+        revealElements.forEach(element => revealObserver.observe(element));
+
+    } else {
+        revealElements.forEach(element => element.classList.add("visible"));
     }
 
-    /* pas de couches GPU supplémentaires */
-    body::before,
-    body::after,
-    .intro-section::before,
-    .content-section::before {
-        -webkit-transform: none;
+
+    /* =====================================================
+       TILT DES CARTES — DESKTOP
+       Les accordéons ne bougent pas.
+    ===================================================== */
+
+    if (window.innerWidth > 1000) {
+
+        document.querySelectorAll(".premium-card").forEach(card => {
+
+            if (card.hasAttribute("data-collapsible")) return;
+
+            card.addEventListener("mousemove", event => {
+
+                const rect = card.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+
+                const rotateY = ((x / rect.width) - .5) * 2;
+                const rotateX = -((y / rect.height) - .5) * 2;
+
+                card.style.transform =
+                    `translateY(-5px) perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "";
+            });
+        });
     }
 
-    .intro-section::before,
-    .content-section::before { height: 240px; }
-}
 
-@media (max-width: 650px) {
-    /* iOS : trop de couches "verre" => Safari n'affiche plus le contenu.
-       On supprime le flou d'arrière-plan des cartes et on garde un fond translucide. */
-    .quick-card,
-    .inventory-card,
-    .resource-card,
-    .result-card,
-    .maintenance-card,
-    .vehicle-card,
-    .maintenance-info {
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
-        background: linear-gradient(145deg, rgba(20,34,46,.62), rgba(6,14,20,.70));
+    /* =====================================================
+       SUPPRESSION DES FLÈCHES ÉVENTUELLES
+       Les liens restent fonctionnels.
+    ===================================================== */
+
+    document
+        .querySelectorAll("a b, a .arrow, a .external-arrow")
+        .forEach(element => element.remove());
+
+
+    /* =====================================================
+       FLAMMES PREMIUM + EFFETS (bloc ajouté)
+    ===================================================== */
+
+(function () {
+
+    const root = document.documentElement;
+
+    const reducedMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const canHover =
+        window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    const lowPower =
+        window.innerWidth <= 900 ||
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+        (navigator.deviceMemory && navigator.deviceMemory <= 4);
+
+    if (lowPower) root.classList.add("flames-lite");
+
+
+    /* -----------------------------------------------------
+       1. FLAMMES RÉALISTES (WebGL) — DERRIÈRE LES CARTES
+    ----------------------------------------------------- */
+
+    const canvas = document.createElement("canvas");
+    canvas.id = "fire-bg";
+    canvas.setAttribute("aria-hidden", "true");
+    document.body.insertBefore(canvas, document.body.firstChild);
+
+    const gl = canvas.getContext("webgl", {
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: false,
+        powerPreference: "low-power"
+    });
+
+    if (gl) {
+
+        const OCT = lowPower ? 3 : 5;
+
+        const vertexSrc = `
+            attribute vec2 aPos;
+            void main() { gl_Position = vec4(aPos, 0.0, 1.0); }
+        `;
+
+        const fragmentSrc = `
+            #ifdef GL_FRAGMENT_PRECISION_HIGH
+            precision highp float;
+            #else
+            precision mediump float;
+            #endif
+
+            #define OCT ${OCT}
+
+            uniform vec2 uRes;
+            uniform float uTime;
+            uniform float uBoost;
+
+            float hash(vec2 p) {
+                return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+            }
+
+            float noise(vec2 p) {
+                vec2 i = floor(p);
+                vec2 f = fract(p);
+                f = f * f * (3.0 - 2.0 * f);
+                float a = hash(i);
+                float b = hash(i + vec2(1.0, 0.0));
+                float c = hash(i + vec2(0.0, 1.0));
+                float d = hash(i + vec2(1.0, 1.0));
+                return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+            }
+
+            float fbm(vec2 p) {
+                float v = 0.0;
+                float a = 0.5;
+                for (int i = 0; i < OCT; i++) {
+                    v += a * noise(p);
+                    p = p * 2.02 + vec2(17.3, 9.1);
+                    a *= 0.5;
+                }
+                return v;
+            }
+
+            void main() {
+
+                vec2 uv = gl_FragCoord.xy / uRes;
+                float asp = uRes.x / uRes.y;
+                float t = uTime;
+                float x = uv.x * asp;
+
+                /* hauteur de flamme variable le long de l'écran */
+                float prof = fbm(vec2(x * 1.6, t * 0.18));
+                float h = (0.24 + 0.34 * prof) * uBoost;
+                float fall = clamp(1.0 - uv.y / h, 0.0, 1.0);
+
+                /* turbulence montante */
+                vec2 q = vec2(x * 2.6, uv.y * 3.2 - t * 1.1);
+                float w = fbm(q * 0.7 + vec2(0.0, -t * 0.3));
+                float n = fbm(q + vec2(w * 1.2, w * 0.6));
+
+                float body = fall * (0.35 + 1.1 * n);
+                float f = smoothstep(0.22, 0.95, body);
+                float core = smoothstep(0.55, 1.0, body * 1.15);
+
+                vec3 col = mix(vec3(0.55, 0.04, 0.07), vec3(1.0, 0.38, 0.08), f);
+                col = mix(col, vec3(1.0, 0.82, 0.40), core * core);
+
+                float a = f * 0.78 + core * 0.15;
+
+                /* halo ambiant */
+                float glow = exp(-uv.y * 3.2) * 0.10 * uBoost;
+                vec3 gcol = vec3(0.93, 0.32, 0.38);
+
+                /* étincelles */
+                vec2 sp = vec2(x * 16.0, uv.y * 9.0 - t * 1.2);
+                vec2 cell = floor(sp);
+                vec2 fr = fract(sp);
+                float r = hash(cell);
+                vec2 pos = vec2(0.2 + 0.6 * hash(cell + 3.1), 0.2 + 0.6 * hash(cell + 7.7));
+                float d = length(fr - pos);
+                float spark = step(0.94, r) * smoothstep(0.09, 0.0, d)
+                            * (0.5 + 0.5 * sin(t * 6.0 + r * 40.0))
+                            * smoothstep(1.0, 0.15, uv.y);
+                vec3 sc = vec3(1.0, 0.72, 0.35);
+
+                float A = clamp(a + glow + spark, 0.0, 1.0);
+                vec3 C = col * a + gcol * glow + sc * spark;
+
+                gl_FragColor = vec4(C, A);
+            }
+        `;
+
+        function compile(type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
+        }
+
+        const vs = compile(gl.VERTEX_SHADER, vertexSrc);
+        const fs = compile(gl.FRAGMENT_SHADER, fragmentSrc);
+
+        const prog = gl.createProgram();
+
+        if (vs && fs) {
+            gl.attachShader(prog, vs);
+            gl.attachShader(prog, fs);
+            gl.linkProgram(prog);
+        }
+
+        if (vs && fs && gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+
+            gl.useProgram(prog);
+
+            const buf = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bufferData(
+                gl.ARRAY_BUFFER,
+                new Float32Array([-1, -1, 3, -1, -1, 3]),
+                gl.STATIC_DRAW
+            );
+
+            const loc = gl.getAttribLocation(prog, "aPos");
+            gl.enableVertexAttribArray(loc);
+            gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+            const uRes = gl.getUniformLocation(prog, "uRes");
+            const uTime = gl.getUniformLocation(prog, "uTime");
+            const uBoost = gl.getUniformLocation(prog, "uBoost");
+
+            function resize() {
+                const scale = lowPower ? .4 : .6;
+                canvas.width = Math.ceil(window.innerWidth * scale);
+                canvas.height = Math.ceil(window.innerHeight * scale);
+                gl.viewport(0, 0, canvas.width, canvas.height);
+            }
+
+            resize();
+
+            let resizeTimer;
+            window.addEventListener("resize", () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(resize, 200);
+            });
+
+            let last = 0;
+
+            function frame(now) {
+
+                if (!reducedMotion) requestAnimationFrame(frame);
+
+                if (lowPower && now - last < 33) return;
+                last = now;
+
+                const maxScroll =
+                    document.documentElement.scrollHeight - window.innerHeight;
+
+                const sp = maxScroll > 0
+                    ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1)
+                    : 0;
+
+                gl.clearColor(0, 0, 0, 0);
+                gl.clear(gl.COLOR_BUFFER_BIT);
+
+                gl.uniform2f(uRes, canvas.width, canvas.height);
+                gl.uniform1f(uTime, now / 1000);
+                gl.uniform1f(uBoost, 1 + sp * .25);
+
+                gl.drawArrays(gl.TRIANGLES, 0, 3);
+            }
+
+            requestAnimationFrame(frame);
+
+            if (reducedMotion) {
+                window.addEventListener("scroll", () => requestAnimationFrame(frame), { passive: true });
+            }
+
+        } else {
+            canvas.remove();
+        }
+
+    } else {
+        canvas.remove();
     }
 
-    .result-card {
-        background: linear-gradient(120deg, rgba(150,26,42,.70), rgba(8,18,26,.72));
+
+    /* -----------------------------------------------------
+       2. REFLET DE LUMIÈRE QUI SUIT LA SOURIS (desktop)
+    ----------------------------------------------------- */
+
+    if (canHover && !reducedMotion) {
+
+        const sel = ".premium-card, .vehicle-card, .maintenance-card";
+
+        document.querySelectorAll(sel).forEach(card => {
+            if (card.querySelector(":scope > .glass-glow")) return;
+            const glowEl = document.createElement("div");
+            glowEl.className = "glass-glow";
+            glowEl.setAttribute("aria-hidden", "true");
+            card.appendChild(glowEl);
+        });
+
+        let ticking = false, lastEvent = null;
+
+        document.addEventListener("mousemove", event => {
+            lastEvent = event;
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                ticking = false;
+                const card = lastEvent.target.closest(sel);
+                if (!card) return;
+                const r = card.getBoundingClientRect();
+                card.style.setProperty("--mx", (lastEvent.clientX - r.left) + "px");
+                card.style.setProperty("--my", (lastEvent.clientY - r.top) + "px");
+            });
+        }, { passive: true });
     }
 
-    /* le contenu ne doit jamais rester invisible */
-    .reveal {
-        opacity: 1;
-        transform: none;
-    }
+})();
 
-    /* pas de couches GPU supplémentaires */
-    body::before,
-    body::after,
-    .intro-section::before,
-    .content-section::before {
-        -webkit-transform: none;
-    }
-
-    .intro-section::before,
-    .content-section::before { height: 240px; }
-}
-
-
-/* =========================================================
-   FLAMMES PREMIUM (canvas) — remplace les anciennes flammes CSS
-========================================================= */
-
-#fire-bg {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* on retire les anciennes flammes en dégradés (taches floues) */
-body::after,
-.intro-section::before,
-.content-section::before { display: none !important; }
-
-/* lueur ambiante discrète seulement */
-body::before { animation: none; opacity: .5; }
-
-/* lisibilité des titres posés sur le fond */
-.section-heading h2 { filter: drop-shadow(0 2px 14px rgba(2,7,11,.75)); }
-.section-heading p { color: #b9c5ce; text-shadow: 0 1px 14px rgba(2,7,11,.9); }
-
-
-/* flammes WebGL : doux et lisible derrière le contenu */
-#fire-bg { opacity: .92; }
-body::before { opacity: .35; }
+});
