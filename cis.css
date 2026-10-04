@@ -1073,3 +1073,154 @@ html.flames-lite .content-section::before {
     filter: blur(6px);
     animation-duration: 5.5s;
 }
+
+
+/* =========================================================
+   CORRECTIF iPHONE / SAFARI iOS
+   Safari iOS n'affiche pas de façon fiable les grandes couches
+   avec filter: blur() + position: fixed + animation.
+   On retire le flou (les dégradés sont déjà doux) et on simplifie.
+========================================================= */
+
+@supports (-webkit-touch-callout: none) {
+
+    body::before,
+    body::after,
+    .intro-section::before,
+    .content-section::before {
+        filter: none;
+        will-change: auto;
+        -webkit-transform: translateZ(0);
+    }
+
+    body::before {
+        inset: 0;
+        translate: none;
+    }
+
+    .intro-section::before,
+    .content-section::before {
+        left: 0;
+        right: 0;
+        height: 320px;
+    }
+
+    .quick-card,
+    .inventory-card,
+    .resource-card,
+    .maintenance-card,
+    .vehicle-card {
+        -webkit-backdrop-filter: blur(8px) saturate(150%);
+        backdrop-filter: blur(8px) saturate(150%);
+    }
+}
+
+
+/* =========================================================
+   CORRECTIF 2 — CONTENU INVISIBLE SUR iPHONE
+========================================================= */
+
+@supports (-webkit-touch-callout: none) {
+    /* iOS : trop de couches "verre" => Safari n'affiche plus le contenu.
+       On supprime le flou d'arrière-plan des cartes et on garde un fond translucide. */
+    .quick-card,
+    .inventory-card,
+    .resource-card,
+    .result-card,
+    .maintenance-card,
+    .vehicle-card,
+    .maintenance-info {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background: linear-gradient(145deg, rgba(20,34,46,.62), rgba(6,14,20,.70));
+    }
+
+    .result-card {
+        background: linear-gradient(120deg, rgba(150,26,42,.70), rgba(8,18,26,.72));
+    }
+
+    /* le contenu ne doit jamais rester invisible */
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* pas de couches GPU supplémentaires */
+    body::before,
+    body::after,
+    .intro-section::before,
+    .content-section::before {
+        -webkit-transform: none;
+    }
+
+    .intro-section::before,
+    .content-section::before { height: 240px; }
+}
+
+@media (max-width: 650px) {
+    /* iOS : trop de couches "verre" => Safari n'affiche plus le contenu.
+       On supprime le flou d'arrière-plan des cartes et on garde un fond translucide. */
+    .quick-card,
+    .inventory-card,
+    .resource-card,
+    .result-card,
+    .maintenance-card,
+    .vehicle-card,
+    .maintenance-info {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background: linear-gradient(145deg, rgba(20,34,46,.62), rgba(6,14,20,.70));
+    }
+
+    .result-card {
+        background: linear-gradient(120deg, rgba(150,26,42,.70), rgba(8,18,26,.72));
+    }
+
+    /* le contenu ne doit jamais rester invisible */
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* pas de couches GPU supplémentaires */
+    body::before,
+    body::after,
+    .intro-section::before,
+    .content-section::before {
+        -webkit-transform: none;
+    }
+
+    .intro-section::before,
+    .content-section::before { height: 240px; }
+}
+
+
+/* =========================================================
+   FLAMMES PREMIUM (canvas) — remplace les anciennes flammes CSS
+========================================================= */
+
+#fire-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* on retire les anciennes flammes en dégradés (taches floues) */
+body::after,
+.intro-section::before,
+.content-section::before { display: none !important; }
+
+/* lueur ambiante discrète seulement */
+body::before { animation: none; opacity: .5; }
+
+/* lisibilité des titres posés sur le fond */
+.section-heading h2 { filter: drop-shadow(0 2px 14px rgba(2,7,11,.75)); }
+.section-heading p { color: #b9c5ce; text-shadow: 0 1px 14px rgba(2,7,11,.9); }
+
+
+/* flammes WebGL : doux et lisible derrière le contenu */
+#fire-bg { opacity: .92; }
+body::before { opacity: .35; }
